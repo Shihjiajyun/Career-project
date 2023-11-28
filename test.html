@@ -4,96 +4,47 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Card Selection</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      align-items: center;
-      height: 100vh;
-      background-color: #f2f2f2;
-    }
-
-    .card {
-      width: 150px;
-      height: 200px;
-      margin: 10px;
-      border: 1px solid #ddd;
-      background-color: #fff;
-      cursor: pointer;
-      transition: filter 0.3s;
-      /* 添加過渡效果 */
-    }
-
-    .selected {
-      filter: brightness(1.2);
-      /* 選擇後色調變亮 */
-    }
-
-    #nextLink {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      padding: 10px;
-      background-color: #3498db;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 4px;
-      display: none;
-    }
-  </style>
+  <title>Card Example</title>
+  <link rel="stylesheet" href="tet.css">
 </head>
 
 <body>
 
-  <div class="card" onclick="toggleSelection(this)">
-    Card 1
-  </div>
-  <div class="card" onclick="toggleSelection(this)">
-    Card 2
-  </div>
-  <div class="card" onclick="toggleSelection(this)">
-    Card 3
-  </div>
-  <div class="card" onclick="toggleSelection(this)">
-    Card 4
-  </div>
-  <div class="card" onclick="toggleSelection(this)">
-    Card 5
-  </div>
-  <div class="card" onclick="toggleSelection(this)">
-    Card 6
-  </div>
+  <div class="page-content">
+    <div class="card" style="background-color: aqua;">
+      <div class="content">
+        <h2 class="title">test</h2>
+        <h3 class="title">Mountain View</h3>
+        <p class="copy">Check out all of these gorgeous mountain trips with beautiful views of, you guessed it, the
+          mountains</p>
+        <button class="btn">View Trips</button>
+      </div>
+    </div>
 
-  <a id="nextLink" href="#" onclick="showSelectedCards()">Next Page</a>
+    <div class="card">
+      <div class="content">
+        <h2 class="title">To The Beach</h2>
+        <p class="copy">Plan your next beach trip with these fabulous destinations</p>
+        <button class="btn">View Trips</button>
+      </div>
+    </div>
 
-  <script>
-    const selectedCareers = [];
+    <div class="card">
+      <div class="content">
+        <h2 class="title">Desert Destinations</h2>
+        <p class="copy">It's the desert you've always dreamed of</p>
+        <button class="btn">Book Now</button>
+      </div>
+    </div>
 
-    function toggleSelection(container) {
-      container.classList.toggle('selected');
-      updateNextButtonVisibility();
-    }
-
-    function updateNextButtonVisibility() {
-      const selectedCount = document.querySelectorAll('.selected').length;
-      document.getElementById('nextButton').style.display = selectedCount === 3 ? 'block' : 'none';
-    }
-
-    function showSelectedCards() {
-      const selected = document.querySelectorAll('.selected .career');
-      selectedCareers.length = 0; // Clear the array
-      selected.forEach(career => {
-        selectedCareers.push(career.textContent.trim());
-      });
-
-      alert('Selected Careers: ' + selectedCareers.join(', '));
-    }
-  </script>
+    <div class="card">
+      <div class="content">
+        <h2 class="title">Explore The Galaxy</h2>
+        <p class="copy">Seriously, straight up, just blast off into outer space today</p>
+        <button class="btn">Book Now</button>
+      </div>
+    </div>
+  </div>
 
 </body>
 
