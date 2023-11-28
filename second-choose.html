@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card Selection</title>
+  <style>
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      max-width: 800px;
+      /* 調整最大寬度 */
+      margin: 20px auto;
+    }
+
+    .card {
+      width: 150px;
+      /* 調整卡片寬度 */
+      height: 200px;
+      /* 調整卡片高度 */
+      border: 1px solid #ddd;
+      margin: 10px;
+      cursor: pointer;
+      transition: border-color 0.3s ease;
+    }
+
+    .card.selected {
+      border-color: red;
+      /* 選擇卡片時的邊框顏色 */
+    }
+
+    #nextButton {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px;
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card-container" id="cardContainer">
+    <!-- 這裡放入十張卡片，每張卡片都有一個 onclick 事件 -->
+    <div class="card" onclick="toggleSelection(this)">Card 1</div>
+    <div class="card" onclick="toggleSelection(this)">Card 2</div>
+    <div class="card" onclick="toggleSelection(this)">Card 3</div>
+    <div class="card" onclick="toggleSelection(this)">Card 4</div>
+    <div class="card" onclick="toggleSelection(this)">Card 5</div>
+    <div class="card" onclick="toggleSelection(this)">Card 6</div>
+    <div class="card" onclick="toggleSelection(this)">Card 7</div>
+    <div class="card" onclick="toggleSelection(this)">Card 8</div>
+    <div class="card" onclick="toggleSelection(this)">Card 9</div>
+    <div class="card" onclick="toggleSelection(this)">Card 10</div>
+  </div>
+
+  <button id="nextButton" onclick="showSelectedCards()">Next Page</button>
+
+  <script>
+    const selectedCards = [];
+
+    function toggleSelection(card) {
+      card.classList.toggle('selected');
+      updateNextButtonVisibility();
+    }
+
+    function updateNextButtonVisibility() {
+      const selectedCount = document.querySelectorAll('.selected').length;
+      const nextButton = document.getElementById('nextButton');
+      nextButton.style.display = selectedCount >= 3 && selectedCount <= 5 ? 'block' : 'none';
+    }
+
+    function showSelectedCards() {
+      const selected = document.querySelectorAll('.selected');
+      selectedCards.length = 0; // 清空數組
+      selected.forEach(card => {
+        selectedCards.push(card.textContent);
+      });
+
+      // 在這裡處理選擇的卡片，例如顯示在控制台上
+      console.log('Selected Cards:', selectedCards);
+    }
+  </script>
+
+</body>
+
+</html>

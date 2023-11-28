@@ -177,7 +177,7 @@ figcaption {
 }
 
 /* ul */
-ul,p {
+ul {
   padding-top: 50%;
   margin: 0 auto;
   width: 70%;

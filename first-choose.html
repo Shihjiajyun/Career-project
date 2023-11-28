@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card Selection</title>
+  <link rel="stylesheet" href="card.css">
+  <style>
+    .card-front ul,
+    li {
+      color: white;
+      font-size: 20px;
+    }
+
+    .card-front .career {
+      font-size: 25px;
+    }
+
+    .card {
+      width: 150px;
+      height: 200px;
+      margin: 10px;
+      border: 1px solid #ddd;
+      background-color: #fff;
+      cursor: pointer;
+
+      /* 添加過渡效果 */
+    }
+
+    .flip-card-container {
+      transition: filter 0.3s;
+    }
+
+    .selected {
+      filter: brightness(1.7);
+      /* 選擇後色調變亮 */
+    }
+
+    #nextButton {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px;
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      display: none;
+    }
+
+    .card-back {
+      position: relative;
+    }
+
+    .card-back h1 {
+      position: absolute;
+      color: rgb(201, 201, 201);
+      top: 10px;
+      left: 10px;
+    }
+
+    .card-back .content {
+      color: rgb(220, 220, 220);
+      position: absolute;
+      top: 48px;
+      width: 85%;
+      margin: 0 auto;
+      /* 將 content 水平置中 */
+    }
+
+    .card-back p {
+      margin-top: 20px;
+      font-size: 15px;
+      line-height: 25px;
+      letter-spacing: 2.5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="flip-card-container" style="--hue: 220" onclick="toggleSelection(this)">
+    <div class="flip-card">
+      <div class="card-front">
+        <figure>
+          <div class="img-bg"></div>
+          <img
+            src="https://images.unsplash.com/photo-1486162928267-e6274cb3106f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+            alt="Brohm Lake">
+          <figcaption class="career">組織者</figcaption>
+        </figure>
+        <ul>
+          <li>財務金融</li>
+          <li>特助秘書</li>
+          <li>會計</li>
+          <li>行政</li>
+        </ul>
+      </div>
+      <div class="card-back">
+        <figure>
+          <div class="img-bg"></div>
+          <img
+            src="https://images.unsplash.com/photo-1486162928267-e6274cb3106f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+            alt="Brohm Lake">
+        </figure>
+        <h1 style="font-family:Apple Chancery, cursive ;">Conventional</h1>
+        <div class="content">
+          <p>組織者喜歡有系統、組織和效率的SOP
+            工作方式無法接受混高、沒有秩序的環
+            境,在乎事情的精確細節並一絲不苟。在
+            生涯選擇上偏好規則清楚且明的環境
+            ,善於透過行政處理讓事情順利運轉。</p>
+          <p>【優勢】</p>
+          <p style="margin-top: 15px;">善於數字運算
+            資訊處理、組織、規劃與統整
+            文書、行政方面具備精確的處理技巧</p>
+          <p>【典型對應職業】</p>
+          <p style="margin-top: 15px;">財務金融、特助秘書、會計、行政等領域</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card-container" style="--hue: 220" onclick="toggleSelection(this)">
+    <div class="flip-card">
+      <div class="card-front">
+        <figure>
+          <div class="img-bg"></div>
+          <img
+            src="https://images.unsplash.com/photo-1486162928267-e6274cb3106f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+            alt="Brohm Lake">
+          <figcaption class="career">助人者</figcaption>
+        </figure>
+        <ul>
+          <li>社工心理</li>
+          <li>教育</li>
+          <li>醫護</li>
+          <li>宗教</li>
+        </ul>
+      </div>
+      <div class="card-back">
+        <figure>
+          <div class="img-bg"></div>
+          <img
+            src="https://images.unsplash.com/photo-1486162928267-e6274cb3106f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+            alt="Brohm Lake">
+        </figure>
+        <h1 style="font-family:Apple Chancery, cursive ;">Social</h1>
+        <div class="content">
+          <p>助人者個性友善且極具包容力,喜歡和人
+            互動與幫助他人。關懷社會、生態或周遭
+            的人群,經常教導、協助、照顧別人、解決
+            他人的困難懂得傾聽和溝通,擅長解決
+            人際衝突。在生涯選擇上適合與人互、
+            協助他人和教導培訓等工作。</p>
+          <p>【優勢】</p>
+          <p style="margin-top: 15px;">協調人際活動
+            發現與解決他人問題
+            優秀的人際與情緒管理能力</p>
+          <p>【典型對應職業】</p>
+          <p style="margin-top: 15px;">教育、社工心理、醫護或宗教等領域</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card-container" style="--hue: 220" onclick="toggleSelection(this)">
+    <div class="flip-card">
+      <div class="card-front">
+        <figure>
+          <div class="img-bg"></div>
+          <img
+            src="https://images.unsplash.com/photo-1486162928267-e6274cb3106f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+            alt="Brohm Lake">
+          <figcaption class="career">影響者</figcaption>
+        </figure>
+        <ul>
+          <li>企管領導</li>
+          <li>行銷企劃</li>
+          <li>法律</li>
+          <li>政治</li>
+        </ul>
+      </div>
+      <div class="card-back">
+        <figure>
+          <div class="img-bg"></div>
+          <img
+            src="https://images.unsplash.com/photo-1486162928267-e6274cb3106f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+            alt="Brohm Lake">
+        </figure>
+        <h1 style="font-family:Apple Chancery, cursive ;">Enterprising</h1>
+        <div class="content">
+          <p>影響者自信果敢且充滿精力,勇於競爭與
+            冒險,喜歡商業活動與策。擅長運用自
+            己的資源和能力影響或說服別人,讓別人
+            贊同自己提出的想法或執行方式。適合當
+            企業家,鼓舞他人合作並發起計劃。在生
+            涯選擇上,會追求聲望地位較高的工作。</p>
+          <p>【優勢】</p>
+          <p style="margin-top: 5px;">能找出商業或獲利機會
+            適合管理與監督工作
+            具有銷售與說服技巧的潛力</p>
+          <p>【典型對應職業】</p>
+          <p style="margin-top: 5px;">企管領導、行銷企劃、法律政治等領域</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card-container" style="--hue: 220" onclick="toggleSelection(this)">
+    <div class="flip-card">
+      <div class="card-front">
+        <figure>
+          <div class="img-bg"></div>
+          <img
+            src="https://images.unsplash.com/photo-1486162928267-e6274cb3106f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+            alt="Brohm Lake">
+          <figcaption class="career">實踐者</figcaption>
+        </figure>
+        <ul>
+          <li>機械電子</li>
+          <li>農林漁牧</li>
+          <li>建築工藝</li>
+          <li>運動</li>
+        </ul>
+      </div>
+      <div class="card-back">
+        <figure>
+          <div class="img-bg"></div>
+          <img
+            src="https://images.unsplash.com/photo-1486162928267-e6274cb3106f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+            alt="Brohm Lake">
+        </figure>
+        <h1 style="font-family:Apple Chancery, cursive ;">Realistic</h1>
+        <div class="content">
+          <p>實踐者注重實際行動,常獨自完成任務
+            喜歡機械或可操作的工具。喜歡戶外活動
+            、肢體運動和各種冒險探索。面對問題時,
+            比起討論或空想,更喜歡直接當試。在生
+            涯選擇上,喜歡能產生具體作品或成果的
+            工作。</p>
+          <p>【優勢】</p>
+          <p style="margin-top: 15px;">機械與設備操作,對工具運用、設備操作、
+            廚藝手工與飼動物有天賦</p>
+          <p>【典型對應職業】</p>
+          <p style="margin-top: 15px;">機械電子、農林漁牧、運動或建築工藝領域</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flip-card-container" style="--hue: 220" onclick="toggleSelection(this)">
+    <div class="flip-card">
+      <div class="card-front">
+        <figure>
+          <div class="img-bg"></div>
+          <img
+            src="https://images.unsplash.com/photo-1486162928267-e6274cb3106f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+            alt="Brohm Lake">
+          <figcaption class="career">思考者</figcaption>
+        </figure>
+        <ul>
+          <li>統計分析</li>
+          <li>人文科學</li>
+          <li>理工研究</li>
+          <li>生醫研發</li>
+        </ul>
+      </div>
+      <div class="card-back">
+        <figure>
+          <div class="img-bg"></div>
+          <img
+            src="https://images.unsplash.com/photo-1486162928267-e6274cb3106f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+            alt="Brohm Lake">
+        </figure>
+        <h1 style="font-family:Apple Chancery, cursive ;">Investigative</h1>
+        <div class="content">
+          <p>思考者好奇心強,喜歡分析、思考與解決
+            複雜問題.擅長觀察、構想、追尋真理並提
+            出各種假設,常接觸人文科學或科技領域
+            的資訊在資料分析與理論建構方面,是
+            不可多得的人才。在生涯選擇上,喜歡需
+            要思考與研究的專業工作。</p>
+          <p>【優勢】</p>
+          <p style="margin-top: 15px;">理解、解決科學或數學問題
+            研究分析與解釋資料、構想與理論
+            抽象思考</p>
+          <p>【典型對應職業】</p>
+          <p style="margin-top: 15px;">理工生醫或人文科學領域</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flip-card-container" style="--hue: 220" onclick="toggleSelection(this)">
+    <div class="flip-card">
+      <div class="card-front">
+        <figure>
+          <div class="img-bg"></div>
+          <img
+            src="https://images.unsplash.com/photo-1486162928267-e6274cb3106f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+            alt="Brohm Lake">
+          <figcaption class="career">創造者</figcaption>
+        </figure>
+        <ul>
+          <li>造型設計</li>
+          <li>藝術設計</li>
+          <li>藝術家</li>
+          <li>導演</li>
+        </ul>
+      </div>
+      <div class="card-back">
+        <figure>
+          <div class="img-bg"></div>
+          <img
+            src="https://images.unsplash.com/photo-1486162928267-e6274cb3106f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+            alt="Brohm Lake">
+        </figure>
+        <h1 style="font-family:Apple Chancery, cursive ;">Artistic</h1>
+        <div class="content">
+          <p>創造者充滿創意與想像力,總是有很多新
+            穎的想法。喜歡設計、戲劇、文學、舞蹈、音
+            樂等活動。具有強大的直覺與靈感,對美
+            的追求更勝於科學。在生涯選擇上,喜歡
+            待在充滿變化與挑戰的環境,讓自己的獨
+            特性能充分發揮。</p>
+          <p>【優勢】</p>
+          <p style="margin-top: 15px;">運用想像力與創造力產生靈感
+            做事創新、彈性而靈活
+            善於設計與創造,具有文藝天賦</p>
+          <p>【典型對應職業】</p>
+          <p style="margin-top: 15px;">藝術、設計等領域</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a href="first-conclusion.html"><button id="nextButton" onclick="showSelectedCards()">Next Page</button></a>
+
+  <script>
+    const selectedCareers = [];
+
+    function toggleSelection(container) {
+      container.classList.toggle('selected');
+      updateNextButtonVisibility();
+    }
+
+    function updateNextButtonVisibility() {
+      const selectedCount = document.querySelectorAll('.selected').length;
+      document.getElementById('nextButton').style.display = selectedCount === 3 ? 'block' : 'none';
+    }
+
+    function showSelectedCards() {
+      const selected = document.querySelectorAll('.selected .career');
+      selectedCareers.length = 0; // Clear the array
+      selected.forEach(career => {
+        selectedCareers.push(career.textContent.trim());
+      });
+
+      alert('Selected Careers: ' + selectedCareers.join(', '));
+    }
+  </script>
+
+</body>
+
+</html>
