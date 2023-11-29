@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="second-conclusion.css">
+  <title>Selected Cards</title>
+  <style>
+    /* Add your CSS styles here */
+
+    .card p {
+      width: 110%;
+      /* letter-spacing: 1px; */
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li::before {
+      content: '\2022';
+      /* Unicode 點（•） */
+      color: #9ab5b8;
+      /* 點的顏色 */
+      font-size: 1.2em;
+      margin-right: 5px;
+      /* 調整點與文本之間的間距 */
+    }
+
+    .content {
+      height: 100%;
+      width: 102%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .content h2,
+    p,
+    ul {
+      margin-bottom: 0px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Selected Cards</h1>
+
+  <!-- Display selected cards -->
+  <div id="selectedCards"></div>
+
+  <h2>Designed Cards</h2>
+  <div id="designedCards">
+    <div class="page-content">
+      <div class="card" data-numbers="3,2,4">
+        <div class="content">
+          <h2 class="title">企劃</h2>
+          <p style="margin-top: 2px;margin-bottom: 0px;">行銷</p>
+          <p>文案/社群及專案整體規劃</p>
+          <ul>
+            <li>創意力</li>
+            <li>協作力</li>
+            <li>整合力</li>
+          </ul>
+          <p class="copy">#市場資訊太雜亂，常常計畫敢不上變化</p>
+          <P class="number" style="font-size: small">3，2，4</P>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // JavaScript to display selected cards
+    const selectedCardsElement = document.getElementById('selectedCards');
+    const selectedCardsString = localStorage.getItem('selectedCards');
+
+    // Parse the JSON string into an array of selected cards
+    const selectedCardsArray = selectedCardsString ? JSON.parse(selectedCardsString) : [];
+
+    if (selectedCardsArray.length > 1) {
+      selectedCardsElement.textContent = 'Selected Cards: ' + selectedCardsArray.join(', ');
+
+      // Display designed cards only if there are two or more selected cards
+      const designedCardsElement = document.getElementById('designedCards');
+
+      designedCardsElement.querySelectorAll('.card').forEach(cardDiv => {
+        // Get the numbers attribute and convert it to an array
+        const cardNumbers = cardDiv.getAttribute('data-numbers').split(',').map(Number);
+
+        // Check if the card's numbers include two or more selected numbers
+        const intersection = cardNumbers.filter(value => selectedCardsArray.includes(value));
+
+        if (intersection.length >= 2) {
+          cardDiv.style.display = 'block'; // Show the card
+        } else {
+          cardDiv.style.display = 'none'; // Hide the card
+        }
+      });
+    } else {
+      cardDiv.style.display = 'none'; // Hide the card
+      selectedCardsElement.textContent = 'Please select two or more cards on the first page.';
+    }
+  </script>
+</body>
+
+</html>

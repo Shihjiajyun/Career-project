@@ -56,7 +56,7 @@
     }
 
     .card.selected {
-      filter: brightness(1.2);
+      filter: brightness(1.7);
       /* 選擇後色調變亮 */
     }
 
@@ -78,7 +78,7 @@
 <body>
 
   <div class="card-container" id="cardContainer">
-    <div class="card" onclick="toggleSelection(this)">
+    <div class="card" onclick="toggleSelection(this,1)" data-card-id="card1">
       <div class="in">
         <h3>行動與做事</h3>
         <h1>專注目標
@@ -90,7 +90,7 @@
         <p style="position: absolute; bottom: 1px; left: 50%; transform: translateX(-50%);">1</p>
       </div>
     </div>
-    <div class="card" onclick="toggleSelection(this)">
+    <div class="card" onclick="toggleSelection(this,2)" data-card-id="card2">
       <div class="in">
         <h3>行動與做事</h3>
         <h1>責任與承諾</h1>
@@ -101,7 +101,7 @@
         <p style="position: absolute; bottom: 1px; left: 50%; transform: translateX(-50%);">2</p>
       </div>
     </div>
-    <div class="card" onclick="toggleSelection(this)">
+    <div class="card" onclick="toggleSelection(this,3)" data-card-id="card3">
       <div class="in">
         <h3>行動與做事</h3>
         <h1>廣泛收集</h1>
@@ -113,7 +113,7 @@
         <p style="position: absolute; bottom: 1px; left: 50%; transform: translateX(-50%);">3</p>
       </div>
     </div>
-    <div class="card" onclick="toggleSelection(this)">
+    <div class="card" onclick="toggleSelection(this,4)">
       <div class="in">
         <h3>行動與做事</h3>
         <h1>規範秩序</h1>
@@ -125,7 +125,7 @@
         <p style="position: absolute; bottom: 1px; left: 50%; transform: translateX(-50%);">4</p>
       </div>
     </div>
-    <div class="card" onclick="toggleSelection(this)">
+    <div class="card" onclick="toggleSelection(this,5)">
       <div class="in">
         <h3>行動與做事</h3>
         <h1>靈活應變</h1>
@@ -135,7 +135,7 @@
         <p style="position: absolute; bottom: 1px; left: 50%; transform: translateX(-50%);">5</p>
       </div>
     </div>
-    <div class="card" onclick="toggleSelection(this)">
+    <div class="card" onclick="toggleSelection(this,6)">
       <div class="in">
         <h3>行動與做事</h3>
         <h1>統籌組合</h1>
@@ -145,7 +145,7 @@
         <p style="position: absolute; bottom: 1px; left: 50%; transform: translateX(-50%);">6</p>
       </div>
     </div>
-    <div class="card" onclick="toggleSelection(this)">
+    <div class="card" onclick="toggleSelection(this,7)">
       <div class="in">
         <h3>行動與做事</h3>
         <h1>公平正義</h1>
@@ -156,7 +156,7 @@
         <p style="position: absolute; bottom: 1px; left: 50%; transform: translateX(-50%);">7</p>
       </div>
     </div>
-    <div class="card" onclick="toggleSelection(this)">
+    <div class="card" onclick="toggleSelection(this,8)">
       <div class="in">
         <h3>行動與做事</h3>
         <h1>解決難題</h1>
@@ -166,7 +166,7 @@
         <p style="position: absolute; bottom: 1px; left: 50%; transform: translateX(-50%);">8</p>
       </div>
     </div>
-    <div class="card" onclick="toggleSelection(this)">
+    <div class="card" onclick="toggleSelection(this,9)">
       <div class="in">
         <h3>思考與心態</h3>
         <h1>創新思維</h1>
@@ -177,7 +177,7 @@
         <p style="position: absolute; bottom: 1px; left: 50%; transform: translateX(-50%);">9</p>
       </div>
     </div>
-    <div class="card" onclick="toggleSelection(this)">
+    <div class="card" onclick="toggleSelection(this,10)">
       <div class="in">
         <h3>思考與心態</h3>
         <h1>邏輯推理</h1>
@@ -188,7 +188,7 @@
         <p style="position: absolute; bottom: 1px; left: 50%; transform: translateX(-50%);">10</p>
       </div>
     </div>
-    <div class="card" onclick="toggleSelection(this)">
+    <div class="card" onclick="toggleSelection(this,11)">
       <div class="in">
         <h3>思考與心態</h3>
         <h1>戰略思維</h1>
@@ -199,7 +199,7 @@
         <p style="position: absolute; bottom: 1px; left: 50%; transform: translateX(-50%);">11</p>
       </div>
     </div>
-    <div class="card" onclick="toggleSelection(this)">
+    <div class="card" onclick="toggleSelection(this,12)">
       <div class="in">
         <h3>思考與心態</h3>
         <h1>概念思考</h1>
@@ -211,7 +211,7 @@
         <p style="position: absolute; bottom: 1px; left: 50%; transform: translateX(-50%);">12</p>
       </div>
     </div>
-    <div class="card" onclick="toggleSelection(this)">
+    <div class="card" onclick="toggleSelection(this,13)">
       <div class="in">
         <h3>思考與心態</h3>
         <h1>熱愛學習</h1>
@@ -222,7 +222,7 @@
         <p style="position: absolute; bottom: 1px; left: 50%; transform: translateX(-50%);">13</p>
       </div>
     </div>
-    <div class="card" onclick="toggleSelection(this)">
+    <div class="card" onclick="toggleSelection(this,14)">
       <div class="in">
         <h3>思考與心態</h3>
         <h1>回溯過往</h1>
@@ -233,7 +233,7 @@
         <p style="position: absolute; bottom: 1px; left: 50%; transform: translateX(-50%);">14</p>
       </div>
     </div>
-    <div class="card" onclick="toggleSelection(this)">
+    <div class="card" onclick="toggleSelection(this,15)">
       <div class="in">
         <h3>思考與心態</h3>
         <h1>審慎周全</h1>
@@ -245,7 +245,7 @@
         <p style="position: absolute; bottom: 1px; left: 50%; transform: translateX(-50%);">15</p>
       </div>
     </div>
-    <div class="card" onclick="toggleSelection(this)">
+    <div class="card" onclick="toggleSelection(this,16)">
       <div class="in">
         <h3>思考與心態</h3>
         <h1>想像未來</h1>
@@ -255,7 +255,7 @@
         <p style="position: absolute; bottom: 1px; left: 50%; transform: translateX(-50%);">16</p>
       </div>
     </div>
-    <div class="card" onclick="toggleSelection(this)">
+    <div class="card" onclick="toggleSelection(this,17)">
       <div class="in">
         <h3>思考與心態</h3>
         <h1>批判思考</h1>
@@ -265,7 +265,7 @@
         <p style="position: absolute; bottom: 1px; left: 50%; transform: translateX(-50%);">17</p>
       </div>
     </div>
-    <div class="card" onclick="toggleSelection(this)">
+    <div class="card" onclick="toggleSelection(this,18)">
       <div class="in">
         <h3>人際與領導</h3>
         <h1>察言觀色</h1>
@@ -275,7 +275,7 @@
         <p style="position: absolute; bottom: 1px; left: 50%; transform: translateX(-50%);">18</p>
       </div>
     </div>
-    <div class="card" onclick="toggleSelection(this)">
+    <div class="card" onclick="toggleSelection(this,19)">
       <div class="in">
         <h3>人際與領導</h3>
         <h1>協調衝突</h1>
@@ -286,7 +286,7 @@
         <p style="position: absolute; bottom: 1px; left: 50%; transform: translateX(-50%);">19</p>
       </div>
     </div>
-    <div class="card" onclick="toggleSelection(this)">
+    <div class="card" onclick="toggleSelection(this,20)">
       <div class="in">
         <h3>人際與領導</h3>
         <h1>協助他人</h1>
@@ -298,7 +298,7 @@
         <p style="position: absolute; bottom: 1px; left: 50%; transform: translateX(-50%);">20</p>
       </div>
     </div>
-    <div class="card" onclick="toggleSelection(this)">
+    <div class="card" onclick="toggleSelection(this,21)">
       <div class="in">
         <h3>人際與領導</h3>
         <h1>推動影響</h1>
@@ -308,7 +308,7 @@
         <p style="position: absolute; bottom: 1px; left: 50%; transform: translateX(-50%);">21</p>
       </div>
     </div>
-    <div class="card" onclick="toggleSelection(this)">
+    <div class="card" onclick="toggleSelection(this,22)">
       <div class="in">
         <h3>人際與領導</h3>
         <h1>培養他人</h1>
@@ -319,7 +319,7 @@
         <p style="position: absolute; bottom: 1px; left: 50%; transform: translateX(-50%);">22</p>
       </div>
     </div>
-    <div class="card" onclick="toggleSelection(this)">
+    <div class="card" onclick="toggleSelection(this,23)">
       <div class="in">
         <h3>人際與領導</h3>
         <h1>團隊意識</h1>
@@ -330,7 +330,7 @@
         <p style="position: absolute; bottom: 1px; left: 50%; transform: translateX(-50%);">23</p>
       </div>
     </div>
-    <div class="card" onclick="toggleSelection(this)">
+    <div class="card" onclick="toggleSelection(this,24)">
       <div class="in">
         <h3>人際與領導</h3>
         <h1>表達技巧</h1>
@@ -342,7 +342,7 @@
         <p style="position: absolute; bottom: 1px; left: 50%; transform: translateX(-50%);">24</p>
       </div>
     </div>
-    <div class="card" onclick="toggleSelection(this)">
+    <div class="card" onclick="toggleSelection(this,25)">
       <div class="in">
         <h3>人際與領導</h3>
         <h1>善於識人</h1>
@@ -352,7 +352,7 @@
         <p style="position: absolute; bottom: 1px; left: 50%; transform: translateX(-50%);">25</p>
       </div>
     </div>
-    <div class="card" onclick="toggleSelection(this)">
+    <div class="card" onclick="toggleSelection(this, 26)">
       <div class="in">
         <h3>人際與領導</h3>
         <h1>深化關係</h1>
@@ -366,31 +366,36 @@
     </div>
   </div>
 
-  <button id="nextButton" onclick="showSelectedCards()">Next Page</button>
+  <a href="second-conclusion.html"><button id="nextButton" onclick="showSelectedCards()">Next Page</button></a>
+
 
   <script>
-    const selectedCards = [];
+    // JavaScript to track selected cards
+    let selectedCards = [];
 
-    function toggleSelection(card) {
+    function toggleSelection(card, cardNumber) {
       card.classList.toggle('selected');
       updateNextButtonVisibility();
+
+      // Toggle card selection with number
+      const index = selectedCards.indexOf(cardNumber);
+      if (index === -1) {
+        selectedCards.push(cardNumber);
+      } else {
+        selectedCards.splice(index, 1);
+      }
+
+      // Display selected cards (optional)
+      console.log("Selected Cards:", selectedCards);
+
+      // Save selected cards to local storage
+      localStorage.setItem('selectedCards', JSON.stringify(selectedCards));
     }
 
     function updateNextButtonVisibility() {
       const selectedCount = document.querySelectorAll('.selected').length;
       const nextButton = document.getElementById('nextButton');
       nextButton.style.display = selectedCount >= 3 && selectedCount <= 5 ? 'block' : 'none';
-    }
-
-    function showSelectedCards() {
-      const selected = document.querySelectorAll('.selected');
-      selectedCards.length = 0; // 清空數組
-      selected.forEach(card => {
-        selectedCards.push(card.textContent);
-      });
-
-      // 在這裡處理選擇的卡片，例如顯示在控制台上
-      console.log('Selected Cards:', selectedCards);
     }
   </script>
 
