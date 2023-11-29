@@ -3,49 +3,44 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Card Example</title>
-  <link rel="stylesheet" href="tet.css">
+  <title>Card Selection</title>
 </head>
 
 <body>
+  <h1>Select Three Cards</h1>
 
-  <div class="page-content">
-    <div class="card" style="background-color: aqua;">
-      <div class="content">
-        <h2 class="title">test</h2>
-        <h3 class="title">Mountain View</h3>
-        <p class="copy">Check out all of these gorgeous mountain trips with beautiful views of, you guessed it, the
-          mountains</p>
-        <button class="btn">View Trips</button>
-      </div>
-    </div>
+  <!-- Card selection buttons -->
+  <button onclick="selectCard(1)">Card 1</button>
+  <button onclick="selectCard(2)">Card 2</button>
+  <button onclick="selectCard(3)">Card 3</button>
+  <button onclick="selectCard(4)">Card 4</button>
+  <!-- Add buttons for cards 3 to 10 -->
 
-    <div class="card">
-      <div class="content">
-        <h2 class="title">To The Beach</h2>
-        <p class="copy">Plan your next beach trip with these fabulous destinations</p>
-        <button class="btn">View Trips</button>
-      </div>
-    </div>
+  <!-- Next page button -->
+  <a href="test2.html">Next Page</a>
 
-    <div class="card">
-      <div class="content">
-        <h2 class="title">Desert Destinations</h2>
-        <p class="copy">It's the desert you've always dreamed of</p>
-        <button class="btn">Book Now</button>
-      </div>
-    </div>
+  <script>
+    // JavaScript to track selected cards
+    let selectedCards = [];
 
-    <div class="card">
-      <div class="content">
-        <h2 class="title">Explore The Galaxy</h2>
-        <p class="copy">Seriously, straight up, just blast off into outer space today</p>
-        <button class="btn">Book Now</button>
-      </div>
-    </div>
-  </div>
+    function selectCard(cardNumber) {
+      // Toggle card selection
+      const index = selectedCards.indexOf(cardNumber);
+      if (index === -1) {
+        selectedCards.push(cardNumber);
+      } else {
+        selectedCards.splice(index, 1);
+      }
 
+      // Display selected cards (optional)
+      console.log("Selected Cards:", selectedCards);
+
+      // Save selected cards to local storage
+      localStorage.setItem('selectedCards', JSON.stringify(selectedCards));
+    }
+  </script>
 </body>
 
 </html>
