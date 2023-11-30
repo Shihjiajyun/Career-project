@@ -84,8 +84,8 @@
 </head>
 
 <body>
-  <div class="flip-card-container" style="--hue: 220" onclick="toggleSelection(this)">
-    <div class="flip-card">
+  <div class="flip-card-container" style="--hue: 220" onclick="toggleSelection(this, 'C')">
+    <div class="flip-card" data-letter="C">
       <div class="card-front">
         <figure>
           <div class="img-bg"></div>
@@ -120,8 +120,8 @@
       </div>
     </div>
   </div>
-  <div class="flip-card-container" style="--hue: 220" onclick="toggleSelection(this)">
-    <div class="flip-card">
+  <div class="flip-card-container" style="--hue: 220" onclick="toggleSelection(this, 'S')">
+    <div class="flip-card" data-letter="S">
       <div class="card-front">
         <figure>
           <div class="img-bg"></div>
@@ -159,8 +159,8 @@
     </div>
   </div>
 
-  <div class="flip-card-container" style="--hue: 220" onclick="toggleSelection(this)">
-    <div class="flip-card">
+  <div class="flip-card-container" style="--hue: 220" onclick="toggleSelection(this, 'E')">
+    <div class="flip-card" data-letter="E">
       <div class="card-front">
         <figure>
           <div class="img-bg"></div>
@@ -198,8 +198,8 @@
     </div>
   </div>
 
-  <div class="flip-card-container" style="--hue: 220" onclick="toggleSelection(this)">
-    <div class="flip-card">
+  <div class="flip-card-container" style="--hue: 220" onclick="toggleSelection(this, 'R')">
+    <div class="flip-card" data-letter="R">
       <div class="card-front">
         <figure>
           <div class="img-bg"></div>
@@ -235,8 +235,8 @@
       </div>
     </div>
   </div>
-  <div class="flip-card-container" style="--hue: 220" onclick="toggleSelection(this)">
-    <div class="flip-card">
+  <div class="flip-card-container" style="--hue: 220" onclick="toggleSelection(this, 'I')">
+    <div class="flip-card" data-letter="I">
       <div class="card-front">
         <figure>
           <div class="img-bg"></div>
@@ -273,8 +273,8 @@
       </div>
     </div>
   </div>
-  <div class="flip-card-container" style="--hue: 220" onclick="toggleSelection(this)">
-    <div class="flip-card">
+  <div class="flip-card-container" style="--hue: 220" onclick="toggleSelection(this, 'A')">
+    <div class="flip-card" data-letter="A">
       <div class="card-front">
         <figure>
           <div class="img-bg"></div>
@@ -317,24 +317,26 @@
   <script>
     const selectedCareers = [];
 
-    function toggleSelection(container) {
+    function toggleSelection(container, letter) {
       container.classList.toggle('selected');
       updateNextButtonVisibility();
+
+      // 在选择时将英文字母存储到本地存储中
+      if (container.classList.contains('selected')) {
+        selectedCareers.push(letter);
+      } else {
+        const index = selectedCareers.indexOf(letter);
+        if (index !== -1) {
+          selectedCareers.splice(index, 1);
+        }
+      }
+
+      localStorage.setItem('selectedCareers', JSON.stringify(selectedCareers));
     }
 
     function updateNextButtonVisibility() {
       const selectedCount = document.querySelectorAll('.selected').length;
       document.getElementById('nextButton').style.display = selectedCount === 3 ? 'block' : 'none';
-    }
-
-    function showSelectedCards() {
-      const selected = document.querySelectorAll('.selected .career');
-      selectedCareers.length = 0; // Clear the array
-      selected.forEach(career => {
-        selectedCareers.push(career.textContent.trim());
-      });
-
-      alert('Selected Careers: ' + selectedCareers.join(', '));
     }
   </script>
 

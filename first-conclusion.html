@@ -3,12 +3,154 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <link rel="stylesheet" href="second-page.css">
+  <!-- Add your stylesheets or other head elements here -->
+  <title>Second Page</title>
+  <style>
+    /* Add your CSS styles here */
+    /* This is just an example styling, adjust it as needed */
+    .page-content {
+      display: grid;
+      grid-gap: 1rem;
+      padding: 1rem;
+      max-width: 1024px;
+      margin: 0 auto;
+      font-family: 'Rubik', sans-serif;
+    }
+
+    @media (min-width: 600px) {
+      .page-content {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 800px) {
+      .page-content {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .card {
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+      padding: 1rem;
+      width: 100%;
+      text-align: center;
+      color: #7A6263;
+      background-color: whitesmoke;
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 2px 2px rgba(0, 0, 0, 0.1),
+        0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 8px rgba(0, 0, 0, 0.1), 0 16px 16px rgba(0, 0, 0, 0.1);
+      /* Add other card styling as needed */
+    }
+
+    @media (min-width: 600px) {
+      .card {
+        height: 350px;
+      }
+    }
+
+    .content {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    .content>*+* {
+      margin-top: 1rem;
+    }
+
+    .title {
+      font-size: 1.3rem;
+      font-weight: bold;
+      line-height: 1.2;
+    }
+
+    .copy {
+      font-family: 'Cardo', serif;
+      font-size: 1.125rem;
+      font-style: italic;
+      line-height: 1.35;
+    }
+
+    .number {
+      font-size: small;
+    }
+  </style>
 </head>
 
 <body>
-  <P>first-conclusion</P>
+  <h1>Selected Careers</h1>
+
+  <!-- Display selected careers -->
+  <div id="selectedCareers"></div>
+
+  <h2>Designed Careers</h2>
+  <div id="designedCareers" class="page-content">
+    <!-- Example card with three letters -->
+    <div class="card" data-letter="A,B,C">
+      <div class="content">
+        <h2 class="title">Career Title</h2>
+        <p style="margin-top: 2px; margin-bottom: 0px;">Department</p>
+        <p>Description</p>
+        <ul>
+          <li>Skill 1</li>
+          <li>Skill 2</li>
+          <li>Skill 3</li>
+        </ul>
+        <p class="copy">#Hashtag</p>
+        <P class="number" style="font-size: small">1,2,3</P>
+      </div>
+    </div>
+
+    <!-- Add more cards as needed -->
+  </div>
+
+  <!-- Your other HTML content or scripts go here -->
+
+  <script>
+    // JavaScript to display selected careers
+    const selectedCareersElement = document.getElementById('selectedCareers');
+    const selectedCareersString = localStorage.getItem('selectedCareers');
+
+    // Parse the JSON string into an array of selected careers
+    const selectedCareersArray = selectedCareersString ? JSON.parse(selectedCareersString) : [];
+
+    if (selectedCareersArray.length === 3) {
+      selectedCareersElement.textContent = 'Selected Careers: ' + selectedCareersArray.join(', ');
+
+      // Display designed cards only if there are three selected careers
+      const designedCardsElement = document.getElementById('designedCareers'); // Fix: Change to 'designedCareers'
+
+      designedCardsElement.querySelectorAll('.card').forEach(cardDiv => {
+        // Ensure that cardDiv is defined before accessing attributes
+        if (cardDiv) {
+          // Get the career letters from the card
+          const cardLetters = cardDiv.getAttribute('data-letter').split(',');
+
+          // Check if at least two of the card's letters are in the selected careers
+          const intersection = cardLetters.filter(letter => selectedCareersArray.includes(letter));
+
+          // Show or hide the card based on selection
+          cardDiv.style.display = intersection.length >= 2 ? 'block' : 'none';
+        }
+      });
+    } else {
+      // Hide all cards if there are not enough selected careers
+      const designedCardsElement = document.getElementById('designedCareers');
+      designedCardsElement.querySelectorAll('.card').forEach(cardDiv => {
+        cardDiv.style.display = 'none';
+      });
+
+      selectedCareersElement.textContent = 'Please select three careers on the first page.';
+    }
+
+  </script>
 </body>
 
 </html>
