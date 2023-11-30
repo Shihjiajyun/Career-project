@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="second-page.css">
   <!-- Add your stylesheets or other head elements here -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <title>Second Page</title>
   <style>
     /* Add your CSS styles here */
@@ -49,7 +50,7 @@
 
     @media (min-width: 600px) {
       .card {
-        height: 350px;
+        /* height: 350px; */
       }
     }
 
@@ -81,40 +82,102 @@
     .number {
       font-size: small;
     }
+
+    .page-content {
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .card {
+      margin-right: 10px;
+    }
+
+    .card:last-child {
+      margin-right: 0;
+    }
+
+    .card .content {
+      width: 100%;
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 
 <body>
   <h1>Selected Careers</h1>
 
-  <!-- Display selected careers -->
+
   <div id="selectedCareers"></div>
 
   <h2>Designed Careers</h2>
-  <div id="designedCareers" class="page-content">
-    <!-- Example card with three letters -->
-    <div class="card" data-letter="A,B,C">
-      <div class="content">
-        <h2 class="title">Career Title</h2>
-        <p style="margin-top: 2px; margin-bottom: 0px;">Department</p>
-        <p>Description</p>
-        <ul>
-          <li>Skill 1</li>
-          <li>Skill 2</li>
-          <li>Skill 3</li>
-        </ul>
-        <p class="copy">#Hashtag</p>
-        <P class="number" style="font-size: small">1,2,3</P>
+  <div id="designedCareers" class="container">
+    <div class="row">
+      <!-- Example card with three letters -->
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+        <div class="card" data-letter="A,B,C">
+          <div class="content">
+            <h2 class="title">多媒體設計師</h2>
+            <p style="margin-top: 2px; margin-bottom: 0px;">利用電腦、影片等多媒體素材、創作動畫、電影、特效、廣告等。</p>
+            <P class="number" style="font-size: small">A、I</P>
+          </div>
+        </div>
       </div>
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+        <div class="card" data-letter="A,B,C">
+          <div class="content">
+            <h2 class="title">多媒體設計師</h2>
+            <p style="margin-top: 2px; margin-bottom: 0px;">利用電腦、影片等多媒體素材、創作動畫、電影、特效、廣告等。</p>
+            <P class="number" style="font-size: small">A、I</P>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+        <div class="card" data-letter="A,B,C">
+          <div class="content">
+            <h2 class="title">多媒體設計師</h2>
+            <p style="margin-top: 2px; margin-bottom: 0px;">利用電腦、影片等多媒體素材、創作動畫、電影、特效、廣告等。</p>
+            <P class="number" style="font-size: small">A、I</P>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+        <div class="card" data-letter="A,B,C">
+          <div class="content">
+            <h2 class="title">多媒體設計師</h2>
+            <p style="margin-top: 2px; margin-bottom: 0px;">利用電腦、影片等多媒體素材、創作動畫、電影、特效、廣告等。</p>
+            <P class="number" style="font-size: small">A、I</P>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+        <div class="card" data-letter="A,B,C">
+          <div class="content">
+            <h2 class="title">多媒體設計師</h2>
+            <p style="margin-top: 2px; margin-bottom: 0px;">利用電腦、影片等多媒體素材、創作動畫、電影、特效、廣告等。</p>
+            <P class="number" style="font-size: small">A、I</P>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+        <div class="card" data-letter="A,B,C">
+          <div class="content">
+            <h2 class="title">多媒體設計師</h2>
+            <p style="margin-top: 2px; margin-bottom: 0px;">利用電腦、影片等多媒體素材、創作動畫、電影、特效、廣告等。</p>
+            <P class="number" style="font-size: small">A、I</P>
+          </div>
+        </div>
+      </div>
+      <!-- Add more cards as needed -->
     </div>
-
-    <!-- Add more cards as needed -->
   </div>
 
-  <!-- Your other HTML content or scripts go here -->
+
+
 
   <script>
-    // JavaScript to display selected careers
     const selectedCareersElement = document.getElementById('selectedCareers');
     const selectedCareersString = localStorage.getItem('selectedCareers');
 
