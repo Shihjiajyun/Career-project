@@ -292,18 +292,10 @@
       const container = element.closest('.card');
       container.classList.toggle('selected');
       updateNextButtonVisibility();
-
-      // Get the card image element
       const image = container.querySelector('.card__image');
-
-      // Toggle brightness class
       image.classList.toggle('brighten-img');
-
-      // 在选择时将英文字母存储到本地存储中
       if (container.classList.contains('selected')) {
         selectedCareers.push(letter);
-
-        // Add a checkmark element if not already present
         if (!container.querySelector('.checkmark')) {
           const checkmark = document.createElement('div');
           checkmark.className = 'checkmark';
@@ -313,21 +305,15 @@
         const index = selectedCareers.indexOf(letter);
         if (index !== -1) {
           selectedCareers.splice(index, 1);
-
-          // Remove the checkmark element if present
           const checkmark = container.querySelector('.checkmark');
           if (checkmark) {
             checkmark.remove();
           }
         }
       }
-
       localStorage.setItem('selectedCareers', JSON.stringify(selectedCareers));
+      console.log(selectedCareers)
     }
-
-
-
-
     function updateNextButtonVisibility() {
       const selectedCount = document.querySelectorAll('.selected').length;
       document.getElementById('nextButton').style.display = selectedCount === 3 ? 'block' : 'none';

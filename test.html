@@ -1,49 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Card Selection</title>
-</head>
-
-<!-- HTML 代碼 -->
-
-<body>
-  <h1>Select Three Cards</h1>
-
-  <!-- Card selection divs -->
-  <div class="card" onclick="selectCard(1)">Card 1</div>
-  <div class="card" onclick="selectCard(2)">Card 2</div>
-  <div class="card" onclick="selectCard(3)">Card 3</div>
-  <div class="card" onclick="selectCard(4)">Card 4</div>
-  <!-- Add divs for cards 3 to 10 -->
-
-  <!-- Next page link -->
-  <a href="test2.html">Next Page</a>
-
-  <script>
-    // JavaScript to track selected cards
-    let selectedCards = [];
-
-    function selectCard(cardNumber) {
-      // Toggle card selection
-      const index = selectedCards.indexOf(cardNumber);
-      if (index === -1) {
-        selectedCards.push(cardNumber);
-      } else {
-        selectedCards.splice(index, 1);
-      }
-
-      // Display selected cards (optional)
-      console.log("Selected Cards:", selectedCards);
-
-      // Save selected cards to local storage
-      localStorage.setItem('selectedCards', JSON.stringify(selectedCards));
-    }
-  </script>
-</body>
+<div id="selectedCardsResult2"></div>
+<div id="designedcard2s" class="result-container">
+  <div class="page-content">
+    <div class="card2" data-numbers="10,13,14">
+      <div class="content">
+        <h2 class="title">企劃</h2>
+        <p style="margin-top: 2px;margin-bottom: 0px;">行銷</p>
+        <p>文案/社群及專案整體規劃</p>
+        <ul>
+          <li>創意力</li>
+          <li>協作力</li>
+          <li>整合力</li>
+        </ul>
+        <p class="copy">#市場資訊太雜亂，常常計畫敢不上變化</p>
+        <P class="number" style="font-size: small">3，2，4</P>
+      </div>
+    </div>
+  </div>
+</div>
 
 
-</html>
+// const selectedCardsResultElement = document.getElementById('selectedCardsResult2');
+// const selectedCardsString = localStorage.getItem('selectedcard2');
+// const selectedCardsArray = selectedCardsString ? JSON.parse(selectedCardsString) : [];
+
+// if (selectedCardsArray.length >= 3) {
+// selectedCardsResultElement.textContent = 'Selected Cards: ' + selectedCardsArray.join(', ');
+
+// const designedCardsElement = document.getElementById('designedcard2s');
+// designedCardsElement.innerHTML = ''; // Clear previous content
+
+// selectedCareersArray.forEach(selectedLetter => {
+// designedCardsElement.querySelectorAll('.card2').forEach(cardDiv => {
+// const cardLetters = cardDiv.getAttribute('data-numbers').split(',');
+// const intersection = cardLetters.filter(letter => selectedCareersArray.includes(letter));
+// const cardContainer = cardDiv.closest('.col-lg-4.col-md-6.col-sm-12.mb-3');
+
+// if (intersection.length >= 2) {
+// if (cardDiv.classList.contains('card') && cardDiv.getAttribute('data-letter') === 'A,I') {
+// cardContainer.classList.add('d-none');
+// }
+// } else {
+// cardContainer.classList.remove('d-none');
+// }
+// });
+// });
+// } else {
+// selectedCardsResultElement.textContent = 'Please select at least three cards on the third page.';
+// }

@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="second-conclusion.css">
   <title>Selected card2s</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <style>
     /* Add your CSS styles here */
 
@@ -63,15 +64,16 @@
 
 <body>
   <h1>Selected card2s</h1>
-
+  <p>如果你發現和你所選的數字不符合時，請回到上一頁重新整理之再選擇一次
+  </p>
   <!-- Display selected card2s -->
-  <div id="selectedcard2s"></div>
+  <div id="selectedcard2"></div>
 
   <h1>對應職業:
   </h1>
   <div id="designedcard2s">
     <div class="page-content">
-      <div class="card2" data-numbers="3,2,4">
+      <div class="card2" data-numbers="8,2,4">
         <div class="content">
           <h2 class="title">企劃</h2>
           <p style="margin-top: 2px;margin-bottom: 0px;">行銷</p>
@@ -88,16 +90,17 @@
     </div>
   </div>
   <a href="conclusion.html"><button class="nextButton">最終比對</button></a>
+  <!-- 第二个页面的部分 -->
   <script>
     // JavaScript to display selected card2s
-    const selectedcard2sElement = document.getElementById('selectedcard2s');
-    const selectedcard2sString = localStorage.getItem('selectedcard2s');
+    const selectedcard2Element = document.getElementById('selectedcard2');
+    const selectedcard2String = localStorage.getItem('selectedcard2');
 
     // Parse the JSON string into an array of selected card2s
-    const selectedcard2sArray = selectedcard2sString ? JSON.parse(selectedcard2sString) : [];
+    const selectedcard2Array = selectedcard2String ? JSON.parse(selectedcard2String) : [];
 
-    if (selectedcard2sArray.length > 1) {
-      selectedcard2sElement.textContent = 'Selected card2s: ' + selectedcard2sArray.join(', ');
+    if (selectedcard2Array.length > 1) {
+      selectedcard2Element.textContent = 'Selected card2s: ' + selectedcard2Array.join(', ');
 
       // Display designed card2s only if there are two or more selected card2s
       const designedcard2sElement = document.getElementById('designedcard2s');
@@ -107,7 +110,7 @@
         const card2Numbers = card2Div.getAttribute('data-numbers').split(',').map(Number);
 
         // Check if the card2's numbers include two or more selected numbers
-        const intersection = card2Numbers.filter(value => selectedcard2sArray.includes(value));
+        const intersection = card2Numbers.filter(value => selectedcard2Array.includes(value));
 
         if (intersection.length >= 2) {
           card2Div.style.display = 'block'; // Show the card2
@@ -116,13 +119,11 @@
         }
       });
     } else {
-      card2Div.style.display = 'none'; // Hide the card2
-      selectedcard2sElement.textContent = 'Please select two or more card2s on the first page.';
+      // Fix here: Use designedcard2sElement instead of card2Div
+      designedcard2sElement.style.display = 'none'; // Hide the card2
+      selectedcard2Element.textContent = 'Please select two or more card2s on the first page.';
     }
   </script>
-
-
-
 
 
 </body>

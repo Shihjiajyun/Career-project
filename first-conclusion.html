@@ -528,7 +528,7 @@
             <p style="margin-top: 2px; margin-bottom: 0px;">根據人類行為,設計設備工具或工作環境,
               讓人與系统互動發揮更大效益。
             </p>
-            <P class="number" style="font-size: small">I、R</P>
+            <p class="number" style="font-size: small">I、R</p>
           </div>
         </div>
       </div>
@@ -544,8 +544,8 @@
     // Parse the JSON string into an array of selected careers
     const selectedCareersArray = selectedCareersString ? JSON.parse(selectedCareersString) : [];
 
-    if (selectedCareersArray.length === 3) {
-      selectedCareersElement.textContent = '你所選擇的特質是: ' + selectedCareersArray.join(', ');
+    if (selectedCareer2Array.length === 3) {
+      selectedCareersElement.textContent = '你所選擇的特質是: ' + selectedCareer2Array.join(', ');
 
       // Display designed cards only if there are three selected careers
       const designedCardsElement = document.getElementById('designedCareers');

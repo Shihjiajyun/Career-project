@@ -79,7 +79,7 @@
 <body>
   <h1 style="color: black;">請選擇三到五項你覺得你有的能力，或是想學習的能力</h1>
   <div class="card2-container" id="card2Container">
-    <div class="card22" onclick="toggleSelection(this,1)" data-card2-id="card21">
+    <div class="card2" onclick="toggleSelection(this,1)" data-card2-id="card21">
       <div class="in">
         <h3>行動與做事</h3>
         <h1>專注目標
@@ -367,49 +367,35 @@
     </div>
   </div>
 
-  <a href="second-conclusion.html"><button id="nextButton" onclick="showSelectedcard2s()">查看分析結果</button></a>
+  <a href="second-conclusion.html"><button id="nextButton" onclick="updateNextButtonVisibility()">查看分析結果</button></a>
 
 
   <script>
-    // 在頁面載入時清空本地存儲
     window.onload = function () {
-      localStorage.removeItem('selectedcard2s');
+      localStorage.removeItem('selectedcard2');
     };
+    const selectedcard2 = [];
 
-
-    // JavaScript to track selected card2s
-    let selectedcard2sArray = localStorage.getItem('selectedcard2s') ? JSON.parse(localStorage.getItem('selectedcard2s')) : [];
-
+    let selectedcard2Array = localStorage.getItem('selectedcard2') ? JSON.parse(localStorage.getItem('selectedcard2')) : [];
+    console.log(selectedcard2Array)
     function toggleSelection(card2, card2Number) {
-      // 在載入頁面時初始化，清空之前的選擇
-      localStorage.removeItem('selectedcard2s');
-
       card2.classList.toggle('selected');
       updateNextButtonVisibility();
-
-      // Toggle card2 selection with number
-      const index = selectedcard2sArray.indexOf(card2Number);
+      const index = selectedcard2Array.indexOf(card2Number);
       if (index === -1) {
-        selectedcard2sArray.push(card2Number);
+        selectedcard2Array.push(card2Number);
       } else {
-        selectedcard2sArray.splice(index, 1);
+        selectedcard2Array.splice(index, 1);
       }
-
-      // Update local storage with the current selected card2s
-      localStorage.setItem('selectedcard2s', JSON.stringify(selectedcard2sArray));
-
-      // Display selected card2s (optional)
-      console.log("Selected card2s:", selectedcard2sArray);
+      localStorage.setItem('selectedcard2', JSON.stringify(selectedcard2Array));
+      console.log("Selected card2s:", selectedcard2Array);
     }
-
-
     function updateNextButtonVisibility() {
       const selectedCount = document.querySelectorAll('.selected').length;
       const nextButton = document.getElementById('nextButton');
       nextButton.style.display = selectedCount >= 3 && selectedCount <= 5 ? 'block' : 'none';
     }
   </script>
-
 
 </body>
 
