@@ -376,19 +376,20 @@
     };
     const selectedcard2 = [];
 
-    let selectedcard2Array = localStorage.getItem('selectedcard2') ? JSON.parse(localStorage.getItem('selectedcard2')) : [];
-    console.log(selectedcard2Array)
-    function toggleSelection(card2, card2Number) {
-      card2.classList.toggle('selected');
+    function toggleSelection(element, number) {
+      const container = element.closest('.card2');
+      container.classList.toggle('selected');
       updateNextButtonVisibility();
-      const index = selectedcard2Array.indexOf(card2Number);
-      if (index === -1) {
-        selectedcard2Array.push(card2Number);
+      if (container.classList.contains('selected')) {
+        selectedcard2.push(number);
       } else {
-        selectedcard2Array.splice(index, 1);
+        const index = selectedcard2.indexOf(number);
+        if (index !== -1) {
+          selectedcard2.splice(index, 1);
+        }
       }
-      localStorage.setItem('selectedcard2', JSON.stringify(selectedcard2Array));
-      console.log("Selected card2s:", selectedcard2Array);
+      localStorage.setItem('selectedcard2', JSON.stringify(selectedcard2));
+      console.log(selectedcard2)
     }
     function updateNextButtonVisibility() {
       const selectedCount = document.querySelectorAll('.selected').length;

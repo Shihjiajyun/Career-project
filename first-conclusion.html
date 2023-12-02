@@ -540,14 +540,10 @@
   <script>
     const selectedCareersElement = document.getElementById('selectedCareers');
     const selectedCareersString = localStorage.getItem('selectedCareers');
-
-    // Parse the JSON string into an array of selected careers
     const selectedCareersArray = selectedCareersString ? JSON.parse(selectedCareersString) : [];
 
-    if (selectedCareer2Array.length === 3) {
-      selectedCareersElement.textContent = '你所選擇的特質是: ' + selectedCareer2Array.join(', ');
-
-      // Display designed cards only if there are three selected careers
+    if (selectedCareersArray.length === 3) {
+      selectedCareersElement.textContent = '你所選擇的特質是: ' + selectedCareersArray.join(', ');
       const designedCardsElement = document.getElementById('designedCareers');
 
       designedCardsElement.querySelectorAll('.card').forEach(cardDiv => {
