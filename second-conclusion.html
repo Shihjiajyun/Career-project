@@ -6,11 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="second-conclusion.css">
-  <title>Selected Cards</title>
+  <title>Selected card2s</title>
   <style>
     /* Add your CSS styles here */
 
-    .card p {
+    .card2 p {
       width: 110%;
       /* letter-spacing: 1px; */
     }
@@ -62,16 +62,16 @@
 </head>
 
 <body>
-  <h1>Selected Cards</h1>
+  <h1>Selected card2s</h1>
 
-  <!-- Display selected cards -->
-  <div id="selectedCards"></div>
+  <!-- Display selected card2s -->
+  <div id="selectedcard2s"></div>
 
   <h1>對應職業:
   </h1>
-  <div id="designedCards">
+  <div id="designedcard2s">
     <div class="page-content">
-      <div class="card" data-numbers="3,2,4">
+      <div class="card2" data-numbers="3,2,4">
         <div class="content">
           <h2 class="title">企劃</h2>
           <p style="margin-top: 2px;margin-bottom: 0px;">行銷</p>
@@ -89,35 +89,35 @@
   </div>
   <a href="conclusion.html"><button class="nextButton">最終比對</button></a>
   <script>
-    // JavaScript to display selected cards
-    const selectedCardsElement = document.getElementById('selectedCards');
-    const selectedCardsString = localStorage.getItem('selectedCards');
+    // JavaScript to display selected card2s
+    const selectedcard2sElement = document.getElementById('selectedcard2s');
+    const selectedcard2sString = localStorage.getItem('selectedcard2s');
 
-    // Parse the JSON string into an array of selected cards
-    const selectedCardsArray = selectedCardsString ? JSON.parse(selectedCardsString) : [];
+    // Parse the JSON string into an array of selected card2s
+    const selectedcard2sArray = selectedcard2sString ? JSON.parse(selectedcard2sString) : [];
 
-    if (selectedCardsArray.length > 1) {
-      selectedCardsElement.textContent = 'Selected Cards: ' + selectedCardsArray.join(', ');
+    if (selectedcard2sArray.length > 1) {
+      selectedcard2sElement.textContent = 'Selected card2s: ' + selectedcard2sArray.join(', ');
 
-      // Display designed cards only if there are two or more selected cards
-      const designedCardsElement = document.getElementById('designedCards');
+      // Display designed card2s only if there are two or more selected card2s
+      const designedcard2sElement = document.getElementById('designedcard2s');
 
-      designedCardsElement.querySelectorAll('.card').forEach(cardDiv => {
+      designedcard2sElement.querySelectorAll('.card2').forEach(card2Div => {
         // Get the numbers attribute and convert it to an array
-        const cardNumbers = cardDiv.getAttribute('data-numbers').split(',').map(Number);
+        const card2Numbers = card2Div.getAttribute('data-numbers').split(',').map(Number);
 
-        // Check if the card's numbers include two or more selected numbers
-        const intersection = cardNumbers.filter(value => selectedCardsArray.includes(value));
+        // Check if the card2's numbers include two or more selected numbers
+        const intersection = card2Numbers.filter(value => selectedcard2sArray.includes(value));
 
         if (intersection.length >= 2) {
-          cardDiv.style.display = 'block'; // Show the card
+          card2Div.style.display = 'block'; // Show the card2
         } else {
-          cardDiv.style.display = 'none'; // Hide the card
+          card2Div.style.display = 'none'; // Hide the card2
         }
       });
     } else {
-      cardDiv.style.display = 'none'; // Hide the card
-      selectedCardsElement.textContent = 'Please select two or more cards on the first page.';
+      card2Div.style.display = 'none'; // Hide the card2
+      selectedcard2sElement.textContent = 'Please select two or more card2s on the first page.';
     }
   </script>
 
