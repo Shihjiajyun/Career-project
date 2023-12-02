@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="selectedCareersResult">
+    <div id="designedCareers" class="container">
+      <div class="row d-flex flex-wrap">
+        <!-- Original designed career card -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-3" id="hide">
+          <div class="card" data-letter="S,E">
+            <div class="content">
+              <h2 class="title">多媒體設計師</h2>
+              <p style="margin-top: 2px; margin-bottom: 0px;">利用電腦、影片等多媒體素材、創作動畫、電影、特效、廣告等。</p>
+              <P class="number" style="font-size: small">A、I</P>
+            </div>
+          </div>
+        </div>
+
+        <!-- Additional designed career cards (you can add more as needed) -->
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-3" id="additionalHide">
+          <div class="card" data-letter="S,C,E">
+            <div class="content">
+              <h2 class="title">職業名稱</h2>
+              <p style="margin-top: 2px; margin-bottom: 0px;">職業描述。</p>
+              <P class="number" style="font-size: small">B、C</P>
+            </div>
+          </div>
+        </div>
+        <!-- Add more additional cards as needed -->
+
+      </div>
+    </div>
+  </div>
+
+  <div id="selectedCardsResult"></div>
+
+  <script>
+    // JavaScript to display selected cards from the first page
+    const selectedCareersResultElement = document.getElementById('selectedCareersResult');
+    const selectedCareersString = localStorage.getItem('selectedCareers');
+
+    // Parse the JSON string into an array of selected cards from the first page
+    const selectedCareersArray = selectedCareersString ? JSON.parse(selectedCareersString) : [];
+
+    if (selectedCareersArray.length >= 3) {
+      selectedCareersResultElement.textContent = 'Selected Careers: ' + selectedCareersArray.join(', ');
+
+      // Additional logic to show/hide content based on selected careers
+      // ...
+
+    } else {
+      selectedCareersResultElement.textContent = 'Please select at least three careers on the first page.';
+    }
+
+    // JavaScript to display selected cards from the third page
+    const selectedCardsResultElement = document.getElementById('selectedCardsResult');
+    const selectedCardsString = localStorage.getItem('selectedCards');
+
+    // Parse the JSON string into an array of selected cards from the third page
+    const selectedCardsArray = selectedCardsString ? JSON.parse(selectedCardsString) : [];
+
+    if (selectedCardsArray.length >= 3) {
+      selectedCardsResultElement.textContent = 'Selected Cards: ' + selectedCardsArray.join(', ');
+
+      // Additional logic to show/hide content based on selected cards
+      // ...
+
+    } else {
+      selectedCardsResultElement.textContent = 'Please select at least three cards on the third page.';
+    }
+  </script>
+
+</body>
+</body>
+
+
+
+
+
+</html>

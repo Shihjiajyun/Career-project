@@ -9,6 +9,10 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <style>
+    body {
+      background-color: rgb(209, 209, 209);
+    }
+
     .flip-card-container {
       transition: filter 0.3s;
     }
@@ -24,6 +28,7 @@
       border-radius: 4px;
       cursor: pointer;
       display: none;
+      font-size: 20px;
     }
 
     .card-title p {
@@ -59,6 +64,7 @@
 
 <body>
   <div class="cards">
+    <h1>請在這裡選擇三個你覺得你所具備的特質</h1>
     <div class="card" data-letter="S">
       <div class="card__image-holder">
         <img class="card__image" src="helper.png" height="200px" />
@@ -274,9 +280,12 @@
     </div>
   </div>
 
-  <a href="first-conclusion.html"><button id="nextButton" onclick="showSelectedCards()">Next Page</button></a>
+  <a href="first-conclusion.html"><button id="nextButton" onclick="showSelectedCards()">查看分析結果</button></a>
 
   <script>
+    window.onload = function () {
+      localStorage.removeItem('selectedCareers');
+    };
     const selectedCareers = [];
 
     function toggleSelection(element, letter) {

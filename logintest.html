@@ -13,7 +13,7 @@
       justify-content: center;
       height: 100vh;
       margin: 0;
-      background-color: #f2f2f2;
+      background-color: rgb(209, 209, 209);
     }
 
     .login-card {
@@ -68,50 +68,52 @@
 </head>
 
 <body>
+  <div class="container">
+    <h1 style="text-align: center;color: rgb(57, 57, 57);">在這裡找到自己的路</h1>
+    <h3 style="text-align: center;color: rgb(57, 57, 57);">現在馬上開始</h3>
+    <div class="login-card" id="login-form">
+      <h2>Login</h2>
+      <form>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
 
-  <div class="login-card" id="login-form">
-    <h2>Login</h2>
-    <form>
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
 
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required>
+        <button type="button" onclick="submitForm()">Login</button>
+      </form>
 
-      <button type="button" onclick="submitForm()">Login</button>
-    </form>
+      <div class="login-toggle">
+        <p>Don't have an account? <a onclick="toggleForm()">Register</a></p>
+      </div>
+    </div>
 
-    <div class="login-toggle">
-      <p>Don't have an account? <a onclick="toggleForm()">Register</a></p>
+    <div class="login-card register-form" id="register-form">
+      <h2>Register</h2>
+      <form>
+        <label for="fullname">Full Name:</label>
+        <input type="text" id="fullname" name="fullname" required>
+
+        <label for="birthday">Birthday:</label>
+        <input type="date" id="birthday" name="birthday" required>
+
+        <label for="contact">Contact:</label>
+        <input type="text" id="contact" name="contact" required>
+
+        <label for="gmail">Gmail:</label>
+        <input type="email" id="gmail" name="gmail" required>
+
+        <label for="register-password">Password:</label>
+        <input type="password" id="register-password" name="password" required>
+
+        <button type="button" onclick="registerUser()">Register</button>
+      </form>
+
+      <div class="login-toggle">
+        <p>Already have an account? <a onclick="toggleForm()">Login</a></p>
+      </div>
     </div>
   </div>
-
-  <div class="login-card register-form" id="register-form">
-    <h2>Register</h2>
-    <form>
-      <label for="fullname">Full Name:</label>
-      <input type="text" id="fullname" name="fullname" required>
-
-      <label for="birthday">Birthday:</label>
-      <input type="date" id="birthday" name="birthday" required>
-
-      <label for="contact">Contact:</label>
-      <input type="text" id="contact" name="contact" required>
-
-      <label for="gmail">Gmail:</label>
-      <input type="email" id="gmail" name="gmail" required>
-
-      <label for="register-password">Password:</label>
-      <input type="password" id="register-password" name="password" required>
-
-      <button type="button" onclick="registerUser()">Register</button>
-    </form>
-
-    <div class="login-toggle">
-      <p>Already have an account? <a onclick="toggleForm()">Login</a></p>
-    </div>
-  </div>
-
   <script>
     // 模擬用戶數據庫
     var userDatabase = {};

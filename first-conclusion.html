@@ -103,16 +103,30 @@
       width: 100%;
       margin-bottom: 10px;
     }
+
+    .nextButton {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px;
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      /* display: none; */
+      font-size: 20px;
+    }
   </style>
 </head>
 
 <body>
-  <h1>Selected Careers</h1>
+  <!-- <h1>特質：</h1> -->
 
 
   <div id="selectedCareers"></div>
-
-  <h2>Designed Careers</h2>
+  <p></p>
+  <h2>對應職業：</h2>
   <div id="designedCareers" class="container">
     <div class="row d-flex flex-wrap">
       <div class="col-lg-4 col-md-6 col-sm-12 mb-3" id="hide">
@@ -521,8 +535,7 @@
       <!-- Add more cards as needed -->
     </div>
   </div>
-
-
+  <a href="second-choose.html"><button class="nextButton">進行第二項測驗</button></a>
 
   <script>
     const selectedCareersElement = document.getElementById('selectedCareers');
@@ -532,7 +545,7 @@
     const selectedCareersArray = selectedCareersString ? JSON.parse(selectedCareersString) : [];
 
     if (selectedCareersArray.length === 3) {
-      selectedCareersElement.textContent = 'Selected Careers: ' + selectedCareersArray.join(', ');
+      selectedCareersElement.textContent = '你所選擇的特質是: ' + selectedCareersArray.join(', ');
 
       // Display designed cards only if there are three selected careers
       const designedCardsElement = document.getElementById('designedCareers');
@@ -564,10 +577,6 @@
       selectedCareersElement.textContent = 'Please select three careers on the first page.';
     }
   </script>
-
-
-
-
 </body>
 
 </html>

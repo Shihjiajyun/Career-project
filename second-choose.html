@@ -71,12 +71,13 @@
       border-radius: 4px;
       cursor: pointer;
       display: none;
+      font-size: 20px;
     }
   </style>
 </head>
 
 <body>
-
+  <h1 style="color: black;">請選擇三到五項你覺得你有的能力，或是想學習的能力</h1>
   <div class="card-container" id="cardContainer">
     <div class="card" onclick="toggleSelection(this,1)" data-card-id="card1">
       <div class="in">
@@ -366,31 +367,41 @@
     </div>
   </div>
 
-  <a href="second-conclusion.html"><button id="nextButton" onclick="showSelectedCards()">Next Page</button></a>
+  <a href="second-conclusion.html"><button id="nextButton" onclick="showSelectedCards()">查看分析結果</button></a>
 
 
   <script>
+    // 在頁面載入時清空本地存儲
+    window.onload = function () {
+      localStorage.removeItem('selectedCards');
+    };
+
+
     // JavaScript to track selected cards
-    let selectedCards = [];
+    let selectedCardsArray = localStorage.getItem('selectedCards') ? JSON.parse(localStorage.getItem('selectedCards')) : [];
 
     function toggleSelection(card, cardNumber) {
+      // 在載入頁面時初始化，清空之前的選擇
+      localStorage.removeItem('selectedCards');
+
       card.classList.toggle('selected');
       updateNextButtonVisibility();
 
       // Toggle card selection with number
-      const index = selectedCards.indexOf(cardNumber);
+      const index = selectedCardsArray.indexOf(cardNumber);
       if (index === -1) {
-        selectedCards.push(cardNumber);
+        selectedCardsArray.push(cardNumber);
       } else {
-        selectedCards.splice(index, 1);
+        selectedCardsArray.splice(index, 1);
       }
 
-      // Display selected cards (optional)
-      console.log("Selected Cards:", selectedCards);
+      // Update local storage with the current selected cards
+      localStorage.setItem('selectedCards', JSON.stringify(selectedCardsArray));
 
-      // Save selected cards to local storage
-      localStorage.setItem('selectedCards', JSON.stringify(selectedCards));
+      // Display selected cards (optional)
+      console.log("Selected Cards:", selectedCardsArray);
     }
+
 
     function updateNextButtonVisibility() {
       const selectedCount = document.querySelectorAll('.selected').length;
@@ -398,6 +409,7 @@
       nextButton.style.display = selectedCount >= 3 && selectedCount <= 5 ? 'block' : 'none';
     }
   </script>
+
 
 </body>
 
