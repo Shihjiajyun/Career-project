@@ -33,6 +33,11 @@
       font-size: 20px;
     }
 
+    footer {
+      height: 100px;
+      /* 根据需要设置空白的高度 */
+    }
+
     .card-title p {
       font-size: medium;
     }
@@ -96,7 +101,7 @@
         <p style="margin-top: 0px;width: 90%;margin-left: auto;margin-right: auto;">教育、社工心理、醫護或宗教等領域</p>
         <div class="card-flap flap2">
           <div class="card-actions">
-            <a href="#" class="btn" onclick="toggleSelection(this, 'S')">選擇</a>
+            <a href="#" class="btn" id="btn" onclick="toggleSelection(this, 'S')">選擇</a>
             <a href="#" class="btn" id="cancel-btn" onclick="cancelSelection(this, 'S')">取消</a>
           </div>
         </div>
@@ -135,7 +140,7 @@
         <p style="margin-top: 0px;width: 90%;margin-left: auto;margin-right: auto;">企管領導、行銷企劃、法律政治等領域</p>
         <div class="card-flap flap2">
           <div class="card-actions">
-            <a href="#" class="btn" onclick="toggleSelection(this, 'E')">選擇</a>
+            <a href="#" class="btn" id="btn" onclick="toggleSelection(this, 'E')">選擇</a>
             <a href="#" class="btn" id="cancel-btn" onclick="cancelSelection(this, 'E')">取消</a>
           </div>
         </div>
@@ -171,7 +176,7 @@
         <p style="margin-top: 0px;width: 90%;margin-left: auto;margin-right: auto;">機械電子、農林漁牧、運動或建築工藝領域</p>
         <div class="card-flap flap2">
           <div class="card-actions">
-            <a href="#" class="btn" onclick="toggleSelection(this, 'R')">選擇</a>
+            <a href="#" class="btn" id="btn" onclick="toggleSelection(this, 'R')">選擇</a>
             <a href="#" class="btn" id="cancel-btn" onclick="cancelSelection(this, 'R')">取消</a>
           </div>
         </div>
@@ -210,7 +215,7 @@
         <p style="margin-top: 0px;width: 90%;margin-left: auto;margin-right: auto;">理工生醫或人文科學領域</p>
         <div class="card-flap flap2">
           <div class="card-actions">
-            <a href="#" class="btn" onclick="toggleSelection(this, 'I')">選擇</a>
+            <a href="#" class="btn" id="btn" onclick="toggleSelection(this, 'I')">選擇</a>
             <a href="#" class="btn" id="cancel-btn" onclick="cancelSelection(this, 'I')">取消</a>
           </div>
         </div>
@@ -250,8 +255,8 @@
         <p style="margin-top: 0px;width: 90%;margin-left: auto;margin-right: auto;">藝術、設計等領域</p>
         <div class="card-flap flap2">
           <div class="card-actions">
-            <a href="#" class="btn" onclick="toggleSelection(this, 'A')">選擇</a>
-            <a href="#" class="btn" id="cancel-btn" onclick="cancelSelection(this, 'A')">取消</a>
+            <a href="#" class="btn" id="btn" onclick="toggleSelection(this, 'A')">選擇</a>
+            <a href="#" data-letter="A" class="btn" id="cancel-btn" onclick="cancelSelection(this)">取消</a>
           </div>
         </div>
       </div>
@@ -287,7 +292,7 @@
         <div class="card-flap flap2">
           <div class="card-actions">
             <a href="#" class="btn" id="btn" onclick="toggleSelection(this, 'C')">選擇</a>
-            <a href="#" class="btn" id="cancel-btn" onclick="cancelSelection(this, 'C')">取消</a>
+            <a href="#" data-letter="C" id="cancel-btn" class="btn" onclick="cancelSelection(this)">取消</a>
           </div>
         </div>
       </div>
@@ -300,16 +305,18 @@
   <script>
     window.onload = function () {
       localStorage.removeItem('selectedCareers');
-      const cancelButtons = document.querySelectorAll('#cancel-btn');
+      const cancelButtons = document.querySelectorAll('.card .btn[data-letter]');
       cancelButtons.forEach(button => {
         button.classList.add('btn2');
       });
-      document.getElementById('cancel-btn').classList.add('btn2');
     };
 
     const selectedCareers = [];
-    console.log(selectedCareers)
+    console.log(selectedCareers);
+
     function toggleSelection(element, letter) {
+      document.getElementById('btn').classList.add('btn2');
+      document.getElementById('cancel-btn').classList.remove('btn2');
       const container = element.closest('.card');
       container.classList.toggle('selected');
       updateNextButtonVisibility();
@@ -317,29 +324,40 @@
       image.classList.toggle('brighten-img');
       if (container.classList.contains('selected')) {
         selectedCareers.push(letter);
+        console.log(container.querySelector('.checkmark')); // 输出查找到的元素
+        document.getElementById('btn').classList.add('btn2');
+        document.getElementById('cancel-btn').classList.remove('btn2');
         if (!container.querySelector('.checkmark')) {
+          console.log(1);
           const checkmark = document.createElement('div');
           checkmark.className = 'checkmark';
           container.querySelector('.card-title').appendChild(checkmark);
-          document.getElementById('cancel-btn').classList.remove('btn2');
-          document.getElementById('btn').classList.add('btn2');
         }
+
       } else {
         const index = selectedCareers.indexOf(letter);
         if (index !== -1) {
           selectedCareers.splice(index, 1);
           const checkmark = container.querySelector('.checkmark');
+          document.getElementById('btn').classList.add('btn2');
+          document.getElementById('cancel-btn').classList.remove('btn2');
           if (checkmark) {
             checkmark.remove();
-            document.getElementById('cancel-btn').classList.add('btn2');
-            document.getElementById('btn').classList.remove('btn2');
+            // 更新选择按钮和取消按钮的状态
+            // element.classList.remove('btn2');
+            document.getElementById('btn').classList.add('btn2');
+            document.getElementById('cancel-btn').classList.remove('btn2');
+            console.log(2)
           }
         }
       }
+
       localStorage.setItem('selectedCareers', JSON.stringify(selectedCareers));
-      console.log(selectedCareers)
+      console.log(selectedCareers);
     }
-    function cancelSelection(element, letter) {
+
+    function cancelSelection(element) {
+      const letter = element.getAttribute('data-letter');
       const container = element.closest('.card');
       container.classList.remove('selected');
       updateNextButtonVisibility();
@@ -352,7 +370,7 @@
         const checkmark = container.querySelector('.checkmark');
         if (checkmark) {
           checkmark.remove();
-          document.getElementById('cancel-btn').classList.add('btn2');
+          document.querySelector(`[data-letter="${letter}"].btn`).classList.add('btn2');
           document.getElementById('btn').classList.remove('btn2');
         }
       }
@@ -365,6 +383,7 @@
       const selectedCount = document.querySelectorAll('.selected').length;
       document.getElementById('nextButton').style.display = selectedCount === 3 ? 'block' : 'none';
     }
+
 
     $(document).ready(function () {
       var zindex = 10;
@@ -411,7 +430,7 @@
       });
     });
   </script>
-
+  <footer></footer>
 </body>
 
 </html>
