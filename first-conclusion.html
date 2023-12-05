@@ -542,7 +542,7 @@
     const selectedCareersArray = selectedCareersString ? JSON.parse(selectedCareersString) : [];
 
     if (selectedCareersArray.length === 3) {
-      selectedCareersElement.textcontent2 = '你所選擇的特質是: ' + selectedCareersArray.join(', ');
+      selectedCareersElement.textContent = '你所選擇的特質是: ' + selectedCareersArray.join(', ');
       const designedCardsElement = document.getElementById('designedCareers');
 
       designedCardsElement.querySelectorAll('.card').forEach(cardDiv => {
@@ -563,7 +563,6 @@
         }
       });
     } else {
-      // Hide all cards if there are not enough selected careers
       const designedCardsElement = document.getElementById('designedCareers');
       designedCardsElement.querySelectorAll('.card').forEach(cardDiv => {
         cardDiv.closest('.col-lg-4.col-md-6.col-sm-12.mb-3').classList.add('d-none');
