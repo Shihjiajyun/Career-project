@@ -97,6 +97,7 @@
         <div class="card-flap flap2">
           <div class="card-actions">
             <a href="#" class="btn" onclick="toggleSelection(this, 'S')">選擇</a>
+            <a href="#" class="btn" id="cancel-btn" onclick="cancelSelection(this, 'S')">取消</a>
           </div>
         </div>
       </div>
@@ -135,6 +136,7 @@
         <div class="card-flap flap2">
           <div class="card-actions">
             <a href="#" class="btn" onclick="toggleSelection(this, 'E')">選擇</a>
+            <a href="#" class="btn" id="cancel-btn" onclick="cancelSelection(this, 'E')">取消</a>
           </div>
         </div>
       </div>
@@ -170,6 +172,7 @@
         <div class="card-flap flap2">
           <div class="card-actions">
             <a href="#" class="btn" onclick="toggleSelection(this, 'R')">選擇</a>
+            <a href="#" class="btn" id="cancel-btn" onclick="cancelSelection(this, 'R')">取消</a>
           </div>
         </div>
       </div>
@@ -208,6 +211,7 @@
         <div class="card-flap flap2">
           <div class="card-actions">
             <a href="#" class="btn" onclick="toggleSelection(this, 'I')">選擇</a>
+            <a href="#" class="btn" id="cancel-btn" onclick="cancelSelection(this, 'I')">取消</a>
           </div>
         </div>
       </div>
@@ -247,6 +251,7 @@
         <div class="card-flap flap2">
           <div class="card-actions">
             <a href="#" class="btn" onclick="toggleSelection(this, 'A')">選擇</a>
+            <a href="#" class="btn" id="cancel-btn" onclick="cancelSelection(this, 'A')">取消</a>
           </div>
         </div>
       </div>
@@ -282,7 +287,7 @@
         <div class="card-flap flap2">
           <div class="card-actions">
             <a href="#" class="btn" id="btn" onclick="toggleSelection(this, 'C')">選擇</a>
-            <a href="#" class="btn" id="cancel-btn" onclick="cancelSelection(this)">取消</a>
+            <a href="#" class="btn" id="cancel-btn" onclick="cancelSelection(this, 'C')">取消</a>
           </div>
         </div>
       </div>
@@ -295,10 +300,15 @@
   <script>
     window.onload = function () {
       localStorage.removeItem('selectedCareers');
+      const cancelButtons = document.querySelectorAll('#cancel-btn');
+      cancelButtons.forEach(button => {
+        button.classList.add('btn2');
+      });
       document.getElementById('cancel-btn').classList.add('btn2');
     };
-    const selectedCareers = [];
 
+    const selectedCareers = [];
+    console.log(selectedCareers)
     function toggleSelection(element, letter) {
       const container = element.closest('.card');
       container.classList.toggle('selected');
@@ -329,10 +339,28 @@
       localStorage.setItem('selectedCareers', JSON.stringify(selectedCareers));
       console.log(selectedCareers)
     }
-    function cancelSelection() {
-      document.getElementById('cancel-btn').classList.add('btn2');
-      document.getElementById('btn').classList.remove('btn2');
+    function cancelSelection(element, letter) {
+      const container = element.closest('.card');
+      container.classList.remove('selected');
+      updateNextButtonVisibility();
+      const image = container.querySelector('.card__image');
+      image.classList.remove('brighten-img');
+
+      const index = selectedCareers.indexOf(letter);
+      if (index !== -1) {
+        selectedCareers.splice(index, 1);
+        const checkmark = container.querySelector('.checkmark');
+        if (checkmark) {
+          checkmark.remove();
+          document.getElementById('cancel-btn').classList.add('btn2');
+          document.getElementById('btn').classList.remove('btn2');
+        }
+      }
+
+      localStorage.setItem('selectedCareers', JSON.stringify(selectedCareers));
+      console.log(selectedCareers);
     }
+
     function updateNextButtonVisibility() {
       const selectedCount = document.querySelectorAll('.selected').length;
       document.getElementById('nextButton').style.display = selectedCount === 3 ? 'block' : 'none';
