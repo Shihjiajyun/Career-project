@@ -102,7 +102,7 @@
         <div class="card-flap flap2">
           <div class="card-actions">
             <a href="#" class="btn" id="btn" onclick="toggleSelection(this, 'S')">選擇</a>
-            <a href="#" class="btn" id="cancel-btn" onclick="cancelSelection(this, 'S')">取消</a>
+            <a href="#" data-letter="S" id="cancel-btn" class="btn" onclick="cancelSelection(this, 'S')">取消</a>
           </div>
         </div>
       </div>
@@ -141,7 +141,7 @@
         <div class="card-flap flap2">
           <div class="card-actions">
             <a href="#" class="btn" id="btn" onclick="toggleSelection(this, 'E')">選擇</a>
-            <a href="#" class="btn" id="cancel-btn" onclick="cancelSelection(this, 'E')">取消</a>
+            <a href="#" data-letter="E" id="cancel-btn" class="btn" onclick="cancelSelection(this, 'E')">取消</a>
           </div>
         </div>
       </div>
@@ -177,7 +177,7 @@
         <div class="card-flap flap2">
           <div class="card-actions">
             <a href="#" class="btn" id="btn" onclick="toggleSelection(this, 'R')">選擇</a>
-            <a href="#" class="btn" id="cancel-btn" onclick="cancelSelection(this, 'R')">取消</a>
+            <a href="#" data-letter="R" id="cancel-btn" class="btn" onclick="cancelSelection(this, 'R')">取消</a>
           </div>
         </div>
       </div>
@@ -216,7 +216,7 @@
         <div class="card-flap flap2">
           <div class="card-actions">
             <a href="#" class="btn" id="btn" onclick="toggleSelection(this, 'I')">選擇</a>
-            <a href="#" class="btn" id="cancel-btn" onclick="cancelSelection(this, 'I')">取消</a>
+            <a href="#" data-letter="I" id="cancel-btn" class="btn" onclick="cancelSelection(this, 'I')">取消</a>
           </div>
         </div>
       </div>
@@ -256,7 +256,7 @@
         <div class="card-flap flap2">
           <div class="card-actions">
             <a href="#" class="btn" id="btn" onclick="toggleSelection(this, 'A')">選擇</a>
-            <a href="#" data-letter="A" class="btn" id="cancel-btn" onclick="cancelSelection(this)">取消</a>
+            <a href="#" data-letter="A" class="btn" id="cancel-btn" onclick="cancelSelection(this,'A')">取消</a>
           </div>
         </div>
       </div>
@@ -292,7 +292,7 @@
         <div class="card-flap flap2">
           <div class="card-actions">
             <a href="#" class="btn" id="btn" onclick="toggleSelection(this, 'C')">選擇</a>
-            <a href="#" data-letter="C" id="cancel-btn" class="btn" onclick="cancelSelection(this)">取消</a>
+            <a href="#" data-letter="C" id="cancel-btn" class="btn" onclick="cancelSelection(this, 'C')">取消</a>
           </div>
         </div>
       </div>
@@ -315,69 +315,49 @@
     console.log(selectedCareers);
 
     function toggleSelection(element, letter) {
-      document.getElementById('btn').classList.add('btn2');
-      document.getElementById('cancel-btn').classList.remove('btn2');
       const container = element.closest('.card');
-      container.classList.toggle('selected');
-      updateNextButtonVisibility();
-      const image = container.querySelector('.card__image');
-      image.classList.toggle('brighten-img');
-      if (container.classList.contains('selected')) {
-        selectedCareers.push(letter);
-        console.log(container.querySelector('.checkmark')); // 输出查找到的元素
-        document.getElementById('btn').classList.add('btn2');
-        document.getElementById('cancel-btn').classList.remove('btn2');
-        if (!container.querySelector('.checkmark')) {
-          console.log(1);
-          const checkmark = document.createElement('div');
-          checkmark.className = 'checkmark';
-          container.querySelector('.card-title').appendChild(checkmark);
-        }
+      const btn = container.querySelector('#btn');
+      const cancelBtn = container.querySelector('#cancel-btn');
+      container.classList.add('selected');
+      updateNextButtonVisibility()
+      // 移除樣式
+      btn.classList.add('btn2');
+      cancelBtn.classList.remove('btn2');
 
-      } else {
-        const index = selectedCareers.indexOf(letter);
-        if (index !== -1) {
-          selectedCareers.splice(index, 1);
-          const checkmark = container.querySelector('.checkmark');
-          document.getElementById('btn').classList.add('btn2');
-          document.getElementById('cancel-btn').classList.remove('btn2');
-          if (checkmark) {
-            checkmark.remove();
-            // 更新选择按钮和取消按钮的状态
-            // element.classList.remove('btn2');
-            document.getElementById('btn').classList.add('btn2');
-            document.getElementById('cancel-btn').classList.remove('btn2');
-            console.log(2)
-          }
-        }
+      // 新增字母到本地端紀錄中
+      const selectedCareersString = localStorage.getItem('selectedCareers');
+      let selectedCareersArray = selectedCareersString ? JSON.parse(selectedCareersString) : [];
+
+      // 檢查字母是否已經存在，不存在則新增
+      if (!selectedCareersArray.includes(letter)) {
+        selectedCareersArray.push(letter);
+        localStorage.setItem('selectedCareers', JSON.stringify(selectedCareersArray));
+        console.log(selectedCareersArray); // 可選擇是否印出
       }
 
-      localStorage.setItem('selectedCareers', JSON.stringify(selectedCareers));
-      console.log(selectedCareers);
+      const checkmark = document.createElement('div');
+      checkmark.className = 'checkmark';
+      container.querySelector('.card-title').appendChild(checkmark);
     }
 
-    function cancelSelection(element) {
-      const letter = element.getAttribute('data-letter');
+
+    function cancelSelection(element, letter) {
       const container = element.closest('.card');
+      container.querySelector('#btn').classList.remove('btn2');
+      container.querySelector('#cancel-btn').classList.add('btn2');
       container.classList.remove('selected');
-      updateNextButtonVisibility();
-      const image = container.querySelector('.card__image');
-      image.classList.remove('brighten-img');
+      updateNextButtonVisibility()
+      const selectedCareersString = localStorage.getItem('selectedCareers');
+      let selectedCareersArray = selectedCareersString ? JSON.parse(selectedCareersString) : [];
+      const index = selectedCareersArray.indexOf(letter);
+      const checkmark = container.querySelector('.checkmark');
+      checkmark.remove();
+      selectedCareersArray.splice(index, 1);
+      localStorage.setItem('selectedCareers', JSON.stringify(selectedCareersArray));
+      console.log(selectedCareersArray);
 
-      const index = selectedCareers.indexOf(letter);
-      if (index !== -1) {
-        selectedCareers.splice(index, 1);
-        const checkmark = container.querySelector('.checkmark');
-        if (checkmark) {
-          checkmark.remove();
-          document.querySelector(`[data-letter="${letter}"].btn`).classList.add('btn2');
-          document.getElementById('btn').classList.remove('btn2');
-        }
-      }
-
-      localStorage.setItem('selectedCareers', JSON.stringify(selectedCareers));
-      console.log(selectedCareers);
     }
+
 
     function updateNextButtonVisibility() {
       const selectedCount = document.querySelectorAll('.selected').length;
