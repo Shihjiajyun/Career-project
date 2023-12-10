@@ -146,7 +146,7 @@ div.card div.card-description {
 
 div.card div.card-actions {
   box-shadow: 0 2px 0px 0 rgba(0, 0, 0, 0.075);
-  padding: 10px 15px 20px;
+  padding: 10px 15px 200px;
   text-align: center;
 }
 
@@ -217,6 +217,6 @@ div.card.show div.flap2 {
   height: 150px;
 }
 
-#problem .flap2 {
+/* #problem .flap2 {
   height: 500px;
-}
+} */
