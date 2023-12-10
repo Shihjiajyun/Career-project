@@ -207,6 +207,7 @@ div.card.show div.card-flap {
 
 div.card.show div.flap1 {
   transition: all 0.3s 0s ease-out;
+  padding-bottom: 100px;
 }
 
 div.card.show div.flap2 {
