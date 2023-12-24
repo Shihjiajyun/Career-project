@@ -218,6 +218,7 @@ div.card.show div.flap2 {
   height: 150px;
 }
 
-/* #problem .flap2 {
-  height: 500px;
-} */
+.btn {
+  margin-top: 10px;
+  margin-left: 10px;
+}

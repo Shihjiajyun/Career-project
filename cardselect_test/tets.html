@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card Buttons</title>
+  <style>
+    .card {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 10px;
+      text-align: center;
+    }
+
+    .blue-button {
+      background-color: blue;
+      color: white;
+    }
+
+    .red-button {
+      background-color: #ff0000;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card" id="cardA">
+    <h3>Card A</h3>
+    <button class="btn1" onclick="storeLetter('A', 0)">1</button>
+    <button class="btn2" onclick="storeLetter('A', 1)">2</button>
+    <button class="btn3" onclick="storeLetter('A', 2)">3</button>
+    <button onclick="cancelSelection('A')" id="cancelBtnA">取消</button>
+  </div>
+
+  <div class="card" id="cardB">
+    <h3>Card B</h3>
+    <button class="btn1" onclick="storeLetter('B', 0)">1</button>
+    <button class="btn2" onclick="storeLetter('B', 1)">2</button>
+    <button class="btn3" onclick="storeLetter('B', 2)">3</button>
+    <button onclick="cancelSelection('B')" id="cancelBtnB">取消</button>
+  </div>
+
+  <div class="card" id="cardC">
+    <h3>Card C</h3>
+    <button class="btn1" onclick="storeLetter('C', 0)">1</button>
+    <button class="btn2" onclick="storeLetter('C', 1)">2</button>
+    <button class="btn3" onclick="storeLetter('C', 2)">3</button>
+    <button onclick="cancelSelection('C')" id="cancelBtnC">取消</button>
+  </div>
+
+  <div class="card" id="cardD">
+    <h3>Card D</h3>
+    <button class="btn1" onclick="storeLetter('D', 0)">1</button>
+    <button class="btn2" onclick="storeLetter('D', 1)">2</button>
+    <button class="btn3" onclick="storeLetter('D', 2)">3</button>
+    <button onclick="cancelSelection('D')" id="cancelBtnD">取消</button>
+  </div>
+
+  <div class="card" id="cardE">
+    <h3>Card E</h3>
+    <button class="btn1" onclick="storeLetter('E', 0)">1</button>
+    <button class="btn2" onclick="storeLetter('E', 1)">2</button>
+    <button class="btn3" onclick="storeLetter('E', 2)">3</button>
+    <button onclick="cancelSelection('E')" id="cancelBtnE">取消</button>
+  </div>
+
+  <script>
+    const selectedLetters = [null, null, null];
+
+    function storeLetter(letter, position) {
+      selectedLetters[position] = letter;
+      console.log(`Letter ${letter} stored at position ${position}`);
+      console.log(selectedLetters);
+      checkAndUpdateButtons();
+      checkCard();
+    }
+
+    function cancelSelection(cardId) {
+      const cardIndex = selectedLetters.indexOf(cardId);
+      console.log(cardIndex)
+      selectedLetters[cardIndex] = null;
+      console.log(`Card ${cardId} selection canceled`);
+      checkAndUpdateButtons();
+      checkCard();
+      console.log(selectedLetters)
+    }
+
+
+    // 檢查是否可以按取消
+    function checkCard() {
+      const letters = ['A', 'B', 'C', 'D', 'E'];
+
+      for (let i = 0; i < letters.length; i++) {
+        const letter = letters[i];
+        const cancelBtn = document.getElementById(`cancelBtn${letter}`);
+
+        if (selectedLetters.includes(letter)) {
+          // 如果本地数组中有该字母，增加红色样式
+          cancelBtn.classList.add('red-button');
+        } else {
+          // 否则移除红色样式
+          cancelBtn.classList.remove('red-button');
+        }
+      }
+    }
+
+
+
+    // 檢查是否要將按鈕增加樣式
+    function checkAndUpdateButtons() {
+      const btn1Elements = document.getElementsByClassName('btn1');
+      for (let i = 0; i < btn1Elements.length; i++) {
+        const btn1 = btn1Elements[i];
+        if (selectedLetters[0] !== null) {
+          btn1.classList.add('blue-button');
+        } else {
+          btn1.classList.remove('blue-button');
+        }
+      }
+
+      const btn2Elements = document.getElementsByClassName('btn2');
+      for (let i = 0; i < btn2Elements.length; i++) {
+        const btn2 = btn2Elements[i];
+        if (selectedLetters[1] !== null) {
+          btn2.classList.add('blue-button');
+        } else {
+          btn2.classList.remove('blue-button');
+        }
+      }
+
+      const btn3Elements = document.getElementsByClassName('btn3');
+      for (let i = 0; i < btn3Elements.length; i++) {
+        const btn3 = btn3Elements[i];
+        if (selectedLetters[2] !== null) {
+          btn3.classList.add('blue-button');
+        } else {
+          btn3.classList.remove('blue-button');
+        }
+      }
+    }
+  </script>
+
+</body>
+
+</html>

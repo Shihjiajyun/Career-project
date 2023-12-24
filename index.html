@@ -60,11 +60,9 @@
     }
 
     .checkmark::before {
-      content: '\2713';
-      /* Unicode character for checkmark */
+      /* content: '\2713'; */
       color: white;
       font-size: 20px;
-      /* Adjust the font size as needed */
     }
   </style>
 </head>
@@ -101,7 +99,9 @@
         <p style="margin-top: 0px;width: 90%;margin-left: auto;margin-right: auto;">教育、社工心理、醫護或宗教等領域</p>
         <div class="card-flap flap2">
           <div class="card-actions">
-            <a href="#" class="btn" id="btn" onclick="toggleSelection(this, 'S')">選擇</a>
+            <a href="#" class="btn" id="btn" onclick="toggleSelection(this, 'S', 0)">1</a>
+            <a href="#" class="btn" id="btn" onclick="toggleSelection(this, 'S', 1)">2</a>
+            <a href="#" class="btn" id="btn" onclick="toggleSelection(this, 'S', 2)">3</a>
             <a href="#" data-letter="S" id="cancel-btn" class="btn" onclick="cancelSelection(this, 'S')">取消</a>
           </div>
         </div>
@@ -311,10 +311,18 @@
       });
     };
 
-    const selectedCareers = [];
-    console.log(selectedCareers);
+    const selectedCareers = [null, null, null];
 
-    function toggleSelection(element, letter) {
+    // function putElement(element, position) {
+    //   if (position >= 0 && position < myArray.length) {
+    //     myArray[position] = element;
+    //   } else {
+    //     console.error("Invalid position");
+    //   }
+    // }
+    function toggleSelection(element, letter, position) {
+      selectedCareers[position] = element;
+      console.log(position);
       const container = element.closest('.card');
       const btn = container.querySelector('#btn');
       const cancelBtn = container.querySelector('#cancel-btn');
