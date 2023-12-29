@@ -7,13 +7,14 @@
   <title>Card Selection</title>
   <link rel="stylesheet" href="card.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
 </head>
 
 <body>
+  <div class="select">
+    <h1>請選擇三個字母，並且按照志願排序</h1>
+    <h2>您所選擇的字母是：</h2>
+  </div>
   <div class="cards">
-    <h1>請在這裡選擇三個你覺得你所具備的特質</h1>
     <div class="card" data-letter="S">
       <div class="card__image-holder">
         <img class="card__image" src="helper.png" height="200px" />
@@ -42,11 +43,15 @@
         <p style="margin-bottom: 0px;margin-top: 5px;">【典型對應職業】</p>
         <p style="margin-top: 0px;width: 90%;margin-left: auto;margin-right: auto;">教育、社工心理、醫護或宗教等領域</p>
         <div class="card-flap flap2">
-          <div class="card-actions">
-            <a href="#" class="btn" id="btn" onclick="toggleSelection(this, 'S', 0)">1</a>
-            <a href="#" class="btn" id="btn" onclick="toggleSelection(this, 'S', 1)">2</a>
-            <a href="#" class="btn" id="btn" onclick="toggleSelection(this, 'S', 2)">3</a>
-            <a href="#" data-letter="S" id="cancel-btn" class="btn" onclick="cancelSelection(this, 'S')">取消</a>
+          <div class="card-actions" id="cardS">
+            <div class="button-container">
+              <button class="btn1" onclick="storeLetter('S', 0)">1</button>
+              <button class="btn2" onclick="storeLetter('S', 1)">2</button>
+              <button class="btn3" onclick="storeLetter('S', 2)">3</button>
+            </div>
+            <div class="cancel">
+              <button class="cancelButton" onclick="cancelSelection('S')" id="cancelBtnS">取消</button>
+            </div>
           </div>
         </div>
       </div>
@@ -83,9 +88,15 @@
         <p style="margin-bottom: 0px;margin-top: 5px;">【典型對應職業】</p>
         <p style="margin-top: 0px;width: 90%;margin-left: auto;margin-right: auto;">企管領導、行銷企劃、法律政治等領域</p>
         <div class="card-flap flap2">
-          <div class="card-actions">
-            <a href="#" class="btn" id="btn" onclick="toggleSelection(this, 'E')">選擇</a>
-            <a href="#" data-letter="E" id="cancel-btn" class="btn" onclick="cancelSelection(this, 'E')">取消</a>
+          <div class="card-actions" id="cardE">
+            <div class="button-container">
+              <button class="btn1" onclick="storeLetter('E', 0)">1</button>
+              <button class="btn2" onclick="storeLetter('E', 1)">2</button>
+              <button class="btn3" onclick="storeLetter('E', 2)">3</button>
+            </div>
+            <div class="cancel">
+              <button class="cancelButton" onclick="cancelSelection('E')" id="cancelBtnE">取消</button>
+            </div>
           </div>
         </div>
       </div>
@@ -119,9 +130,17 @@
         <p style="margin-bottom: 0px;margin-top: 5px;">【典型對應職業】</p>
         <p style="margin-top: 0px;width: 90%;margin-left: auto;margin-right: auto;">機械電子、農林漁牧、運動或建築工藝領域</p>
         <div class="card-flap flap2">
-          <div class="card-actions">
-            <a href="#" class="btn" id="btn" onclick="toggleSelection(this, 'R')">選擇</a>
-            <a href="#" data-letter="R" id="cancel-btn" class="btn" onclick="cancelSelection(this, 'R')">取消</a>
+          <div class="card-actions" id="cardR">
+            <div class="button-container">
+              <button class="btn1" onclick="storeLetter('R', 0)">1</button>
+              <button class="btn2" onclick="storeLetter('R', 1)">2</button>
+              <button class="btn3" onclick="storeLetter('R', 2)">3</button>
+            </div>
+
+            <div class="cancel">
+              <button class="cancelButton" onclick="cancelSelection('R')" id="cancelBtnR">取消</button>
+            </div>
+
           </div>
         </div>
       </div>
@@ -158,9 +177,17 @@
         <p style="margin-bottom: 0px;margin-top: 5px;">【典型對應職業】</p>
         <p style="margin-top: 0px;width: 90%;margin-left: auto;margin-right: auto;">理工生醫或人文科學領域</p>
         <div class="card-flap flap2">
-          <div class="card-actions">
-            <a href="#" class="btn" id="btn" onclick="toggleSelection(this, 'I')">選擇</a>
-            <a href="#" data-letter="I" id="cancel-btn" class="btn" onclick="cancelSelection(this, 'I')">取消</a>
+          <div class="card-actions" id="cardI">
+            <div class="button-container">
+              <button class="btn1" onclick="storeLetter('I', 0)">1</button>
+              <button class="btn2" onclick="storeLetter('I', 1)">2</button>
+              <button class="btn3" onclick="storeLetter('I', 2)">3</button>
+            </div>
+
+            <div class="cancel">
+              <button class="cancelButton" onclick="cancelSelection('I')" id="cancelBtnI">取消</button>
+            </div>
+
           </div>
         </div>
       </div>
@@ -198,9 +225,17 @@
         <p style="margin-bottom: 0px;margin-top: 5px;">【典型對應職業】</p>
         <p style="margin-top: 0px;width: 90%;margin-left: auto;margin-right: auto;">藝術、設計等領域</p>
         <div class="card-flap flap2">
-          <div class="card-actions">
-            <a href="#" class="btn" id="btn" onclick="toggleSelection(this, 'A')">選擇</a>
-            <a href="#" data-letter="A" class="btn" id="cancel-btn" onclick="cancelSelection(this,'A')">取消</a>
+          <div class="card-actions" id="cardA">
+            <div class="button-container">
+              <button class="btn1" onclick="storeLetter('A', 0)">1</button>
+              <button class="btn2" onclick="storeLetter('A', 1)">2</button>
+              <button class="btn3" onclick="storeLetter('A', 2)">3</button>
+            </div>
+
+            <div class="cancel">
+              <button class="cancelButton" onclick="cancelSelection('A')" id="cancelBtnA">取消</button>
+            </div>
+
           </div>
         </div>
       </div>
@@ -234,9 +269,15 @@
         <p style="margin-bottom: 0px;margin-top: 5px;">【典型對應職業】</p>
         <p style="margin-top: 0px;width: 90%;margin-left: auto;margin-right: auto;">財務金融、特助秘書、會計、行政等領域</p>
         <div class="card-flap flap2">
-          <div class="card-actions" id="problem">
-            <a href="#" class="btn" id="btn" onclick="toggleSelection(this, 'C')">選擇</a>
-            <a href="#" data-letter="C" id="cancel-btn" class="btn" onclick="cancelSelection(this, 'C')">取消</a>
+          <div class="card-actions" id="cardC">
+            <div class="button-container">
+              <button class="btn1" onclick="storeLetter('C', 0)">1</button>
+              <button class="btn2" onclick="storeLetter('C', 1)">2</button>
+              <button class="btn3" onclick="storeLetter('C', 2)">3</button>
+            </div>
+            <div class="cancel">
+              <button class="cancelButton" onclick="cancelSelection('C')" id="cancelBtnC">取消</button>
+            </div>
           </div>
         </div>
       </div>
@@ -247,73 +288,115 @@
       style="z-index: 100;">查看分析結果</button></a>
 
   <script>
-    window.onload = function () {
-      localStorage.removeItem('selectedCareers');
-      const cancelButtons = document.querySelectorAll('.card .btn[data-letter]');
-      cancelButtons.forEach(button => {
-        button.classList.add('btn2');
-      });
-    };
+    const selectedLetters = [null, null, null];
 
-    const selectedCareers = [null, null, null];
-
-    // function putElement(element, position) {
-    //   if (position >= 0 && position < myArray.length) {
-    //     myArray[position] = element;
-    //   } else {
-    //     console.error("Invalid position");
-    //   }
-    // }
-    function toggleSelection(element, letter, position) {
-      selectedCareers[position] = element;
-      console.log(position);
-      const container = element.closest('.card');
-      const btn = container.querySelector('#btn');
-      const cancelBtn = container.querySelector('#cancel-btn');
-      container.classList.add('selected');
+    function storeLetter(letter, position) {
+      selectedLetters[position] = letter;
+      console.log(`Letter ${letter} stored at position ${position}`);
+      console.log(selectedLetters);
+      checkLetter();
+      checkAndUpdateButtons();
+      checkCard();
+      updateSelectedLetters();
       updateNextButtonVisibility()
-      // 移除樣式
-      btn.classList.add('btn2');
-      cancelBtn.classList.remove('btn2');
+    }
 
-      // 新增字母到本地端紀錄中
-      const selectedCareersString = localStorage.getItem('selectedCareers');
-      let selectedCareersArray = selectedCareersString ? JSON.parse(selectedCareersString) : [];
-
-      // 檢查字母是否已經存在，不存在則新增
-      if (!selectedCareersArray.includes(letter)) {
-        selectedCareersArray.push(letter);
-        localStorage.setItem('selectedCareers', JSON.stringify(selectedCareersArray));
-        console.log(selectedCareersArray); // 可選擇是否印出
-      }
-
-      const checkmark = document.createElement('div');
-      checkmark.className = 'checkmark';
-      container.querySelector('.card-title').appendChild(checkmark);
+    function cancelSelection(cardId) {
+      const cardIndex = selectedLetters.indexOf(cardId);
+      console.log(cardIndex)
+      selectedLetters[cardIndex] = null;
+      console.log(`Card ${cardId} selection canceled`);
+      checkLetter()
+      checkAndUpdateButtons();
+      checkCard();
+      console.log(selectedLetters)
+      updateSelectedLetters();
+      updateNextButtonVisibility()
     }
 
 
-    function cancelSelection(element, letter) {
-      const container = element.closest('.card');
-      container.querySelector('#btn').classList.remove('btn2');
-      container.querySelector('#cancel-btn').classList.add('btn2');
-      container.classList.remove('selected');
-      updateNextButtonVisibility()
-      const selectedCareersString = localStorage.getItem('selectedCareers');
-      let selectedCareersArray = selectedCareersString ? JSON.parse(selectedCareersString) : [];
-      const index = selectedCareersArray.indexOf(letter);
-      const checkmark = container.querySelector('.checkmark');
-      checkmark.remove();
-      selectedCareersArray.splice(index, 1);
-      localStorage.setItem('selectedCareers', JSON.stringify(selectedCareersArray));
-      console.log(selectedCareersArray);
+    // 把選擇結果列印出來
+    function updateSelectedLetters() {
+      const selectDiv = document.querySelector('.select');
+      const h2Element = selectDiv.querySelector('h2');
+      h2Element.textContent = `您所選擇的字母是：${selectedLetters.join(', ')}`;
+    }
 
+    // 檢查是否可以再將該字母加入陣列
+    function checkLetter() {
+      const letters = ['S', 'E', 'R', 'I', 'A', 'C'];
+      for (let i = 0; i < letters.length; i++) {
+        const letter = letters[i];
+        const selectBtn = document.getElementById(`card${letter}`);
+        if (selectedLetters.includes(letter)) {
+          const btns = selectBtn.querySelectorAll('.btn1, .btn2, .btn3');
+          btns.forEach(btn => {
+            btn.classList.add('purple-button');
+          });
+        } else {
+          const btns = selectBtn.querySelectorAll('.btn1, .btn2, .btn3');
+          btns.forEach(btn => {
+            btn.classList.remove('purple-button');
+          });
+        }
+      }
+    }
+
+
+
+    // 檢查是否可以按取消
+    function checkCard() {
+      const letters = ['S', 'E', 'R', 'I', 'A', 'C'];
+      for (let i = 0; i < letters.length; i++) {
+        const letter = letters[i];
+        const cancelBtn = document.getElementById(`cancelBtn${letter}`);
+        if (selectedLetters.includes(letter)) {
+          cancelBtn.classList.remove('cancelButton');
+        } else {
+          cancelBtn.classList.add('cancelButton');
+        }
+      }
+    }
+
+
+
+    // 檢查是否要將選擇按鈕增加樣式
+    function checkAndUpdateButtons() {
+      const btn1Elements = document.getElementsByClassName('btn1');
+      for (let i = 0; i < btn1Elements.length; i++) {
+        const btn1 = btn1Elements[i];
+        if (selectedLetters[0] !== null) {
+          btn1.classList.add('blue-button');
+        } else {
+          btn1.classList.remove('blue-button');
+        }
+      }
+
+      const btn2Elements = document.getElementsByClassName('btn2');
+      for (let i = 0; i < btn2Elements.length; i++) {
+        const btn2 = btn2Elements[i];
+        if (selectedLetters[1] !== null) {
+          btn2.classList.add('blue-button');
+        } else {
+          btn2.classList.remove('blue-button');
+        }
+      }
+
+      const btn3Elements = document.getElementsByClassName('btn3');
+      for (let i = 0; i < btn3Elements.length; i++) {
+        const btn3 = btn3Elements[i];
+        if (selectedLetters[2] !== null) {
+          btn3.classList.add('blue-button');
+        } else {
+          btn3.classList.remove('blue-button');
+        }
+      }
     }
 
 
     function updateNextButtonVisibility() {
-      const selectedCount = document.querySelectorAll('.selected').length;
-      document.getElementById('nextButton').style.display = selectedCount === 3 ? 'block' : 'none';
+      const filteredLetters = selectedLetters.filter(letter => typeof letter === 'string');
+      document.getElementById('nextButton').style.display = filteredLetters.length === 3 ? 'block' : 'none';
     }
 
 
