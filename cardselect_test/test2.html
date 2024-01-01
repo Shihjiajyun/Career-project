@@ -7,8 +7,8 @@
   <meta name="viewport" content2="width=device-width, initial-scale=1.0">
   <!-- Add your stylesheets or other head elements here -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="first-conclusion.css">
-  <title>Second Page</title>
+  <link rel="stylesheet" href="/first-conclusion.css">
+  <title>test2</title>
 </head>
 
 <body>
@@ -20,11 +20,11 @@
   <div id="designedCareers" class="container">
     <div class="row d-flex flex-wrap">
       <div class="col-lg-4 col-md-6 col-sm-12 mb-3" id="hide">
-        <div class="card" data-letter="A,I">
+        <div class="card" data-letter="A,S">
           <div class="content2">
             <h2 class="title">多媒體設計師</h2>
             <p style="margin-top: 2px; margin-bottom: 0px;">利用電腦、影片等多媒體素材、創作動畫、電影、特效、廣告等。</p>
-            <P class="number" style="font-size: small">A、I</P>
+            <P class="number" style="font-size: small">A、S</P>
           </div>
         </div>
       </div>
@@ -428,9 +428,10 @@
   <a href="second-choose.html"><button class="nextButton">進行第二項測驗</button></a>
 
   <script>
+
     const selectedCareersString = localStorage.getItem('selectedLetters');
     const selectedCareersArray = selectedCareersString ? JSON.parse(selectedCareersString) : [];
-
+    const combinations = getCombinations(selectedCareersArray);
     function updateSelectedLetters() {
       const selectDiv = document.querySelector('.select');
       const h2Element = selectDiv.querySelector('h2');
@@ -441,6 +442,29 @@
       const h2Element = selectDiv.querySelector('h2');
       h2Element.textContent = `請回到上一頁面重新選擇卡片`;
     }
+    function getCombinations(letters) {
+      const results = [];
+
+      function generateCombinations(current, remaining) {
+        if (current.length === 2 || current.length === 3) {
+          results.push(current.slice());
+        }
+        for (let i = 0; i < remaining.length; i++) {
+          current.push(remaining[i]);
+          generateCombinations(current, remaining.slice(i + 1));
+          current.pop();
+        }
+      }
+      generateCombinations([], letters);
+      return results;
+    }
+    function areArraysEqual(arr1, arr2) {
+      const str1 = JSON.stringify(arr1);
+      const str2 = JSON.stringify(arr2);
+      return str1 === str2;
+    }
+    // console.log(selectedCareersArray);
+    // console.log("所有排列組合：", combinations);
 
     if (selectedCareersArray.length === 3) {
       updateSelectedLetters();
@@ -449,9 +473,23 @@
         if (cardDiv) {
           const cardLetters = cardDiv.getAttribute('data-letter').split(',');
           const intersection = cardLetters.filter(letter => selectedCareersArray.includes(letter));
+          // console.log(cardLetters);
           if (intersection.length >= 2) {
-            cardDiv.closest('.col-lg-4.col-md-6.col-sm-12.mb-3').classList.remove('d-none');
-          } else {
+            for (let i = 0; i < 4; i++) {
+              const currentCombination = combinations[i];
+              const arraysEqual = areArraysEqual(currentCombination, cardLetters);
+              console.log(cardLetters);
+              console.log(currentCombination);
+              console.log(arraysEqual);
+              cardDiv.closest('.col-lg-4.col-md-6.col-sm-12.mb-3').classList.remove('d-none');
+              if (arraysEqual) {
+                cardDiv.closest('.col-lg-4.col-md-6.col-sm-12.mb-3').classList.add('red');
+              } else {
+                cardDiv.closest('.col-lg-4.col-md-6.col-sm-12.mb-3').classList.add('blue');
+              }
+            }
+          }
+          else {
             cardDiv.closest('.col-lg-4.col-md-6.col-sm-12.mb-3').classList.add('d-none');
           }
         }
@@ -463,6 +501,14 @@
       });
       updateSelectedLetters2();
     }
+
+
+
+
+
+
+
+
   </script>
 </body>
 
