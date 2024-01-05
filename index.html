@@ -16,7 +16,7 @@
     <h2 style="text-align: center;">您所選擇的字母是：</h2>
   </div>
   <div class="cards">
-    <div class="card" data-letter="S">
+    <div class="card" id="cardS1" data-letter="S">
       <div class="card__image-holder">
         <img class="card__image" src="helper.png" height="200px" />
       </div>
@@ -58,7 +58,7 @@
       </div>
     </div>
 
-    <div class="card" data-letter="E">
+    <div class="card" id="cardE1" data-letter="E">
       <div class="card__image-holder">
         <img class="card__image" src="influence.png" height="200px" />
       </div>
@@ -103,7 +103,7 @@
       </div>
     </div>
 
-    <div class="card" data-letter="R">
+    <div class="card" id="cardR1" data-letter="R">
       <div class="card__image-holder">
         <img class="card__image" src="practitioner.png" height="200px" />
       </div>
@@ -147,7 +147,7 @@
       </div>
     </div>
 
-    <div class="card" data-letter="I">
+    <div class="card" id="cardI1" data-letter="I">
       <div class="card__image-holder">
         <img class="card__image" src="thinker.png" height="200px" />
       </div>
@@ -194,7 +194,7 @@
       </div>
     </div>
 
-    <div class="card" data-letter="A">
+    <div class="card" id="cardA1" data-letter="A">
       <div class="card__image-holder">
         <img class="card__image" src="website-creator.png" height="200px" />
       </div>
@@ -242,7 +242,7 @@
       </div>
     </div>
 
-    <div class="card" data-letter="C">
+    <div class="card" id="cardC1" data-letter="C">
       <div class="card__image-holder">
         <img class="card__image" src="organizer.png" height="200px" />
       </div>
@@ -301,6 +301,10 @@
       updateSelectedLetters();
       updateNextButtonVisibility();
       saveSelectedLetters();
+      const container = document.getElementById(`card${letter}1`);
+      const checkmark = document.createElement('div');
+      checkmark.className = 'checkmark';
+      container.querySelector('.card-title').appendChild(checkmark);
     }
 
     function cancelSelection(cardId) {
@@ -315,6 +319,9 @@
       updateSelectedLetters();
       updateNextButtonVisibility();
       saveSelectedLetters();
+      const container = document.getElementById(`card${cardId}1`);
+      const checkmark = container.querySelector('.checkmark');
+      checkmark.remove();
     }
 
     // 儲存陣列在本地

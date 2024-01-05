@@ -272,7 +272,7 @@ footer {
 }
 
 .checkmark::before {
-  /* content: '\2713'; */
+  content: '\2713';
   color: white;
   font-size: 20px;
 }
