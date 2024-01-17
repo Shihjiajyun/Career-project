@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Card Selection</title>
-  <link rel="stylesheet" href="/card.css">
+  <link rel="stylesheet" href="../card.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
@@ -16,7 +16,7 @@
     <h2 style="text-align: center;">您所選擇的字母是：</h2>
   </div>
   <div class="cards">
-    <div class="card" data-letter="S">
+    <div class="card" data-letter="S" id="S1">
       <div class="card__image-holder">
         <img class="card__image" src="helper.png" height="200px" />
       </div>
@@ -58,7 +58,7 @@
       </div>
     </div>
 
-    <div class="card" data-letter="E">
+    <div class="card" data-letter="E" id="E1">
       <div class="card__image-holder">
         <img class="card__image" src="influence.png" height="200px" />
       </div>
@@ -103,7 +103,7 @@
       </div>
     </div>
 
-    <div class="card" data-letter="R">
+    <div class="card" data-letter="R" id="R1">
       <div class="card__image-holder">
         <img class="card__image" src="practitioner.png" height="200px" />
       </div>
@@ -147,7 +147,7 @@
       </div>
     </div>
 
-    <div class="card" data-letter="I">
+    <div class="card" data-letter="I" id="I1">
       <div class="card__image-holder">
         <img class="card__image" src="thinker.png" height="200px" />
       </div>
@@ -194,7 +194,7 @@
       </div>
     </div>
 
-    <div class="card" data-letter="A">
+    <div class="card" data-letter="A" id="A1">
       <div class="card__image-holder">
         <img class="card__image" src="website-creator.png" height="200px" />
       </div>
@@ -242,7 +242,7 @@
       </div>
     </div>
 
-    <div class="card" data-letter="C">
+    <div class="card" data-letter="C" id="C1">
       <div class="card__image-holder">
         <img class="card__image" src="organizer.png" height="200px" />
       </div>
@@ -292,21 +292,22 @@
 
     function storeLetter(letter, position) {
       selectedLetters[position] = letter;
-      console.log(`Letter ${letter} stored at position ${position}`);
-      console.log(selectedLetters);
+      // console.log(`Letter ${letter} stored at position ${position}`);
+      // console.log(selectedLetters);
       checkLetter();
       checkAndUpdateButtons();
       checkCard();
       updateSelectedLetters();
       updateNextButtonVisibility();
       saveSelectedLetters();
+      checkmark();
     }
 
     function cancelSelection(cardId) {
       const cardIndex = selectedLetters.indexOf(cardId);
       console.log(cardIndex)
       selectedLetters[cardIndex] = null;
-      console.log(`Card ${cardId} selection canceled`);
+      // console.log(`Card ${cardId} selection canceled`);
       checkLetter();
       checkAndUpdateButtons();
       checkCard();
@@ -314,6 +315,7 @@
       updateSelectedLetters();
       updateNextButtonVisibility();
       saveSelectedLetters();
+      checkmark();
     }
 
     // 儲存陣列在本地
@@ -347,6 +349,34 @@
         }
       }
     }
+
+
+    // 檢查是否增加checkmark
+    function checkmark() {
+      const letters = ['S', 'E', 'R', 'I', 'A', 'C'];
+      for (let i = 0; i < letters.length; i++) {
+        const letter = letters[i];
+        const container = document.getElementById(`${letter}1`);
+
+        // 先檢查 .card-title 中是否已經有 checkmark
+        const existingCheckmark = container.querySelector('.card-title .checkmark');
+
+        if (selectedLetters.includes(letter)) {
+          // 如果 selectedLetters 包含該字母且還未有 checkmark，則添加 checkmark
+          if (!existingCheckmark) {
+            const checkmark = document.createElement('div');
+            checkmark.className = 'checkmark';
+            container.querySelector('.card-title').appendChild(checkmark);
+          }
+        } else {
+          // 如果 selectedLetters 不包含該字母且已經有 checkmark，則移除 checkmark
+          if (existingCheckmark) {
+            existingCheckmark.remove();
+          }
+        }
+      }
+    }
+
 
 
 

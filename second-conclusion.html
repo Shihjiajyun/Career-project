@@ -5,70 +5,18 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="second-conclusion.css">
+  <link rel="stylesheet" href="css/second-conclusion.css">
+  <link rel="stylesheet" href="css/all.css">
   <title>Selected card2s</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <style>
-    .card2 p {
-      width: 110%;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    li::before {
-      content: '\2022';
-      color: #9ab5b8;
-      font-size: 1.2em;
-      margin-right: 5px;
-    }
-
-    .content {
-      height: 100%;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-
-    .content h2,
-    p,
-    ul {
-      margin-bottom: 0px;
-    }
-
-    .nextButton {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      padding: 10px;
-      background-color: #3498db;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 20px;
-    }
-
-    .card2 li {
-      margin-top: 0px;
-    }
-
-    .copy {
-      font-size: medium;
-    }
-  </style>
 </head>
 
-<body>
-  <h1>Selected card2s</h1>
+<body style="margin: 20px;">
+  <h1><span style="font-family:PMingLiU;">選擇職業結果</span></h1>
   <!-- Display selected card2s -->
-  <div id="selectedcard2"></div>
+  <h3 id="selectedcard2"><span style="font-family:PMingLiU;"></span></h3>
 
-  <h1>對應職業:
+  <h1><span style="font-family:PMingLiU;">對應職業:</span>
   </h1>
   <div id="designedcard2s">
     <div class="page-content">
@@ -545,7 +493,7 @@
       </div>
     </div>
   </div>
-  <a href="conclusion.html"><button class="nextButton">最終比對</button></a>
+  <a href="conclusion.html"><button class="nextButton"><span style="font-family:PMingLiU;">最終比對</span></button></a>
   <!-- 第二个页面的部分 -->
   <script>
     // JavaScript to display selected card2s
@@ -556,7 +504,7 @@
     const selectedcard2Array = selectedcard2String ? JSON.parse(selectedcard2String) : [];
 
     if (selectedcard2Array.length > 1) {
-      selectedcard2Element.textContent = 'Selected card2s: ' + selectedcard2Array.join(', ');
+      selectedcard2Element.textContent = '您所選擇的職業編號為：' + selectedcard2Array.join(', ');
 
       // Display designed card2s only if there are two or more selected card2s
       const designedcard2sElement = document.getElementById('designedcard2s');

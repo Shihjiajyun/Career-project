@@ -112,3 +112,11 @@
 .blue {
   background-color: blue;
 }
+
+.hide {
+  display: none;
+}
+
+.block {
+  display: block;
+}
