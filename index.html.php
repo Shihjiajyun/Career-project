@@ -1,3 +1,17 @@
+<?php
+//載入 db.php 檔案，讓我們可以透過它連接資料庫，另外後台都會用 session 判別暫存資料，所以要請求 db.php 因為該檔案最上方有啟動session_start()。
+require_once 'php/db.php';
+//print_r($_SESSION); //查看目前session內容
+
+//如過沒有 $_SESSION['is_login'] 這個值，或者 $_SESSION['is_login'] 為 false 都代表沒登入
+if(!isset($_SESSION['is_login']) || !$_SESSION['is_login'])
+{
+	//直接轉跳到 login.php
+	header("Location: login.php");
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,9 +22,13 @@
   <link rel="stylesheet" href="css/card.css">
   <link rel="stylesheet" href="css/all.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- 引入 Bootstrap CSS -->
 </head>
 
 <body>
+  <ul class="nav-pills" style="position: absolute;top: 20px;right: 100px;">
+    <li role="presentation" style="list-style:none;" ><a href="php/logout.php" style="text-decoration: none;color: rgb(0, 0, 0);font-size:25px;"><span >登出</span></a></li>
+  </ul>
 
   <div class="select">
     <h1 style="text-align: center;">請選擇三個字母，並且按照志願排序</h1>

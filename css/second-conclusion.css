@@ -90,9 +90,11 @@
   z-index: 1;
 }
 
-.content>*+* {
-  margin-top: 1rem;
+.content ul {
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
+
 
 .title {
   font-size: 1.3rem;
