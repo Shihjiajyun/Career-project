@@ -1,12 +1,14 @@
-.card2-container {
+.card3-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   max-width: 1273px;
   margin: 20px auto;
+  flex-direction: row;
+  justify-content: center;
 }
 
-.card2 {
+.card3 {
   width: 300px;
   height: 400px;
   background-color: rgb(155, 37, 5);
@@ -17,39 +19,38 @@
   align-items: center;
   justify-content: center;
   border-radius: 15px;
+  /* display: flex; */
 }
 
-.card2>.in {
+.card3>.in {
   width: 90%;
   height: 90%;
   /* background-color: #fff; */
   border: 1.5px solid rgb(178, 178, 178);
   border-radius: 15px;
   position: relative;
+  margin-left: 5%;
+  margin-top: 5%;
 }
 
-.card2 .in p,
+.card3 .in p,
 h1,
 h3 {
   color: rgb(207, 207, 207);
   text-align: center;
 }
 
-.card2 h1 {
+.card3 h1 {
   margin-top: 20px;
   margin-bottom: 30px;
 }
 
-.card2 p {
+.card3 p {
   margin-top: 7px;
   margin-bottom: 7px;
   letter-spacing: 2.5px
 }
 
-.card2.selected {
-  filter: brightness(1.7);
-  /* 選擇後色調變亮 */
-}
 
 #nextButton {
   position: fixed;
@@ -63,4 +64,48 @@ h3 {
   cursor: pointer;
   display: none;
   font-size: 20px;
+}
+
+.nextButton {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: none;
+  font-size: 20px;
+}
+
+#card3Container2 {
+  word-wrap: break-word;
+}
+
+.selected {
+  filter: brightness(1.2);
+}
+
+.lastButton {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  padding: 10px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.card3-back {
+  width: 300px;
+  height: 400px;
+  background-color: rgb(155, 37, 5);
+  margin: 10px;
+  display: flex;
+  border-radius: 15px;
 }

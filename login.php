@@ -58,7 +58,7 @@ if(isset($_SESSION['is_login']) && $_SESSION['is_login'])
         </div>
       </div>
     </div>
-    
+
     <!-- 在表單送出前，檢查確認密碼是否輸入一樣 -->
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script>
@@ -79,9 +79,19 @@ if(isset($_SESSION['is_login']) && $_SESSION['is_login'])
             //成功的時候
             console.log(data);
             if(data == "yes")
-            {
+            {              
               //註冊新增成功，轉跳到登入頁面。
-              window.location.href = "index.html.php"; //因為目前的 login.php 跟後端的 index.php 首頁在同一資料夾，所以直接叫他就好
+              window.location.href = "index.html.php"; 
+              console.log(data);
+              var un = $("#username").val();
+              $.ajax({
+                type: "POST",
+                url: "php/store_username.php", 
+                data: {un: un},
+                success: function(response) {
+                  console.log(response); 
+                }
+              });
             }
             else
             {
@@ -98,5 +108,7 @@ if(isset($_SESSION['is_login']) && $_SESSION['is_login'])
 				});
       });
     </script>
+
+   
   </body>
 </html>

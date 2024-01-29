@@ -1,16 +1,57 @@
 <?php
-//載入 db.php 檔案，讓我們可以透過它連接資料庫，另外後台都會用 session 判別暫存資料，所以要請求 db.php 因為該檔案最上方有啟動session_start()。
 require_once 'php/db.php';
-//print_r($_SESSION); //查看目前session內容
+require_once 'php/function.php';
+@session_start();
 
-//如過沒有 $_SESSION['is_login'] 這個值，或者 $_SESSION['is_login'] 為 false 都代表沒登入
 if(!isset($_SESSION['is_login']) || !$_SESSION['is_login'])
 {
-	//直接轉跳到 login.php
 	header("Location: login.php");
 }
-?>
 
+$user_name = $_SESSION['username'];
+
+if ($user_name) {
+  echo "歡迎回來， $user_name";
+} else {}
+
+$host = 'localhost';
+$dbuser = 'root';
+$dbpw = '20031208';
+$dbname = 'career';
+
+// 連接到資料庫
+$conn = new mysqli($host, $dbuser, $dbpw, $dbname);
+
+// 檢查連接
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+
+// 使用 prepared statements 避免 SQL 注入
+$sql = "SELECT user_id FROM user WHERE username = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $user_name); // "s" 表示字串，這裡是用戶名
+
+// 執行 SQL 查詢
+$stmt->execute();
+$result = $stmt->get_result();
+
+// 檢查查詢結果
+if ($result->num_rows > 0) {
+  // 獲取用戶信息
+  $row = $result->fetch_assoc();
+  $_SESSION['user_id'] = $row['user_id'];
+  $user_id = $_SESSION['user_id'];
+} else {
+  // 如果找不到用戶名，你可能需要採取相應的處理方式
+  echo "找不到用戶名";
+}
+
+$user_choices = get_user_choices($user_id);
+// print_r($user_choices[0]);
+// print_r($user_choices[1]);
+// print_r($user_choices[2]);
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +63,6 @@ if(!isset($_SESSION['is_login']) || !$_SESSION['is_login'])
   <link rel="stylesheet" href="css/card.css">
   <link rel="stylesheet" href="css/all.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <!-- 引入 Bootstrap CSS -->
 </head>
 
 <body>
@@ -304,11 +344,40 @@ if(!isset($_SESSION['is_login']) || !$_SESSION['is_login'])
     </div>
   </div>
 
-  <a href="first-conclusion.html"><button id="nextButton" onclick="showSelectedCards()"
-      style="z-index: 100;">查看分析結果</button></a>
+  <a href="first-conclusion.html.php" id="nextButton" onclick="showSelectedCards()"
+      style="z-index: 100;">查看分析結果</button>
 
   <script>
-    const selectedLetters = [null, null, null];
+let selectedLetters = [null, null, null];
+console.log(<?php echo json_encode($user_choices); ?>);
+
+if (!<?php echo json_encode(empty($user_choices)); ?>) {
+    selectedLetters[0] = <?php echo isset($user_choices[0]) ? json_encode($user_choices[0]) : 'null'; ?>;
+    selectedLetters[1] = <?php echo isset($user_choices[1]) ? json_encode($user_choices[1]) : 'null'; ?>;
+    selectedLetters[2] = <?php echo isset($user_choices[2]) ? json_encode($user_choices[2]) : 'null'; ?>;
+    console.log(selectedLetters);
+    // console.log('456');
+    checkLetter();
+    checkAndUpdateButtons();
+    checkCard();
+    updateSelectedLetters();
+    updateNextButtonVisibility();
+    saveSelectedLetters();
+    checkmark();
+} else {
+    selectedLetters = [null, null, null];
+    console.log(selectedLetters);
+    // console.log('123');
+}
+
+
+
+
+
+
+    function showSelectedCards() {
+    saveSelectedLetters();
+    }
 
     function storeLetter(letter, position) {
       selectedLetters[position] = letter;
@@ -342,6 +411,8 @@ if(!isset($_SESSION['is_login']) || !$_SESSION['is_login'])
     function saveSelectedLetters() {
       localStorage.setItem('selectedLetters', JSON.stringify(selectedLetters));
     }
+
+// 將資料存到資料庫中
 
     // 把選擇結果列印出來
     function updateSelectedLetters() {
@@ -451,7 +522,7 @@ if(!isset($_SESSION['is_login']) || !$_SESSION['is_login'])
 
 
     function updateNextButtonVisibility() {
-      const filteredLetters = selectedLetters.filter(letter => typeof letter === 'string');
+      let filteredLetters = selectedLetters.filter(letter => typeof letter === 'string');
       document.getElementById('nextButton').style.display = filteredLetters.length === 3 ? 'block' : 'none';
     }
 
@@ -500,6 +571,42 @@ if(!isset($_SESSION['is_login']) || !$_SESSION['is_login'])
 
       });
     });
+  </script>
+  <script>
+    $("#nextButton").on("click", function(event){
+      console.log('123')
+    // 使用 ajax 送出
+    $.ajax({
+        type: "POST",
+        url: "php/add_SelectedLetters.php",
+        data: {
+          user_id: <?php echo json_encode($user_id); ?>,
+          un: <?php echo json_encode($user_name); ?>,
+          l1: selectedLetters[0],
+          l2: selectedLetters[1],
+          l3: selectedLetters[2],
+},
+
+        dataType: 'html' // 設定該網頁回應的會是 html 格式
+    }).done(function(data) {
+        // 成功的時候
+        console.log(data);
+        if(data == "yes") {
+            // alert("加入成功");
+            // 新增成功，轉跳到結果頁面。
+            // window.location.href="login.php";
+        } else {
+            alert("加入失敗，請與系統人員聯繫");
+        }
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+        // 失敗的時候
+        // alert("有錯誤產生，請看 console log");
+        console.log(jqXHR.responseText);
+    });
+  });
+
+    
+
   </script>
   <footer></footer>
 </body>

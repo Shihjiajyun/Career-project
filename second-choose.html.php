@@ -1,26 +1,82 @@
+<?php
+require_once 'php/db.php';
+require_once 'php/function.php';
+@session_start();
+
+if(!isset($_SESSION['is_login']) || !$_SESSION['is_login'])
+{
+	header("Location: login.php");
+}
+
+$user_name = $_SESSION['username'];
+
+if ($user_name) {
+  echo "歡迎回來， $user_name";
+} else {}
+
+
+
+$host = 'localhost';
+$dbuser = 'root';
+$dbpw = '20031208';
+$dbname = 'career';
+
+// 連接到資料庫
+$conn = new mysqli($host, $dbuser, $dbpw, $dbname);
+
+
+// 檢查連接
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+
+// 使用 prepared statements 避免 SQL 注入
+$sql = "SELECT user_id FROM user WHERE username = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $user_name); // "s" 表示字串，這裡是用戶名
+
+// 執行 SQL 查詢
+$stmt->execute();
+$result = $stmt->get_result();
+
+// 檢查查詢結果
+if ($result->num_rows > 0) {
+  // 獲取用戶信息
+  $row = $result->fetch_assoc();
+  $_SESSION['user_id'] = $row['user_id'];
+  $user_id = $_SESSION['user_id'];
+} else {
+  // 如果找不到用戶名，你可能需要採取相應的處理方式
+  echo "找不到用戶名";
+}
+
+$user_choices2 = get_user_choices2($user_id);
+// print_r($user_choices2[0]);
+// print_r($user_choices2[1]);
+// print_r($user_choices2[2]);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/second-conclusion.css">
+  <title>卡片測試
+  </title>
   <link rel="stylesheet" href="css/all.css">
-  <title>Selected card2s</title>
+  <link rel="stylesheet" href="css/second-choose.css">
+  <link rel="stylesheet" href="css/second-conclusion.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 </head>
 
-<body style="margin: 20px;">
-  <h1><span style="font-family:PMingLiU;">選擇職業結果</span></h1>
-  <!-- Display selected card2s -->
-  <h3 id="selectedcard2"><span style="font-family:PMingLiU;"></span></h3>
-
-  <h1><span style="font-family:PMingLiU;">對應職業:</span>
-  </h1>
+<body>
+  <h1 style="color: black;">請選擇一項，您覺得您可以勝任的職業</h1>
   <div id="designedcard2s">
     <div class="page-content">
-      <div class="card2" data-numbers="3,12,15">
+      <div class="card2" onclick="toggleSelection(this,1)" data-numbers="3,12,15">
         <div class="content">
           <h2 class="title">企劃</h2>
           <p style="margin-top: 2px;margin-bottom: 0px;">行銷</p>
@@ -35,7 +91,7 @@
         </div>
       </div>
 
-      <div class="card2" data-numbers="4,7,9">
+      <div class="card2" onclick="toggleSelection(this,1)" data-numbers="4,7,9">
         <div class="content">
           <h2 class="title">數位行銷</h2>
           <p style="margin-top: 2px;margin-bottom: 0px;">行銷</p>
@@ -50,7 +106,7 @@
         </div>
       </div>
 
-      <div class="card2" data-numbers="18,21,23">
+      <div class="card2" onclick="toggleSelection(this,1)" data-numbers="18,21,23">
         <div class="content">
           <h2 class="title">多元共榮</h2>
           <p style="margin-top: 2px;margin-bottom: 0px;"></p>
@@ -65,7 +121,7 @@
         </div>
       </div>
 
-      <div class="card2" data-numbers="1,2,12">
+      <div class="card2" onclick="toggleSelection(this,1)" data-numbers="1,2,12">
         <div class="content">
           <h2 class="title">產品經理</h2>
           <p style="margin-top: 2px;margin-bottom: 0px;">行銷</p>
@@ -80,7 +136,7 @@
         </div>
       </div>
 
-      <div class="card2" data-numbers="2,8,26">
+      <div class="card2" onclick="toggleSelection(this,1)" data-numbers="2,8,26">
         <div class="content">
           <h2 class="title">客戶經理</h2>
           <p style="margin-top: 2px;margin-bottom: 0px;">業務</p>
@@ -95,7 +151,7 @@
         </div>
       </div>
 
-      <div class="card2" data-numbers="8,10,24">
+      <div class="card2" onclick="toggleSelection(this,1)" data-numbers="8,10,24">
         <div class="content">
           <h2 class="title">工程師</h2>
           <p style="margin-top: 2px;margin-bottom: 0px;">工程</p>
@@ -110,7 +166,7 @@
         </div>
       </div>
 
-      <div class="card2" data-numbers="8,24,26">
+      <div class="card2" onclick="toggleSelection(this,1)" data-numbers="8,24,26">
         <div class="content">
           <h2 class="title">通路業務</h2>
           <p style="margin-top: 2px;margin-bottom: 0px;">業務</p>
@@ -125,7 +181,7 @@
         </div>
       </div>
 
-      <div class="card2" data-numbers="6,11,24">
+      <div class="card2" onclick="toggleSelection(this,1)" data-numbers="6,11,24">
         <div class="content">
           <h2 class="title">顧問</h2>
           <p style="margin-top: 2px;margin-bottom: 0px;"></p>
@@ -140,7 +196,7 @@
         </div>
       </div>
 
-      <div class="card2" data-numbers="10,17,18">
+      <div class="card2" onclick="toggleSelection(this,1)" data-numbers="10,17,18">
         <div class="content">
           <h2 class="title">客戶關係</h2>
           <p style="margin-top: 2px;margin-bottom: 0px;">業務</p>
@@ -156,7 +212,7 @@
         </div>
       </div>
 
-      <div class="card2" data-numbers="3,6,15">
+      <div class="card2" onclick="toggleSelection(this,1)" data-numbers="3,6,15">
         <div class="content">
           <h2 class="title">物流</h2>
           <p style="margin-top: 2px;margin-bottom: 0px;">SCM</p>
@@ -171,7 +227,7 @@
         </div>
       </div>
 
-      <div class="card2" data-numbers="3,9,10">
+      <div class="card2" onclick="toggleSelection(this,1)" data-numbers="3,9,10">
         <div class="content">
           <h2 class="title">使用者介面/體驗設計師</h2>
           <p style="margin-top: 2px;margin-bottom: 0px;">UI/UX</p>
@@ -187,7 +243,7 @@
         </div>
       </div>
 
-      <div class="card2" data-numbers="7,10,15">
+      <div class="card2" onclick="toggleSelection(this,1)" data-numbers="7,10,15">
         <div class="content">
           <h2 class="title">法遵/法務</h2>
           <p style="margin-top: 2px;margin-bottom: 0px;">法務</p>
@@ -203,7 +259,7 @@
         </div>
       </div>
 
-      <div class="card2" data-numbers="6,22,24">
+      <div class="card2" onclick="toggleSelection(this,1)" data-numbers="6,22,24">
         <div class="content">
           <h2 class="title">通路行銷</h2>
           <p style="margin-top: 2px;margin-bottom: 0px;">行銷</p>
@@ -219,7 +275,7 @@
         </div>
       </div>
 
-      <div class="card2" data-numbers="3,6,15">
+      <div class="card2" onclick="toggleSelection(this,1)" data-numbers="3,6,15">
         <div class="content">
           <h2 class="title">採購</h2>
           <p style="margin-top: 2px;margin-bottom: 0px;">SCM</p>
@@ -235,7 +291,7 @@
         </div>
       </div>
 
-      <div class="card2" data-numbers="3,10,24">
+      <div class="card2" onclick="toggleSelection(this,1)" data-numbers="3,10,24">
         <div class="content">
           <h2 class="title">售前規劃顧問</h2>
           <p style="margin-top: 2px;margin-bottom: 0px;">業務</p>
@@ -252,7 +308,7 @@
         </div>
       </div>
 
-      <div class="card2" data-numbers="11,16,24">
+      <div class="card2" onclick="toggleSelection(this,1)" data-numbers="11,16,24">
         <div class="content">
           <h2 class="title">商務開發</h2>
           <p style="margin-top: 2px;margin-bottom: 0px;">業務</p>
@@ -268,7 +324,7 @@
         </div>
       </div>
 
-      <div class="card2" data-numbers="3,22,23">
+      <div class="card2" onclick="toggleSelection(this,1)" data-numbers="3,22,23">
         <div class="content">
           <h2 class="title">教育訓練</h2>
           <p style="margin-top: 2px;margin-bottom: 0px;">HR</p>
@@ -284,7 +340,7 @@
         </div>
       </div>
 
-      <div class="card2" data-numbers="5,11,21">
+      <div class="card2" onclick="toggleSelection(this,1)" data-numbers="5,11,21">
         <div class="content">
           <h2 class="title">人才策略夥伴</h2>
           <p style="margin-top: 2px;margin-bottom: 0px;">HR</p>
@@ -300,7 +356,7 @@
         </div>
       </div>
 
-      <div class="card2" data-numbers="2,14,15">
+      <div class="card2" onclick="toggleSelection(this,1)" data-numbers="2,14,15">
         <div class="content">
           <h2 class="title">審計</h2>
           <p style="margin-top: 2px;margin-bottom: 0px;">財務會計</p>
@@ -317,7 +373,7 @@
         </div>
       </div>
 
-      <div class="card2" data-numbers="4,14,15">
+      <div class="card2" onclick="toggleSelection(this,1)" data-numbers="4,14,15">
         <div class="content">
           <h2 class="title">薪酬管理</h2>
           <p style="margin-top: 2px;margin-bottom: 0px;">HR</p>
@@ -333,7 +389,7 @@
         </div>
       </div>
 
-      <div class="card2" data-numbers="4,19,20">
+      <div class="card2" onclick="toggleSelection(this,1)" data-numbers="4,19,20">
         <div class="content">
           <h2 class="title">客戶服務</h2>
           <p style="margin-top: 2px;margin-bottom: 0px;"></p>
@@ -349,7 +405,7 @@
         </div>
       </div>
 
-      <div class="card2" data-numbers="6,15,20">
+      <div class="card2" onclick="toggleSelection(this,1)" data-numbers="6,15,20">
         <div class="content">
           <h2 class="title">秘書</h2>
           <p style="margin-top: 2px;margin-bottom: 0px;"></p>
@@ -365,7 +421,7 @@
         </div>
       </div>
 
-      <div class="card2" data-numbers="5,18,25">
+      <div class="card2" onclick="toggleSelection(this,1)" data-numbers="5,18,25">
         <div class="content">
           <h2 class="title">招募</h2>
           <p style="margin-top: 2px;margin-bottom: 0px;">HR</p>
@@ -381,7 +437,7 @@
         </div>
       </div>
 
-      <div class="card2" data-numbers="4,18,19">
+      <div class="card2" onclick="toggleSelection(this,1)" data-numbers="4,18,19">
         <div class="content">
           <h2 class="title">員工關係</h2>
           <p style="margin-top: 2px;margin-bottom: 0px;">HR</p>
@@ -397,7 +453,7 @@
         </div>
       </div>
 
-      <div class="card2" data-numbers="9,13,25">
+      <div class="card2" onclick="toggleSelection(this,1)" data-numbers="9,13,25">
         <div class="content">
           <h2 class="title">社群編輯</h2>
           <p style="margin-top: 2px;margin-bottom: 0px;">行銷</p>
@@ -413,7 +469,7 @@
         </div>
       </div>
 
-      <div class="card2" data-numbers="6,11,16">
+      <div class="card2" onclick="toggleSelection(this,1)" data-numbers="6,11,16">
         <div class="content">
           <h2 class="title">品牌經理</h2>
           <p style="margin-top: 2px;margin-bottom: 0px;">行銷</p>
@@ -429,7 +485,7 @@
         </div>
       </div>
 
-      <div class="card2" data-numbers="5,8,12">
+      <div class="card2" onclick="toggleSelection(this,1)" data-numbers="5,8,12">
         <div class="content">
           <h2 class="title">特助</h2>
           <p style="margin-top: 2px;margin-bottom: 0px;"></p>
@@ -445,7 +501,7 @@
         </div>
       </div>
 
-      <div class="card2" data-numbers="4,11,15">
+      <div class="card2" onclick="toggleSelection(this,1)" data-numbers="4,11,15">
         <div class="content">
           <h2 class="title">財務</h2>
           <p style="margin-top: 2px;margin-bottom: 0px;">財務會計</p>
@@ -460,7 +516,7 @@
         </div>
       </div>
 
-      <div class="card2" data-numbers="15,21,24">
+      <div class="card2" onclick="toggleSelection(this,1)" data-numbers="15,21,24">
         <div class="content">
           <h2 class="title">公關</h2>
           <p style="margin-top: 2px;margin-bottom: 0px;">行銷</p>
@@ -476,7 +532,7 @@
         </div>
       </div>
 
-      <div class="card2" data-numbers="2,4,15">
+      <div class="card2" onclick="toggleSelection(this)" data-numbers="2,4,15">
         <div class="content">
           <h2 class="title">會計</h2>
           <p style="margin-top: 2px;margin-bottom: 0px;">財務會計</p>
@@ -493,43 +549,101 @@
       </div>
     </div>
   </div>
-  <a href="conclusion.html"><button class="nextButton"><span style="font-family:PMingLiU;">最終比對</span></button></a>
-  <!-- 第二个页面的部分 -->
+
+  <a href="second-conclusion.html.php"><button id="nextButton" onclick="find()">查看分析結果</button></a>
+
+
   <script>
-    // JavaScript to display selected card2s
-    const selectedcard2Element = document.getElementById('selectedcard2');
-    const selectedcard2String = localStorage.getItem('selectedcard2');
+    window.onload = function () {
+      localStorage.removeItem('selectedcard2');
+    };
+    const selectedcard2 = [];
+    selectedcard2[0] = <?php echo json_encode($user_choices2[0]); ?>;
+    selectedcard2[1] = <?php echo json_encode($user_choices2[1]); ?>;
+    selectedcard2[2] = <?php echo json_encode($user_choices2[2]); ?>;
+console.log(selectedcard2);
 
-    // Parse the JSON string into an array of selected card2s
-    const selectedcard2Array = selectedcard2String ? JSON.parse(selectedcard2String) : [];
+var cards = document.querySelectorAll('.card2');
+var cardsArray = Array.from(cards);
+    cardsArray.forEach(function(card) {
+        var cardNumbers = card.getAttribute('data-numbers').split(',').map(Number);
+          if (arraysEqual(cardNumbers, selectedcard2)) {
+        card.classList.add('selected');
+      }
+    });
 
-    if (selectedcard2Array.length > 1) {
-      selectedcard2Element.textContent = '您所選擇的職業編號為：' + selectedcard2Array.join(', ');
+    function arraysEqual(arr1, arr2) {
+      if (arr1.length !== arr2.length) return false;
+        for (var i = 0; i < arr1.length; i++) {
+      if (arr1[i] !== arr2[i]) return false;
+      }return true;
+    }
+updateNextButtonVisibility()
 
-      // Display designed card2s only if there are two or more selected card2s
-      const designedcard2sElement = document.getElementById('designedcard2s');
+    function toggleSelection(element) {
+      const container = element.closest('.card2');
+      container.classList.toggle('selected');
+      updateNextButtonVisibility();
+    }
 
-      designedcard2sElement.querySelectorAll('.card2').forEach(card2Div => {
-        // Get the numbers attribute and convert it to an array
-        const card2Numbers = card2Div.getAttribute('data-numbers').split(',').map(Number);
-
-        // Check if the card2's numbers include two or more selected numbers
-        const intersection = card2Numbers.filter(value => selectedcard2Array.includes(value));
-
-        if (intersection.length >= 2) {
-          card2Div.style.display = 'block'; // Show the card2
-        } else {
-          card2Div.style.display = 'none'; // Hide the card2
+    function find() {
+      const selectedContainers = document.querySelectorAll('.selected');
+      const selectedNumbersArray = [];
+      selectedContainers.forEach(container => {
+        const dataNumbers = container.getAttribute('data-numbers');
+        if (dataNumbers) {
+          const numbersArray = dataNumbers.split(',').map(Number);
+          selectedNumbersArray.push(...numbersArray);
         }
       });
-    } else {
-      // Fix here: Use designedcard2sElement instead of card2Div
-      designedcard2sElement.style.display = 'none'; // Hide the card2
-      selectedcard2Element.textContent = '適合您的職業較為廣泛!!';
+      localStorage.setItem('selectedcard2', JSON.stringify(selectedNumbersArray));
+      selectedcard2.length = 0;
+      selectedcard2.push(...selectedNumbersArray);
+
+      console.log(selectedcard2);
+    }
+
+
+
+    function updateNextButtonVisibility() {
+      const selectedCount = document.querySelectorAll('.selected').length;
+      const nextButton = document.getElementById('nextButton');
+      nextButton.style.display = selectedCount == 1 ? 'block' : 'none';
     }
   </script>
+  <script>
+    $("#nextButton").on("click", function (event) {
+      console.log('123')
+      // 使用 ajax 送出
+      $.ajax({
+        type: "POST",
+        url: "php/add_number.php",
+        data: {
+          user_id: <?php echo json_encode($user_id); ?>,
+          un: <?php echo json_encode($user_name); ?>,
+          n1: selectedcard2[0],
+          n2: selectedcard2[1],
+          n3: selectedcard2[2],
+      },
 
-
+        dataType: 'html' // 設定該網頁回應的會是 html 格式
+    }).done(function (data) {
+          // 成功的時候
+          console.log(data);
+          if (data == "yes") {
+            // alert("加入成功");
+            // 新增成功，轉跳到結果頁面。
+            // window.location.href="login.php";
+          } else {
+            alert("加入失敗，請與系統人員聯繫");
+          }
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+          // 失敗的時候
+          // alert("有錯誤產生，請看 console log");
+          console.log(jqXHR.responseText);
+        });
+  });
+  </script>
 </body>
 
 </html>

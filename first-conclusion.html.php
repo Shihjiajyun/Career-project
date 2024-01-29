@@ -1,3 +1,20 @@
+<?php
+require_once 'php/db.php';
+@session_start();
+
+if(!isset($_SESSION['is_login']) || !$_SESSION['is_login'])
+{
+	header("Location: login.php");
+}
+
+$user_name = $_SESSION['username'];
+
+if ($user_name) {
+  echo "歡迎您， $user_name";
+} else {}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -838,7 +855,7 @@
 
 
 
-  <a href="second-choose.html"><button class="nextButton">進行第二項測驗</button></a>
+  <a href="second-choose.html.php"><button class="nextButton">進行第二項測驗</button></a>
 
   <script>
 
