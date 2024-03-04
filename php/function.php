@@ -2,7 +2,7 @@
 //啟動 session ，這樣才能夠取用 $_SESSION['link'] 的連線，做為資料庫的連線用
 @session_start();
 
-$host = 'localhost';
+$host = '34.81.127.213';
 $dbuser = 'root';
 $dbpw = '20031208';
 $dbname = 'career';
@@ -53,7 +53,7 @@ function add_user($username, $password, $name)
 	//宣告要回傳的結果
   $result = null;
 	//先把密碼用md5加密
-	$password = md5($password);
+	// $password = md5($password);
   //將查詢語法當成字串，記錄在$sql變數中
   $sql = "INSERT INTO `user` (`username`, `password`, `name`) VALUE ('{$username}', '{$password}', '{$name}');";
 
@@ -152,7 +152,7 @@ function verify_user($username, $password)
   //宣告要回傳的結果
   $result = null;
   //先把密碼用md5加密
-  $password = md5($password);
+  // $password = md5($password);
   //將查詢語法當成字串，記錄在$sql變數中
   $sql = "SELECT * FROM `user` WHERE `username` = '{$username}' AND `password` = '{$password}'";
 
@@ -186,8 +186,9 @@ function verify_user($username, $password)
   return $result;
 }
 
+// 取得使用者第一個選擇結果
 function get_user_choices($user_id) {
-  $host = 'localhost';
+  $host = '34.81.127.213';
 $dbuser = 'root';
 $dbpw = '20031208';
 $dbname = 'career';
@@ -221,8 +222,9 @@ while ($row = $result->fetch_assoc()) {
   return $user_choices;
 }
 
+// 取得使用者第二個選擇結果
 function get_user_choices2($user_id) {
-  $host = 'localhost';
+  $host = '34.81.127.213';
 $dbuser = 'root';
 $dbpw = '20031208';
 $dbname = 'career';

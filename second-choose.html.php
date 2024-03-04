@@ -16,7 +16,7 @@ if ($user_name) {
 
 
 
-$host = 'localhost';
+$host = '34.81.127.213';
 $dbuser = 'root';
 $dbpw = '20031208';
 $dbname = 'career';
@@ -76,7 +76,7 @@ $user_choices2 = get_user_choices2($user_id);
   <h1 style="color: black;">請選擇一項，您覺得您可以勝任的職業</h1>
   <div id="designedcard2s">
     <div class="page-content">
-      <div class="card2" onclick="toggleSelection(this,1)" data-numbers="3,12,15">
+      <div class="card2" onclick="toggleSelection(this, 1)" data-numbers="3,12,15">
         <div class="content">
           <h2 class="title">企劃</h2>
           <p style="margin-top: 2px;margin-bottom: 0px;">行銷</p>
@@ -551,9 +551,25 @@ $user_choices2 = get_user_choices2($user_id);
   </div>
 
   <a href="second-conclusion.html.php"><button id="nextButton" onclick="find()">查看分析結果</button></a>
+<script>
+function toggleSelection(element, value) {
+      // element.classList.toggle('selected');
 
+      element.classList.toggle('selected');
+      updateNextButtonVisibility();
+    }
+    function updateNextButtonVisibility() {
+      const selectedCount = document.querySelectorAll('.selected').length;
+      const nextButton = document.getElementById('nextButton');
+      nextButton.style.display = selectedCount == 1 ? 'block' : 'none';
+      console.log(123);
+    }
+</script>
 
   <script>
+
+
+
     window.onload = function () {
       localStorage.removeItem('selectedcard2');
     };
@@ -578,14 +594,9 @@ var cardsArray = Array.from(cards);
       if (arr1[i] !== arr2[i]) return false;
       }return true;
     }
-updateNextButtonVisibility()
+    updateNextButtonVisibility()
 
-    function toggleSelection(element) {
-      const container = element.closest('.card2');
-      container.classList.toggle('selected');
-      updateNextButtonVisibility();
-    }
-
+    
     function find() {
       const selectedContainers = document.querySelectorAll('.selected');
       const selectedNumbersArray = [];
@@ -609,11 +620,12 @@ updateNextButtonVisibility()
       const selectedCount = document.querySelectorAll('.selected').length;
       const nextButton = document.getElementById('nextButton');
       nextButton.style.display = selectedCount == 1 ? 'block' : 'none';
+      console.log(123);
     }
   </script>
   <script>
     $("#nextButton").on("click", function (event) {
-      console.log('123')
+      // console.log('123')
       // 使用 ajax 送出
       $.ajax({
         type: "POST",

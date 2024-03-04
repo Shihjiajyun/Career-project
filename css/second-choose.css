@@ -109,3 +109,7 @@ h3 {
   display: flex;
   border-radius: 15px;
 }
+
+.card2 {
+  z-index: 100;
+}

@@ -14,7 +14,7 @@ if ($user_name) {
   echo "歡迎回來， $user_name";
 } else {}
 
-$host = 'localhost';
+$host = '34.81.127.213';
 $dbuser = 'root';
 $dbpw = '20031208';
 $dbname = 'career';

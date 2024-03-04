@@ -6,7 +6,7 @@ require_once 'php/db.php';
 if(isset($_SESSION['is_login']) && $_SESSION['is_login'])
 {
   //直接轉跳到 index.php 後端首頁
-  header("Location: index.html.php");
+  header("Location: index.php");
 }
 ?>
 <!DOCTYPE html>
@@ -81,7 +81,7 @@ if(isset($_SESSION['is_login']) && $_SESSION['is_login'])
             if(data == "yes")
             {              
               //註冊新增成功，轉跳到登入頁面。
-              window.location.href = "index.html.php"; 
+              window.location.href = "index.php"; 
               console.log(data);
               var un = $("#username").val();
               $.ajax({
