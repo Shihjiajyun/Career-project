@@ -68,6 +68,9 @@ if ($result->num_rows > 0) {
 </head>
 
 <body style="margin: 20px;">
+<ul class="nav-pills" style="position: absolute;top: 20px;right: 100px;">
+    <li role="presentation" style="list-style:none;" ><a href="php/logout.php" style="text-decoration: none;color: rgb(0, 0, 0);font-size:25px;"><span >登出</span></a></li>
+  </ul>
   <div class="select">
     <h2 style="text-align: center;">您所選擇的字母順序是：</h2>
   </div>

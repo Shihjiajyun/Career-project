@@ -73,6 +73,9 @@ $user_choices2 = get_user_choices2($user_id);
 </head>
 
 <body>
+  <ul class="nav-pills" style="position: absolute;top: 20px;right: 100px;">
+    <li role="presentation" style="list-style:none;" ><a href="php/logout.php" style="text-decoration: none;color: rgb(0, 0, 0);font-size:25px;"><span >登出</span></a></li>
+  </ul>
   <h1 style="color: black;">請選擇一項，您覺得您可以勝任的職業</h1>
   <div id="designedcard2s">
     <div class="page-content">

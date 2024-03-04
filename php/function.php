@@ -53,7 +53,7 @@ function add_user($username, $password, $name)
 	//宣告要回傳的結果
   $result = null;
 	//先把密碼用md5加密
-	// $password = md5($password);
+	$password = md5($password);
   //將查詢語法當成字串，記錄在$sql變數中
   $sql = "INSERT INTO `user` (`username`, `password`, `name`) VALUE ('{$username}', '{$password}', '{$name}');";
 
@@ -152,7 +152,7 @@ function verify_user($username, $password)
   //宣告要回傳的結果
   $result = null;
   //先把密碼用md5加密
-  // $password = md5($password);
+  $password = md5($password);
   //將查詢語法當成字串，記錄在$sql變數中
   $sql = "SELECT * FROM `user` WHERE `username` = '{$username}' AND `password` = '{$password}'";
 

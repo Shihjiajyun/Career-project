@@ -72,6 +72,9 @@ if ($result->num_rows > 0) {
 </style>
 
 <body style="margin: 20px;">
+<ul class="nav-pills" style="position: absolute;top: 20px;right: 100px;">
+    <li role="presentation" style="list-style-type:none;" ><a href="php/logout.php" style="text-decoration: none;color: rgb(0, 0, 0);font-size:25px;"><span >登出</span></a></li>
+  </ul>
   <h1 id="selectedcard3" style="color: #000;font-family:PMingLiU;"></h1>
 
   <h1><span style="color: #000;  font-family:PMingLiU;">職能面試問題:</span>

@@ -344,8 +344,8 @@ $user_choices = get_user_choices($user_id);
     </div>
   </div>
 
-  <a href="first-conclusion.html.php" id="nextButton" onclick="showSelectedCards()"
-      style="z-index: 100;">查看分析結果</button>
+
+  <a href="./first-conclusion.html.php"><button class="nextButton" id="nextButton" onclick="showSelectedCards()" style="z-index: 100;">查看分析結果</button></a>
 
   <script>
 let selectedLetters = [null, null, null];
@@ -376,7 +376,7 @@ if (!<?php echo json_encode(empty($user_choices)); ?>) {
 
 
     function showSelectedCards() {
-    saveSelectedLetters();
+      saveSelectedLetters();
     }
 
     function storeLetter(letter, position) {
