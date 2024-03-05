@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
   <head>
-    <title>作品網站-會員註冊</title>
+    <title>職涯卡牌網站</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <!-- 給行動裝置或平板顯示用，根據裝置寬度而定，初始放大比例 1 -->
@@ -22,7 +22,8 @@
         <div class="row">
           <!-- 在 xs 尺寸，佔12格，可參考 http://getbootstrap.com/css/#grid 說明-->
           <div class="col-xs-12 col-sm-4 col-sm-offset-4">
-            <form class="register"><!-- 沒有設定  method 跟 action 交給之後的 ajax 處理-->
+          <h1>註冊帳號</h1>  
+					<form class="register"><!-- 沒有設定  method 跟 action 交給之後的 ajax 處理-->
               <div class="form-group">
                 <label for="username">帳號</label>
                 <input type="text" class="form-control" id="username" name="username" placeholder="請輸入帳號" required>
