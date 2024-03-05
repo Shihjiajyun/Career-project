@@ -332,7 +332,6 @@ if(!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
             <div class="cancel">
               <button class="cancelButton" onclick="cancelSelection('A')" id="cancelBtnA">取消</button>
             </div>
-
           </div>
         </div>
       </div>
