@@ -18,7 +18,7 @@ if ($_SESSION['link'])
   //設定連線編碼為UTF-8
   //mysqli_query(資料庫連線, "語法內容") 為執行sql語法的函式
   mysqli_query($_SESSION['link'], "SET NAMES utf8");
-  // echo "已正確連線";
+  //echo "已正確連線";
 }
 else
 {

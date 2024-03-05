@@ -1,18 +1,6 @@
 <?php
 require_once 'php/db.php';
 @session_start();
-
-if(!isset($_SESSION['is_login']) || !$_SESSION['is_login'])
-{
-	header("Location: login.php");
-}
-
-$user_name = $_SESSION['username'];
-
-if ($user_name) {
-  echo "歡迎您， $user_name";
-} else {}
-
 ?>
 
 <!DOCTYPE html>
@@ -20,20 +8,61 @@ if ($user_name) {
 
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content2="IE=edge">
-  <meta name="viewport" content2="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Add your stylesheets or other head elements here -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/first-conclusion.css">
   <link rel="stylesheet" href="css/all.css">
-  <title>test2</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+  <title>職涯卡牌網站</title>
 </head>
 
 <body>
-<ul class="nav-pills" style="position: absolute;top: 20px;right: 100px;">
-    <li role="presentation" style="list-style:none;" ><a href="php/logout.php" style="text-decoration: none;color: rgb(0, 0, 0);font-size:25px;"><span >登出</span></a></li>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid d-flex align-items-center">
+    <p class="navbar-brand" style="font-size: 22px;">
+      <?php
+        require_once 'php/db.php';
+        require_once 'php/function.php';
+        @session_start();
+        if(!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
+          // header("Location: login.php");
+          echo "您目前尚未登入帳號";
+        }else{
+          $user_name = $_SESSION['username'];
+          echo "歡迎回來，$user_name";
+        }
+        
+      ?>
+    </p>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto list-unstyled justify-content-end" style="font-size: 22px;">
+        <?php if(isset($_SESSION['is_login']) && $_SESSION['is_login']) { ?>
+          <li class="nav-item">
+            <a class="nav-link" href="#"><span style="color: #C5CBD3;">登入</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./php/logout.php"><span style="color: black;">登出</span></a>
+          </li>
+        <?php } else { ?>
+          <li class="nav-item">
+            <a class="nav-link" href="login.php"><span style="color: black;">登入</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#"><span style="color: #C5CBD3;">登出</span></a>
+          </li>
+        <?php } ?>
   </ul>
-  <br>
+</div>
+
+  </div>
+</nav>
+
+
+
   <div class="select">
     <h2 style="text-align: center;">您所選擇的字母順序是：</h2>
   </div>
@@ -979,6 +1008,7 @@ if ($user_name) {
 
 
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 </body>
 
 </html>

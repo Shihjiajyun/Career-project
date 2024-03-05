@@ -1,57 +1,3 @@
-<?php
-require_once 'php/db.php';
-require_once 'php/function.php';
-@session_start();
-
-if(!isset($_SESSION['is_login']) || !$_SESSION['is_login'])
-{
-	header("Location: login.php");
-}
-
-$user_name = $_SESSION['username'];
-
-if ($user_name) {
-  echo "歡迎回來， $user_name";
-} else {}
-
-$host = '34.81.127.213';
-$dbuser = 'root';
-$dbpw = '20031208';
-$dbname = 'career';
-
-// 連接到資料庫
-$conn = new mysqli($host, $dbuser, $dbpw, $dbname);
-
-// 檢查連接
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-
-// 使用 prepared statements 避免 SQL 注入
-$sql = "SELECT user_id FROM user WHERE username = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $user_name); // "s" 表示字串，這裡是用戶名
-
-// 執行 SQL 查詢
-$stmt->execute();
-$result = $stmt->get_result();
-
-// 檢查查詢結果
-if ($result->num_rows > 0) {
-  // 獲取用戶信息
-  $row = $result->fetch_assoc();
-  $_SESSION['user_id'] = $row['user_id'];
-  $user_id = $_SESSION['user_id'];
-} else {
-  // 如果找不到用戶名，你可能需要採取相應的處理方式
-  echo "找不到用戶名";
-}
-
-$user_choices = get_user_choices($user_id);
-// print_r($user_choices[0]);
-// print_r($user_choices[1]);
-// print_r($user_choices[2]);
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -59,20 +5,101 @@ $user_choices = get_user_choices($user_id);
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Card Selection</title>
+  <title>職涯卡牌網站</title>
   <link rel="stylesheet" href="css/card.css">
   <link rel="stylesheet" href="css/all.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 </head>
 
 <body>
-  <ul class="nav-pills" style="position: absolute;top: 20px;right: 100px;">
-    <li role="presentation" style="list-style:none;" ><a href="php/logout.php" style="text-decoration: none;color: rgb(0, 0, 0);font-size:25px;"><span >登出</span></a></li>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid d-flex align-items-center">
+    <p class="navbar-brand" style="font-size: 22px;">
+      <?php
+        require_once 'php/db.php';
+        require_once 'php/function.php';
+        @session_start();
+        if(!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
+          // header("Location: login.php");
+          echo "您目前尚未登入帳號";
+        }else{
+          $user_name = $_SESSION['username'];
+          echo "歡迎回來，$user_name";
+        }
+        
+      ?>
+    </p>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto list-unstyled justify-content-end" style="font-size: 22px;">
+        <?php if(isset($_SESSION['is_login']) && $_SESSION['is_login']) { ?>
+          <li class="nav-item">
+            <a class="nav-link" href="#"><span style="color: #C5CBD3;">登入</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./php/logout.php"><span style="color: black;">登出</span></a>
+          </li>
+        <?php } else { ?>
+          <li class="nav-item">
+            <a class="nav-link" href="login.php"><span style="color: black;">登入</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#"><span style="color: #C5CBD3;">登出</span></a>
+          </li>
+        <?php } ?>
   </ul>
+</div>
 
+  </div>
+</nav>
   <div class="select">
     <h1 style="text-align: center;">請選擇三個字母，並且按照志願排序</h1>
     <h2 style="text-align: center;">您所選擇的字母是：</h2>
+    <div class="welcome">
+  <?php
+  require_once 'php/db.php';
+  require_once 'php/function.php';
+  @session_start();
+
+  $host = '34.81.127.213';
+  $dbuser = 'root';
+  $dbpw = '20031208';
+  $dbname = 'career';
+  $conn = new mysqli($host, $dbuser, $dbpw, $dbname);
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
+
+  $sql = "SELECT user_id FROM user WHERE username = ?";
+  $stmt = $conn->prepare($sql);
+  $stmt->bind_param("s", $user_name); // "s" 表示字串，這裡是用戶名
+
+
+  $stmt->execute();
+  $result = $stmt->get_result();
+
+
+if ($result->num_rows > 0) {
+  $row = $result->fetch_assoc();
+  $_SESSION['user_id'] = $row['user_id'];
+  $user_id = $_SESSION['user_id'];
+} else {
+  echo "";
+}
+if(!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
+  $user_choices = [];
+}else{
+  $user_choices = get_user_choices($user_id);
+}
+
+// print_r($user_choices[0]);
+// print_r($user_choices[1]);
+// print_r($user_choices[2]);
+?>
+</div>
   </div>
   <div class="cards">
     <div class="card" data-letter="S" id="S1">
@@ -87,7 +114,9 @@ $user_choices = get_user_choices($user_id);
         <!-- <div class="checkmark"></div> -->
         <h2>
           助人者Social
-          <p>#社工心理&ensp;#教育&ensp;#醫護&ensp;#宗教</p>
+          <p style="margin-top:4px"></p>
+          <p style="margin-bottom:2px">#社工心理&ensp;#教育</p>
+          <p>#醫護&ensp;#宗教</p>
         </h2>
       </div>
       <div class="card-flap flap1">
@@ -129,7 +158,9 @@ $user_choices = get_user_choices($user_id);
         <!-- <div class="checkmark"></div> -->
         <h2>
           影響者Enterprising
-          <p>#企管領導&ensp;#行銷企劃&ensp;#法律&ensp;#政治</p>
+          <p style="margin-top:4px"></p>
+          <p style="margin-bottom:2px">#企管領導&ensp;#行銷企劃</p>
+          <p>#法律&ensp;#政治</p>
         </h2>
       </div>
       <div class="card-flap flap1">
@@ -174,7 +205,9 @@ $user_choices = get_user_choices($user_id);
         <!-- <div class="checkmark"></div> -->
         <h2>
           實踐者Realistic
-          <p>#機械電子&ensp;#農林漁牧&ensp;#建築工藝&ensp;#運動</p>
+          <p style="margin-top:4px"></p>
+          <p style="margin-bottom:2px">#機械電子&ensp;#農林漁牧</p>
+          <p>#建築工藝&ensp;#運動</p>
         </h2>
       </div>
       <div class="card-flap flap1">
@@ -206,7 +239,7 @@ $user_choices = get_user_choices($user_id);
       </div>
     </div>
 
-    <div class="card" data-letter="I" id="I1">
+    <div class="card" data-letter="I" id="I1" >
       <div class="card__image-holder">
         <img class="card__image" src="img/thinker.png" height="200px" />
       </div>
@@ -218,7 +251,9 @@ $user_choices = get_user_choices($user_id);
         <!-- <div class="checkmark"></div> -->
         <h2>
           思考者Investigative
-          <p>#統計分析#人文科學#理工研究#生醫研發</p>
+          <p style="margin-top:4px"></p>
+          <p style="margin-bottom:2px">#統計分析&ensp;#人文科學</p>
+          <p>#理工研究&ensp;#生醫研發</p>
         </h2>
       </div>
       <div class="card-flap flap1">
@@ -265,7 +300,9 @@ $user_choices = get_user_choices($user_id);
         <!-- <div class="checkmark"></div> -->
         <h2>
           創造者Artistic
-          <p>#造型設計&ensp;#藝術設計&ensp;#藝術家&ensp;#導演</p>
+          <p style="margin-top:4px"></p>
+          <p style="margin-bottom:2px">#造型設計&ensp;#藝術設計</p>
+          <p>#藝術家&ensp;#導演</p>
         </h2>
       </div>
       <div class="card-flap flap1">
@@ -313,7 +350,9 @@ $user_choices = get_user_choices($user_id);
         <!-- <div class="checkmark"></div> -->
         <h2>
           組織者Conventional
-          <p>#財務金融&ensp;#特助秘書&ensp;#會計&ensp;#行政</p>
+          <p style="margin-top:4px"></p>
+          <p style="margin-bottom:2px">#財務金融&ensp;#特助秘書</p>
+          <p>#會計&ensp;#行政</p>
         </h2>
       </div>
       <div class="card-flap flap1">
@@ -346,7 +385,6 @@ $user_choices = get_user_choices($user_id);
 
 
   <a href="./first-conclusion.html.php"><button class="nextButton" id="nextButton" onclick="showSelectedCards()" style="z-index: 100;">查看分析結果</button></a>
-
   <script>
 let selectedLetters = [null, null, null];
 console.log(<?php echo json_encode($user_choices); ?>);
@@ -609,6 +647,7 @@ if (!<?php echo json_encode(empty($user_choices)); ?>) {
 
   </script>
   <footer></footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 </body>
 
 </html>

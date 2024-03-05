@@ -3,18 +3,6 @@ require_once 'php/db.php';
 require_once 'php/function.php';
 @session_start();
 
-if(!isset($_SESSION['is_login']) || !$_SESSION['is_login'])
-{
-	header("Location: login.php");
-}
-
-$user_name = $_SESSION['username'];
-
-if ($user_name) {
-  echo "歡迎回來， $user_name";
-} else {}
-
-
 
 $host = '34.81.127.213';
 $dbuser = 'root';
@@ -29,7 +17,10 @@ $conn = new mysqli($host, $dbuser, $dbpw, $dbname);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
-
+if(!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
+}else{
+  $user_name = $_SESSION['username'];
+}
 // 使用 prepared statements 避免 SQL 注入
 $sql = "SELECT user_id FROM user WHERE username = ?";
 $stmt = $conn->prepare($sql);
@@ -46,14 +37,13 @@ if ($result->num_rows > 0) {
   $_SESSION['user_id'] = $row['user_id'];
   $user_id = $_SESSION['user_id'];
 } else {
-  // 如果找不到用戶名，你可能需要採取相應的處理方式
-  echo "找不到用戶名";
+  echo "";
 }
-
-$user_choices2 = get_user_choices2($user_id);
-// print_r($user_choices2[0]);
-// print_r($user_choices2[1]);
-// print_r($user_choices2[2]);
+if(!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
+  $user_choices2 = [];
+}else{
+  $user_choices2 = get_user_choices2($user_id);
+}
 ?>
 
 <!DOCTYPE html>
@@ -62,20 +52,51 @@ $user_choices2 = get_user_choices2($user_id);
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>卡片測試
-  </title>
+  <title>職涯卡牌網站</title>
   <link rel="stylesheet" href="css/all.css">
-  <link rel="stylesheet" href="css/second-choose.css">
+  <link rel="stylesheet" href="./css/second-choose.css">
   <link rel="stylesheet" href="css/second-conclusion.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 
 </head>
 
 <body>
-  <ul class="nav-pills" style="position: absolute;top: 20px;right: 100px;">
-    <li role="presentation" style="list-style:none;" ><a href="php/logout.php" style="text-decoration: none;color: rgb(0, 0, 0);font-size:25px;"><span >登出</span></a></li>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid d-flex align-items-center">
+    <p class="navbar-brand" style="font-size: 22px;">
+      <?php
+        require_once 'php/db.php';
+        require_once 'php/function.php';
+        @session_start();
+        if(!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
+          // header("Location: login.php");
+          echo "您目前尚未登入帳號";
+        }else{
+          $user_name = $_SESSION['username'];
+          echo "歡迎回來，$user_name";
+        }
+        
+      ?>
+    </p>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto list-unstyled justify-content-end" style="font-size: 22px;">
+        <?php if(isset($_SESSION['is_login']) && $_SESSION['is_login']) { ?>
+            <a class="nav-link nav-item" href="#"><span style="color: #C5CBD3;">登入</span></a>
+            <a class="nav-link nav-item" href="./php/logout.php"><span style="color: black;">登出</span></a>
+        <?php } else { ?>
+            <a class="nav-link nav-item" href="login.php"><span style="color: black;">登入</span></a>
+            <a class="nav-link nav-item" href="#"><span style="color: #C5CBD3;">登出</span></a>
+        <?php } ?>
   </ul>
+</div>
+
+  </div>
+</nav>
   <h1 style="color: black;">請選擇一項，您覺得您可以勝任的職業</h1>
   <div id="designedcard2s">
     <div class="page-content">
@@ -659,6 +680,7 @@ var cardsArray = Array.from(cards);
         });
   });
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 </body>
 
 </html>

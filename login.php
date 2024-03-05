@@ -12,7 +12,7 @@ if(isset($_SESSION['is_login']) && $_SESSION['is_login'])
 <!DOCTYPE html>
 <html lang="zh-TW">
   <head>
-    <title>作品網站-會員註冊</title>
+    <title>職涯卡牌網站</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <!-- 給行動裝置或平板顯示用，根據裝置寬度而定，初始放大比例 1 -->
@@ -36,7 +36,7 @@ if(isset($_SESSION['is_login']) && $_SESSION['is_login'])
         <div class="row">
           <!-- 在 xs 尺寸，佔12格，可參考 http://getbootstrap.com/css/#grid 說明-->
           <div class="col-xs-12 col-sm-4 col-sm-offset-4">
-          	<h1>後台登入</h1>
+          	<h1>登入帳號</h1>
             <form class="login">
               <div class="form-group">
                 <label for="username">帳號</label>

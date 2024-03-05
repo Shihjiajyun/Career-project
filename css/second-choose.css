@@ -86,7 +86,9 @@ h3 {
 
 .selected {
   filter: brightness(1.2);
+  border: 2px solid #DDA448;
 }
+
 
 .lastButton {
   position: fixed;

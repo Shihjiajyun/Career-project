@@ -172,7 +172,7 @@ function verify_user($username, $password)
       $_SESSION['is_login'] = TRUE;
       //紀錄登入者的id，之後若要隨時取得使用者資料時，可以透過 $_SESSION['login_user_id'] 取用
       $_SESSION['login_user_id'] = $user['user_id'];
-       
+      $_SESSION['username'] = $user['username'];
       //回傳的 $result 就給 true 代表驗證成功
       $result = true;
     }
