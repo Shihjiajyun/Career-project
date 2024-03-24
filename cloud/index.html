@@ -7,6 +7,8 @@
   <title>職涯卡牌網站</title>
   <!-- 引入Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/type.css">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
   <style>
     /* 設定封面區塊滿屏顯示 */
     .hero {
@@ -45,40 +47,51 @@
       /* 確保文字和按鈕在遮罩之上 */
       z-index: 2;
     }
-      .button-container {
-    display: flex;
-    justify-content: center; /* 水平居中 */
-    align-items: center; /* 垂直居中 */
-    height: 100vh; /* 讓容器高度為視窗的100%，只是為了示範 */
-  }
-  .btn-custom {
-    height: 50px;
-    width: 140px;
-    border-radius: 10px;
-    font-size: 17px;
-    display: flex; /* 使用Flexbox實現文字的垂直居中 */
-    justify-content: center; /* 水平居中 */
-    align-items: center; /* 垂直居中 */
-    text-align: center;
-  }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      /* 水平居中 */
+      align-items: center;
+      /* 垂直居中 */
+      height: 100vh;
+      /* 讓容器高度為視窗的100%，只是為了示範 */
+    }
+
+    .btn-custom {
+      height: 50px;
+      width: 140px;
+      border-radius: 10px;
+      font-size: 17px;
+      display: flex;
+      /* 使用Flexbox實現文字的垂直居中 */
+      justify-content: center;
+      /* 水平居中 */
+      align-items: center;
+      /* 垂直居中 */
+      text-align: center;
+    }
   </style>
 </head>
 
 <body>
-
   <div class="container-fluid">
     <!-- Hero Section -->
     <div class="row">
       <div class="col-12 hero" style="background-image: url('./img1/work.jpg');">
         <div class="text-center text-white">
-          <h1>這不是遊戲，而是啟程</h1>
+          <!-- 包裹静态文本和动态文本 -->
+          <h1>
+            <span class="static-text">這不是遊戲，而是</span>
+            <span class="type" style="color: #EDDE5D; font-weight:bold;"></span>
+          </h1>
           <p class="text-white-75 mb-5">在這裡，每一次抽牌都可能是關於未來的啟示。發現屬於您的職業路徑。</p>
           <a class="btn btn-danger btn-custom" href="./first.php" style="margin-right:auto;margin-left:auto;">開啟旅程</a>
-
-          <!-- <a class="btn btn-primary btn-xl" href="#about">開啟旅程</a> -->
         </div>
       </div>
     </div>
+
+
 
     <!-- Features Section -->
     <div class="row text-center mt-5">
@@ -109,6 +122,7 @@
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="./js/index.js"></script>
 </body>
 
 </html>

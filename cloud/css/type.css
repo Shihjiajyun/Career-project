@@ -1,0 +1,19 @@
+.type {
+  border-right: 2px solid;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* 默认情况下，静态文本和动态文本在同一行 */
+.static-text+.type::before {
+  content: ' ';
+  /* 在大屏幕上，静态和动态文本之间的空格 */
+}
+
+@media (max-width: 576px) {
+
+  /* 在小屏幕上，使动态文本显示在新的一行 */
+  .static-text {
+    display: block;
+  }
+}
