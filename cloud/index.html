@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>職涯卡牌網站</title>
+  <!-- 引入Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    /* 設定封面區塊滿屏顯示 */
+    .hero {
+      position: relative;
+      background-image: url('./img1/work.jpg');
+      background-size: cover;
+      /* 確保背景圖片覆蓋整個元素 */
+      background-position: center;
+      /* 背景圖片居中顯示 */
+      min-height: 100vh;
+      /* 設置最小高度為視窗的100% */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      /* 垂直居中 */
+      color: white;
+    }
+
+    .hero::before {
+      content: "";
+      /* 偽元素需要設定content */
+      position: absolute;
+      /* 絕對定位，相對於.hero */
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      /* 半透明的黑色遮罩 */
+      z-index: 1;
+      /* 確保遮罩在背景圖片之上 */
+    }
+
+    .hero>div {
+      position: relative;
+      /* 確保文字和按鈕在遮罩之上 */
+      z-index: 2;
+    }
+      .button-container {
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+    height: 100vh; /* 讓容器高度為視窗的100%，只是為了示範 */
+  }
+  .btn-custom {
+    height: 50px;
+    width: 140px;
+    border-radius: 10px;
+    font-size: 17px;
+    display: flex; /* 使用Flexbox實現文字的垂直居中 */
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+    text-align: center;
+  }
+  </style>
+</head>
+
+<body>
+
+  <div class="container-fluid">
+    <!-- Hero Section -->
+    <div class="row">
+      <div class="col-12 hero" style="background-image: url('./img1/work.jpg');">
+        <div class="text-center text-white">
+          <h1>這不是遊戲，而是啟程</h1>
+          <p class="text-white-75 mb-5">在這裡，每一次抽牌都可能是關於未來的啟示。發現屬於您的職業路徑。</p>
+          <a class="btn btn-danger btn-custom" href="./first.php" style="margin-right:auto;margin-left:auto;">開啟旅程</a>
+
+          <!-- <a class="btn btn-primary btn-xl" href="#about">開啟旅程</a> -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="row text-center mt-5">
+      <div class="col-12 col-md-6 col-lg-3 mb-4">
+        <img src="./img1/idea.png" alt="優點一" style="height: 70px; margin-bottom: 30px;">
+        <h3 class="mb-4">創新的探索方式</h3>
+        <p class="text-muted mb-0">結合卡牌的樂趣與職業探索的實用性，提供一種全新、互動式的探索體驗。</p>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3 mb-4">
+        <img src="./img1/person.png" alt="優點二" style="height: 70px; margin-bottom: 30px;">
+        <h3 class="mb-4">個性化路徑發現</h3>
+        <p class="text-muted mb-0">透過使用者對卡牌的選擇與回饋，系統能夠提供更貼合使用者需求的職涯建議。</p>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3 mb-4">
+        <img src="./img1/interactive.png" alt="優點三" style="height: 70px; margin-bottom: 30px;">
+        <h3 class="mb-4">動態互動體驗</h3>
+        <p class="text-muted mb-0">增加探索人生航道時的趣味性和互動性。</p>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3 mb-4">
+        <img src="./img1/save.png" alt="優點四" style="height: 70px; margin-bottom: 30px;">
+        <h3 class="mb-4">進度保存</h3>
+        <p class="text-muted mb-0">允許用戶在任何時候回到他們離開的地方繼續他們的探索旅程。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 引入Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>

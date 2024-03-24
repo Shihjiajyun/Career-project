@@ -574,7 +574,7 @@ if(!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
     </div>
   </div>
 
-  <a href="second-conclusion.html.php"><button id="nextButton" onclick="find()">查看分析結果</button></a>
+  <a href="second-conclusion.html.php"><button id="nextButton" onclick="find()" style="z-index: 100;">查看分析結果</button></a>
 <script>
 function toggleSelection(element, value) {
       // element.classList.toggle('selected');

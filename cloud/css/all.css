@@ -1,0 +1,50 @@
+* {
+  font-family: PMingLiU;
+}
+
+.content ul {
+  margin-top: -10px;
+  margin-bottom: 0px;
+}
+
+.welcome {
+  position: absolute;
+  top: 20px;
+  left: 100px;
+}
+
+@font-face {
+    font-family: first;
+    src: url('./jf.ttf');
+}
+
+.firstWord {
+    font-family: first, sans-serif;
+}
+
+@font-face {
+    font-family: second;
+    src: url('./write.ttf');
+}
+
+.secondWord {
+    font-family: second, sans-serif;
+}
+
+@font-face {
+    font-family: third;
+    src: url('./third.ttf');
+}
+
+.thirdWord {
+    font-family: third, sans-serif;
+}
+
+@font-face {
+    font-family: fourth;
+    src: url('./fourth.ttf');
+}
+
+.fourthWord {
+    font-family: fourth, sans-serif;
+}
