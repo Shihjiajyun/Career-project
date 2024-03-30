@@ -33,30 +33,6 @@ a.btn2 {
   transition: all 0.1s 0s ease-out;
 }
 
-/* .no-touch a.btn:hover {
-  background: #00a2ad;
-  box-shadow: 0px 8px 2px 0 rgba(0, 0, 0, 0.075);
-  transform: translateY(-2px);
-  transition: all 0.25s 0s ease-out;
-}
-
-.no-touch a.btn2:hover {
-  background: #00a2ad;
-  box-shadow: 0px 8px 2px 0 rgba(0, 0, 0, 0.075);
-  transform: translateY(-2px);
-  transition: all 0.25s 0s ease-out;
-  cursor: pointer;
-  pointer-events: none;
-} */
-
-/* .no-touch a.btn:active,
-a.btn:active {
-  background: #008a93;
-  box-shadow: 0 1px 0px 0 rgba(255, 255, 255, 0.25);
-  transform: translate3d(0, 1px, 0);
-  transition: all 0.025s 0s ease-out;
-} */
-
 div.cards {
   margin: 80px auto;
   max-width: 960px;
@@ -70,7 +46,6 @@ div.card {
   max-width: 300px;
   perspective: 1000;
   position: relative;
-  /* text-align: left; */
   transition: all 0.3s 0s ease-in;
   width: 300px;
   z-index: 1;
@@ -283,12 +258,6 @@ footer {
   pointer-events: none;
 }
 
-/* .red-button {
-  opacity: 1;
-  color: white;
-  pointer-events: auto;
-} */
-
 .purple-button {
   opacity: 0.7;
   color: white;
@@ -336,13 +305,3 @@ footer {
   pointer-events: none;
   opacity: 0.7;
 }
-
-/* .select {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  background-color: #fff;
-  padding: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-} */

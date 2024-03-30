@@ -1,5 +1,4 @@
 <?php
-//載入資料庫與處理的方法
 require_once 'db.php';
 require_once 'function.php';
 

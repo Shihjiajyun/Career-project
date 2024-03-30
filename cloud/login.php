@@ -1,12 +1,11 @@
 <?php
-//載入 db.php 檔案，讓我們可以透過它連接資料庫，因為此檔案放在 admin 裡，要找到 db.php 就要回上一層 ../php 裡面才能找到
 require_once 'php/db.php';
 
 //如過有 $_SESSION['is_login'] 這個值，以及 $_SESSION['is_login'] 為 true 都代表已登入
 if(isset($_SESSION['is_login']) && $_SESSION['is_login'])
 {
-  //直接轉跳到 index.php 後端首頁
-  header("Location: index.php");
+  //直接轉跳到 index.html 後端首頁
+  header("Location: index.html");
 }
 ?>
 <!DOCTYPE html>
@@ -17,24 +16,19 @@ if(isset($_SESSION['is_login']) && $_SESSION['is_login'])
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <!-- 給行動裝置或平板顯示用，根據裝置寬度而定，初始放大比例 1 -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 載入 bootstrap 的 css 方便我們快速設計網站-->
+    <!-- 載入 bootstrap-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../css/style.css"/>
     <link rel="shortcut icon" href="../images/favicon.ico">
   </head>
 
   <body>
-    <!-- 頁首 -->
-    <?php
-    	//無需選單
-      //include_once 'menu.php';
-    ?>
     <!-- 網站內容 -->
     <div class="content">
       <div class="container">
         <!-- 建立第一個 row 空間，裡面準備放格線系統 -->
         <div class="row">
-          <!-- 在 xs 尺寸，佔12格，可參考 http://getbootstrap.com/css/#grid 說明-->
+          <!-- 在 xs 尺寸，佔12格-->
           <div class="col-xs-12 col-sm-4 col-sm-offset-4">
           	<h1>登入帳號</h1>
             <form class="login">
@@ -69,19 +63,18 @@ if(isset($_SESSION['is_login']) && $_SESSION['is_login'])
 				  //使用 ajax 送出 帳密給 verify_user.php
 					$.ajax({
             type : "POST",
-            url : "php/verify_user.php", //因為此 login.php 是放在 admin 資料夾內，若要前往 php，就要回上一層 ../ 找到 php 才能進入 verify_user.php
+            url : "php/verify_user.php", 
             data : {
               un : $("#username").val(), //使用者帳號
               pw : $("#password").val() //使用者密碼
             },
-            dataType : 'html' //設定該網頁回應的會是 html 格式
+            dataType : 'html'
           }).done(function(data) {
-            //成功的時候
             console.log(data);
             if(data == "yes")
             {              
-              //註冊新增成功，轉跳到登入頁面。
-              window.location.href = "index.php"; 
+              //登入成功，跳轉首頁
+              window.location.href = "index.html"; 
               console.log(data);
               var un = $("#username").val();
               $.ajax({
@@ -89,7 +82,7 @@ if(isset($_SESSION['is_login']) && $_SESSION['is_login'])
                 url: "php/store_username.php", 
                 data: {un: un},
                 success: function(response) {
-                  console.log(response); 
+                  // console.log(response); 
                 }
               });
             }
@@ -101,14 +94,12 @@ if(isset($_SESSION['is_login']) && $_SESSION['is_login'])
           }).fail(function(jqXHR, textStatus, errorThrown) {
             //失敗的時候
             alert("有錯誤產生，請看 console log");
-            console.log(jqXHR.responseText);
+            // console.log(jqXHR.responseText);
           });
 	        //回傳 false 為了要阻止 from 繼續送出去。由上方ajax處理即可
           return false;
 				});
       });
     </script>
-
-   
   </body>
 </html>

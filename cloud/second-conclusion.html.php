@@ -9,7 +9,6 @@ $dbname = 'career';
 // 連接到資料庫
 $conn = new mysqli($host, $dbuser, $dbpw, $dbname);
 
-
 // 檢查連接
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
@@ -53,45 +52,53 @@ if ($result->num_rows > 0) {
 </head>
 
 <body style="margin: 0px;">
+
+<!-- 導航欄開始 -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <!-- 容器垂直居中對齊 -->
   <div class="container-fluid d-flex align-items-center">
+    <!-- 顯示用戶登錄狀態 -->
     <p class="navbar-brand" style="font-size: 22px;">
       <?php
         require_once 'php/db.php';
         require_once 'php/function.php';
         @session_start();
+        // 檢查用戶是否已經登錄
         if(!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
-          // header("Location: login.php");
+          // 如果用戶未登錄
           echo "您目前尚未登入帳號";
         }else{
+          // 如果用戶已經登錄，顯示歡迎信息及用戶名
           $user_name = $_SESSION['username'];
           echo "歡迎回來，$user_name";
         }
-        
       ?>
     </p>
+    <!-- 響應式導航切換按鈕-->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+    <!-- 折疊的導航項目 -->
     <div class="collapse navbar-collapse" id="navbarNav">
+      <!-- 導航項目列表 -->
       <ul class="navbar-nav ms-auto list-unstyled justify-content-end" style="font-size: 22px;">
         <?php if(isset($_SESSION['is_login']) && $_SESSION['is_login']) { ?>
+            <!-- 用戶已登錄時顯示的導航連結，實際上登入連結應不可用，登出連結指向登出處理頁面 -->
             <a class="nav-link nav-item" href="#"><span style="color: #C5CBD3;">登入</span></a>
             <a class="nav-link nav-item" href="./php/logout.php"><span style="color: black;">登出</span></a>
         <?php } else { ?>
+            <!-- 用戶未登錄時顯示的導航連結，提供登入頁面的連結，登出連結不可用 -->
             <a class="nav-link nav-item" href="login.php"><span style="color: black;">登入</span></a>
             <a class="nav-link nav-item" href="#"><span style="color: #C5CBD3;">登出</span></a>
         <?php } ?>
-  </ul>
-</div>
-
+      </ul>
+    </div>
   </div>
 </nav>
+
+<!-- 主要內容 -->
   <h1 id="selectedcard3" style="color: #000;font-family:PMingLiU;"></h1>
-
-  <h1><span style="color: #000;  font-family:PMingLiU;">職能面試問題:</span>
-  </h1>
-
+  <h1><span style="color: #000;  font-family:PMingLiU;">職能面試問題:</span></h1>
   <div class="card3-container" id="card3Container">
     <div class="card3" data-card3-id="1">
       <div class="in">
@@ -643,33 +650,46 @@ if ($result->num_rows > 0) {
       </div>
     </div>
   </div>
-
   <a href="conclusion.html.php"><button class="nextButton" style="display: block;"><span
         style="font-family:PMingLiU;">最終比對</span></button></a>
   <a href="second-choose.html.php"><button class="lastButton" style="display: block;"><span
         style="font-family:PMingLiU;">回到上一頁</span></button></a>
 
   <script>
-    const selectedcard3Element = document.getElementById('selectedcard3');
-    const selectedcard3String = localStorage.getItem('selectedcard2');
+// 獲取用於顯示選擇的職業編號的元素
+const selectedcard3Element = document.getElementById('selectedcard3');
 
+// 從localStorage中獲取用戶選擇的職業編號數據（以字符串形式存儲）
+const selectedcard3String = localStorage.getItem('selectedcard2');
 
-    const selectedcard3Array = selectedcard3String ? JSON.parse(selectedcard3String) : [];
-    selectedcard3Element.textContent = '您所選擇的職業編號為：' + selectedcard3Array.join(', ');
-    if (selectedcard3Array.length > 1) {
-      document.querySelectorAll('.card3').forEach(card3Element => {
-        const card3Id = card3Element.getAttribute('data-card3-id');
-        const isSelected = selectedcard3Array.includes(parseInt(card3Id));
-        card3Element.style.display = isSelected ? 'block' : 'none';
-      });
+// 如果有存儲的數據，則將字符串轉換為數組；如果沒有，則使用空數組
+const selectedcard3Array = selectedcard3String ? JSON.parse(selectedcard3String) : [];
 
-    } else {
-      // Fix here: Use designedcard3sElement instead of card3Div
-      card3Element.style.display = 'none'; // Hide the card3
-      selectedcard3Element.textContent = '適合您的職業較為廣泛!!';
-    }
+// 更新元素的內容，顯示用戶所選擇的職業編號
+selectedcard3Element.textContent = '您所選擇的職業編號為：' + selectedcard3Array.join(', ');
+
+// 如果選擇的職業編號數量大於1
+if (selectedcard3Array.length > 1) {
+  // 遍歷所有class為card3的元素
+  document.querySelectorAll('.card3').forEach(card3Element => {
+    // 獲取每個元素的data-card3-id屬性值
+    const card3Id = card3Element.getAttribute('data-card3-id');
+    // 判斷該職業編號是否在用戶選擇中
+    const isSelected = selectedcard3Array.includes(parseInt(card3Id));
+    // 根據是否被選擇來顯示或隱藏元素
+    card3Element.style.display = isSelected ? 'block' : 'none';
+  });
+} else {
+  // 如果選擇的職業編號數量不大於1，隱藏所有card3元素
+  // 注意：這裡有一個邏輯錯誤，因為card3Element在這個else分支中未被定義
+  // 正確做法應該是在這個分支中再次遍歷所有.card3元素，然後設置它們的display為'none'
+  card3Element.style.display = 'none';
+  // 更新元素內容，提示用戶適合的職業較為廣泛
+  selectedcard3Element.textContent = '適合您的職業較為廣泛!!';
+}
   </script>
   <script>
+    //將用戶針對每一題面試問題的回答存入本地
     new Vue({
       el: '#card3Container2',
       data: {
@@ -817,12 +837,8 @@ if ($result->num_rows > 0) {
         this.userInput26 = localStorage.getItem('userInput26') || '';
       },
     });
-
   </script>
-
-
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 <footer style="height: 200px;"></footer>
-
 </html>

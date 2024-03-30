@@ -1,8 +1,6 @@
 <?php
 require_once 'php/db.php';
 @session_start();
-
-
 $host = '34.81.127.213';
 $dbuser = 'root';
 $dbpw = '20031208';
@@ -57,43 +55,57 @@ if ($result->num_rows > 0) {
 </head>
 
 <body style="margin: 0px;">
+<!-- 導覽列開始 -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid d-flex align-items-center">
+    <!-- 網站標題 -->
     <p class="navbar-brand" style="font-size: 22px;">
       <?php
+        // 匯入資料庫連線和功能函式
         require_once 'php/db.php';
         require_once 'php/function.php';
+        // 啟動 PHP Session
         @session_start();
+        // 檢查用戶是否已登入，若未登入，顯示訊息
         if(!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
+          // 若未登入，導向登入頁面或顯示提示訊息
           // header("Location: login.php");
           echo "您目前尚未登入帳號";
         }else{
+          // 若已登入，顯示歡迎訊息
           $user_name = $_SESSION['username'];
           echo "歡迎回來，$user_name";
         }
-        
       ?>
     </p>
+    <!-- Navbar 切換按鈕，用於小尺寸螢幕時顯示導覽欄選項 -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+    <!-- 導覽欄選項 -->
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto list-unstyled justify-content-end" style="font-size: 22px;">
         <?php if(isset($_SESSION['is_login']) && $_SESSION['is_login']) { ?>
+            <!-- 若已登入，顯示登入按鈕和登出按鈕 -->
             <a class="nav-link nav-item" href="#"><span style="color: #C5CBD3;">登入</span></a>
             <a class="nav-link nav-item" href="./php/logout.php"><span style="color: black;">登出</span></a>
         <?php } else { ?>
+            <!-- 若未登入，顯示登入按鈕和登出按鈕 -->
             <a class="nav-link nav-item" href="login.php"><span style="color: black;">登入</span></a>
             <a class="nav-link nav-item" href="#"><span style="color: #C5CBD3;">登出</span></a>
         <?php } ?>
-  </ul>
-</div>
-
+      </ul>
+    </div>
   </div>
 </nav>
+<!-- 導覽列結束 -->
+
+  <!-- 顯示第一次選擇結果 -->
   <div class="select">
     <h2 style="text-align: center;">您所選擇的字母順序是：</h2>
   </div>
+
+  <!-- 主要符合的職業 -->
   <h2 style="margin-left: 20px;">主要符合職業：</h2>
   <div id="designedCareers" class="container">
     <div class="row d-flex flex-wrap">
@@ -503,6 +515,8 @@ if ($result->num_rows > 0) {
 
     </div>
   </div>
+
+  <!-- 次要符合的職業 -->
   <h2 style="margin-left: 20px;">次要符合職業：</h2>
   <div id="designedCareers1" class="container">
     <div class="row d-flex flex-wrap">
@@ -912,7 +926,9 @@ if ($result->num_rows > 0) {
 
     </div>
   </div>
-  <br>
+
+  <!-- 增加中間空行 -->
+  <br class="mb-5">
   <br>
   <br>
   <br>
@@ -1393,9 +1409,7 @@ if ($result->num_rows > 0) {
     </div>
   </div>
   <br>
-  <!-- Display selected card3s -->
   <h1 id="selectedcard3" style="color: #000;font-family:PMingLiU;"></h1>
-
   <h1><span style="color: #000;  font-family:PMingLiU;">職能面試問題:</span>
   </h1>
   <div class="card3-container" id="card3Container">

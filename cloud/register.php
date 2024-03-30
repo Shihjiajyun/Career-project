@@ -1,16 +1,10 @@
-<?php
-//載入 db.php 檔案，讓我們可以透過它連接資料庫
-// require_once 'php/db.php';
-?>
 <!DOCTYPE html>
 <html lang="zh-TW">
   <head>
     <title>職涯卡牌網站</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <!-- 給行動裝置或平板顯示用，根據裝置寬度而定，初始放大比例 1 -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 載入 bootstrap 的 css 方便我們快速設計網站-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
   </head>
 
@@ -20,7 +14,7 @@
       <div class="container">
         <!-- 建立第一個 row 空間，裡面準備放格線系統 -->
         <div class="row">
-          <!-- 在 xs 尺寸，佔12格，可參考 http://getbootstrap.com/css/#grid 說明-->
+          <!-- 在 xs 尺寸，佔12格-->
           <div class="col-xs-12 col-sm-4 col-sm-offset-4">
           <h1>註冊帳號</h1>  
 					<form class="register"><!-- 沒有設定  method 跟 action 交給之後的 ajax 處理-->
@@ -147,8 +141,6 @@
 			        console.log(jqXHR.responseText);
 			      });
 	        }
-	        
-	        
 	        //一樣要回傳 false 阻止 from 繼續把資料送出去。因為會交由上方的 ajax 非同步處理註冊的動作
           return false;
 				});

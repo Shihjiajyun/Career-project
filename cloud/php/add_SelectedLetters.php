@@ -1,11 +1,9 @@
 <?php
-//載入資料庫與處理的方法
 require_once 'db.php';
 require_once 'function.php';
 
 
 // 呼叫函式，傳遞 user_id 和選擇的字母
-
 $add_result = add_SelectedLetters($_POST['user_id'],$_POST['un'],$_POST['l1'], $_POST['l2'], $_POST['l3']);
 
 

@@ -5,7 +5,6 @@ require_once 'php/db.php';
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,13 +16,19 @@ require_once 'php/db.php';
 </head>
 
 <body>
+<!--導航欄-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <!-- 內容居中-->
   <div class="container-fluid d-flex align-items-center">
+    <!--顯示登錄狀態或歡迎信息 -->
     <p class="navbar-brand" style="font-size: 22px;">
       <?php
+        // 引入數據庫連接和功能性PHP文件
         require_once 'php/db.php';
         require_once 'php/function.php';
+        // 啟動會話追蹤用戶登錄狀態
         @session_start();
+        // 檢查用戶是否已經登錄，若未登錄則顯示未登錄信息，若已登錄則顯示歡迎信息
         if(!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
           // header("Location: login.php");
           echo "您目前尚未登入帳號";
@@ -31,37 +36,40 @@ require_once 'php/db.php';
           $user_name = $_SESSION['username'];
           echo "歡迎回來，$user_name";
         }
-        
       ?>
     </p>
+    <!-- 響應式導航列切換按鈕-->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+    <!-- 折疊的導航按鈕-->
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto list-unstyled justify-content-end" style="font-size: 22px;">
+        <!-- 根據用戶的登錄狀態動態顯示登入或登出按鈕 -->
         <?php if(isset($_SESSION['is_login']) && $_SESSION['is_login']) { ?>
           <li class="nav-item">
+            <!-- 已登錄狀態下，登入按鈕不可點擊 -->
             <a class="nav-link" href="#"><span style="color: #C5CBD3;">登入</span></a>
           </li>
           <li class="nav-item">
+            <!-- 提供一個登出按鈕 -->
             <a class="nav-link" href="./php/logout.php"><span style="color: black;">登出</span></a>
           </li>
         <?php } else { ?>
           <li class="nav-item">
+            <!-- 未登錄狀態下，提供登入按鈕 -->
             <a class="nav-link" href="login.php"><span style="color: black;">登入</span></a>
           </li>
           <li class="nav-item">
+            <!-- 未登錄狀態下，登出按鈕不可點擊 -->
             <a class="nav-link" href="#"><span style="color: #C5CBD3;">登出</span></a>
           </li>
         <?php } ?>
-  </ul>
-</div>
-
+      </ul>
+    </div>
   </div>
 </nav>
-
-
-
+  <!-- 主要內容區 -->
   <div class="select">
     <h2 style="text-align: center;">您所選擇的字母順序是：</h2>
   </div>
@@ -883,131 +891,135 @@ require_once 'php/db.php';
 
     </div>
   </div>
-
-
-
   <a href="second-choose.html.php"><button class="nextButton">進行第二項測驗</button></a>
-
+  
   <script>
 
-    const selectedCareersString = localStorage.getItem('selectedLetters');
-    const selectedCareersArray = selectedCareersString ? JSON.parse(selectedCareersString) : [];
-    const combinations = getCombinations(selectedCareersArray);
-    function updateSelectedLetters() {
-      const selectDiv = document.querySelector('.select');
-      const h2Element = selectDiv.querySelector('h2');
-      h2Element.textContent = `您所選擇的字母順序是：${selectedCareersArray.join(', ')}`;
-    }
-    function updateSelectedLetters2() {
-      const selectDiv = document.querySelector('.select');
-      const h2Element = selectDiv.querySelector('h2');
-      h2Element.textContent = `請回到上一頁面重新選擇卡片`;
-    }
-    function getCombinations(letters) {
-      const results = [];
+// 從用戶本地端獲取之前選擇的字母字符串
+const selectedCareersString = localStorage.getItem('selectedLetters');
+// 如果字符串存在，則將其解析為陣列；否則，初始化為空陣列
+const selectedCareersArray = selectedCareersString ? JSON.parse(selectedCareersString) : [];
+// 計算選擇的字母可以組成的所有組合
+const combinations = getCombinations(selectedCareersArray);
 
-      function generateCombinations(current, remaining) {
-        if (current.length === 2 || current.length === 3) {
-          results.push(current.slice());
-        }
-        for (let i = 0; i < remaining.length; i++) {
-          current.push(remaining[i]);
-          generateCombinations(current, remaining.slice(i + 1));
-          current.pop();
+// 顯示用戶選擇的字母順序
+function updateSelectedLetters() {
+  const selectDiv = document.querySelector('.select');
+  const h2Element = selectDiv.querySelector('h2');
+  h2Element.textContent = `您所選擇的字母順序是：${selectedCareersArray.join(', ')}`;
+}
+
+// 更新顯示提示用戶返回上一頁重新選擇卡片的訊息
+function updateSelectedLetters2() {
+  const selectDiv = document.querySelector('.select');
+  const h2Element = selectDiv.querySelector('h2');
+  h2Element.textContent = `請回到上一頁面重新選擇卡片`;
+}
+
+// 根據用戶選擇的字母計算所有可能的組合
+function getCombinations(letters) {
+  const results = []; // 存儲結果的陣列
+
+  // 遞迴函數，用於生成組合
+  function generateCombinations(current, remaining) {
+    // 如果當前組合的長度為2或3，則將其添加到結果中
+    if (current.length === 2 || current.length === 3) {
+      results.push(current.slice());
+    }
+    // 遍歷剩餘字母，遞迴生成組合
+    for (let i = 0; i < remaining.length; i++) {
+      current.push(remaining[i]);
+      generateCombinations(current, remaining.slice(i + 1));
+      current.pop();
+    }
+  }
+  // 從空陣列開始生成組合
+  generateCombinations([], letters);
+  return results; 
+}
+
+// 比較兩個陣列是否相等
+function areArraysEqual(arr1, arr2) {
+  const str1 = JSON.stringify(arr1);
+  const str2 = JSON.stringify(arr2);
+  return str1 === str2;
+}
+
+
+// 主要符合
+// 如果選擇了3個字母
+if (selectedCareersArray.length === 3) {
+  updateSelectedLetters();
+  const designedCardsElement = document.getElementById('designedCareers');
+  designedCardsElement.querySelectorAll('.card').forEach(cardDiv => {
+    if (cardDiv) {
+      const cardLetters = cardDiv.getAttribute('data-letter').split(',');
+      const intersection = cardLetters.filter(letter => selectedCareersArray.includes(letter));
+      if (intersection.length >= 2) {
+        for (let i = 0; i < 4; i++) {
+          const currentCombination = combinations[i];
+          const arraysEqual = areArraysEqual(currentCombination, cardLetters);
+          // 如果字母組合符合，則顯示相應的卡片
+          cardDiv.closest('.col-lg-4.col-md-6.col-sm-12.mb-3').classList.remove('d-none');
+          if (arraysEqual) {
+            cardDiv.closest('.col-lg-4.col-md-6.col-sm-12.mb-3').classList.add('block');
+          } else {
+            cardDiv.closest('.col-lg-4.col-md-6.col-sm-12.mb-3').classList.add('hide');
+          }
         }
       }
-      generateCombinations([], letters);
-      return results;
+      else {
+        // 如果不符合條件，則隱藏卡片
+        cardDiv.closest('.col-lg-4.col-md-6.col-sm-12.mb-3').classList.add('d-none');
+      }
     }
-    function areArraysEqual(arr1, arr2) {
-      const str1 = JSON.stringify(arr1);
-      const str2 = JSON.stringify(arr2);
-      return str1 === str2;
-    }
+  });
+} else {
+  // 如果沒有選擇足夠的字母，則隱藏所有卡片並提示用戶
+  const designedCardsElement = document.getElementById('designedCareers');
+  designedCardsElement.querySelectorAll('.card').forEach(cardDiv => {
+    cardDiv.closest('.col-lg-4.col-md-6.col-sm-12.mb-3').classList.add('d-none');
+  });
+  updateSelectedLetters2();
+}
 
-
-    // 主要符合
-    if (selectedCareersArray.length === 3) {
-      updateSelectedLetters();
-      const designedCardsElement = document.getElementById('designedCareers');
-      designedCardsElement.querySelectorAll('.card').forEach(cardDiv => {
-        if (cardDiv) {
-          const cardLetters = cardDiv.getAttribute('data-letter').split(',');
-          const intersection = cardLetters.filter(letter => selectedCareersArray.includes(letter));
-          // console.log(cardLetters);
-          if (intersection.length >= 2) {
-            for (let i = 0; i < 4; i++) {
-              const currentCombination = combinations[i];
-              const arraysEqual = areArraysEqual(currentCombination, cardLetters);
-              // console.log(cardLetters);
-              // console.log(currentCombination);
-              // console.log(arraysEqual);
-              cardDiv.closest('.col-lg-4.col-md-6.col-sm-12.mb-3').classList.remove('d-none');
-              if (arraysEqual) {
-                cardDiv.closest('.col-lg-4.col-md-6.col-sm-12.mb-3').classList.add('block');
-              } else {
-                cardDiv.closest('.col-lg-4.col-md-6.col-sm-12.mb-3').classList.add('hide');
-              }
-            }
-          }
-          else {
-            cardDiv.closest('.col-lg-4.col-md-6.col-sm-12.mb-3').classList.add('d-none');
+// 次要符合
+// 如果選擇了3個字母
+if (selectedCareersArray.length === 3) {
+  updateSelectedLetters();
+  const designedCardsElement = document.getElementById('designedCareers1');
+  designedCardsElement.querySelectorAll('.card').forEach(cardDiv => {
+    if (cardDiv) {
+      const cardLetters = cardDiv.getAttribute('data-letter').split(',');
+      const intersection = cardLetters.filter(letter => selectedCareersArray.includes(letter));
+      if (intersection.length >= 2) {
+        for (let i = 0; i < 4; i++) {
+          const currentCombination = combinations[i];
+          const arraysEqual = areArraysEqual(currentCombination, cardLetters);
+          // 如果字母組合符合，則顯示相應的卡片
+          cardDiv.closest('.col-lg-4.col-md-6.col-sm-12.mb-3').classList.remove('d-none');
+          if (arraysEqual) {
+            cardDiv.closest('.col-lg-4.col-md-6.col-sm-12.mb-3').classList.add('hide');
+          } else {
+            // cardDiv.closest('.col-lg-4.col-md-6.col-sm-12.mb-3').classList.add('block');
           }
         }
-      });
-    } else {
-      const designedCardsElement = document.getElementById('designedCareers');
-      designedCardsElement.querySelectorAll('.card').forEach(cardDiv => {
+      }
+      // 如果不符合條件，則隱藏卡片
+      else {
         cardDiv.closest('.col-lg-4.col-md-6.col-sm-12.mb-3').classList.add('d-none');
-      });
-      updateSelectedLetters2();
+      }
     }
-
-    // 次要符合
-    if (selectedCareersArray.length === 3) {
-      updateSelectedLetters();
-      const designedCardsElement = document.getElementById('designedCareers1');
-      designedCardsElement.querySelectorAll('.card').forEach(cardDiv => {
-        if (cardDiv) {
-          const cardLetters = cardDiv.getAttribute('data-letter').split(',');
-          const intersection = cardLetters.filter(letter => selectedCareersArray.includes(letter));
-          // console.log(cardLetters);
-          if (intersection.length >= 2) {
-            for (let i = 0; i < 4; i++) {
-              const currentCombination = combinations[i];
-              const arraysEqual = areArraysEqual(currentCombination, cardLetters);
-              // console.log(cardLetters);
-              // console.log(currentCombination);
-              // console.log(arraysEqual);
-              cardDiv.closest('.col-lg-4.col-md-6.col-sm-12.mb-3').classList.remove('d-none');
-              if (arraysEqual) {
-                cardDiv.closest('.col-lg-4.col-md-6.col-sm-12.mb-3').classList.add('hide');
-              } else {
-                // cardDiv.closest('.col-lg-4.col-md-6.col-sm-12.mb-3').classList.add('block');
-              }
-            }
-          }
-          else {
-            cardDiv.closest('.col-lg-4.col-md-6.col-sm-12.mb-3').classList.add('d-none');
-          }
-        }
-      });
-    } else {
-      const designedCardsElement = document.getElementById('designedCareers');
-      designedCardsElement.querySelectorAll('.card').forEach(cardDiv => {
-        cardDiv.closest('.col-lg-4.col-md-6.col-sm-12.mb-3').classList.add('d-none');
-      });
-      updateSelectedLetters2();
-    }
-
-
-
-
-
-
-
+  });
+} else {
+  // 如果沒有選擇足夠的字母，則隱藏所有卡片並提示用戶
+  const designedCardsElement = document.getElementById('designedCareers');
+  designedCardsElement.querySelectorAll('.card').forEach(cardDiv => {
+    cardDiv.closest('.col-lg-4.col-md-6.col-sm-12.mb-3').classList.add('d-none');
+  });
+  updateSelectedLetters2();
+}
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 </body>
-
 </html>

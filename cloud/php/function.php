@@ -6,10 +6,9 @@ $host = '34.81.127.213';
 $dbuser = 'root';
 $dbpw = '20031208';
 $dbname = 'career';
-
 $_SESSION['link'] = mysqli_connect($host, $dbuser, $dbpw, $dbname);
 /**
- * 檢查資料庫有無該使用者名稱
+ * 檢查資料庫有無該使用者名稱(避免在註冊時用戶的使用者名稱重複)
  */
 function check_has_username($username)
 {
@@ -46,7 +45,7 @@ function check_has_username($username)
 }
 
 /**
- * 檢查資料庫有無該使用者名稱
+ * 註冊成功之後，將該用戶資料存進資料庫
  */
 function add_user($username, $password, $name)
 {
@@ -80,7 +79,7 @@ function add_user($username, $password, $name)
   return $result;
 }
 
-// 把使用者選擇的卡片加入資料庫
+// 把使用者選擇的卡片(字母)加入資料庫(第一個選擇)
 function add_SelectedLetters($user_id, $un, $l1, $l2, $l3){
   // 宣告要回傳的結果
   $result = null;
@@ -112,7 +111,7 @@ function add_SelectedLetters($user_id, $un, $l1, $l2, $l3){
   return $result;
 }
 
-// 把使用者選擇的卡片加入資料庫
+// 把使用者選擇的卡片(數字)加入資料庫(第二個選擇)
 function add_number($user_id,$un, $n1, $n2, $n3){
   // 宣告要回傳的結果
   $result = null;
@@ -145,7 +144,7 @@ function add_number($user_id,$un, $n1, $n2, $n3){
 }
 
 /**
- * 檢查資料庫有無該使用者名稱
+ * 登入時驗證用戶資料
  */
 function verify_user($username, $password)
 {
@@ -186,7 +185,7 @@ function verify_user($username, $password)
   return $result;
 }
 
-// 取得使用者第一個選擇結果
+// 取得使用者選擇結果(第一個選擇)
 function get_user_choices($user_id) {
   $host = '34.81.127.213';
 $dbuser = 'root';
@@ -222,7 +221,7 @@ while ($row = $result->fetch_assoc()) {
   return $user_choices;
 }
 
-// 取得使用者第二個選擇結果
+// 取得使用者選擇結果(第二個選擇)
 function get_user_choices2($user_id) {
   $host = '34.81.127.213';
 $dbuser = 'root';

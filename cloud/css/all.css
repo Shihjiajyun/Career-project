@@ -1,21 +1,21 @@
 * {
-  font-family: PMingLiU;
+    font-family: PMingLiU;
 }
 
 .content ul {
-  margin-top: -10px;
-  margin-bottom: 0px;
+    margin-top: -10px;
+    margin-bottom: 0px;
 }
 
 .welcome {
-  position: absolute;
-  top: 20px;
-  left: 100px;
+    position: absolute;
+    top: 20px;
+    left: 100px;
 }
 
 @font-face {
     font-family: first;
-    src: url('./jf.ttf');
+    src: url('./first.ttf');
 }
 
 .firstWord {
@@ -24,7 +24,7 @@
 
 @font-face {
     font-family: second;
-    src: url('./write.ttf');
+    src: url('./second.ttf');
 }
 
 .secondWord {
