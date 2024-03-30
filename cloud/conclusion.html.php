@@ -87,12 +87,11 @@ if ($result->num_rows > 0) {
       <ul class="navbar-nav ms-auto list-unstyled justify-content-end" style="font-size: 22px;">
         <?php if(isset($_SESSION['is_login']) && $_SESSION['is_login']) { ?>
             <!-- 若已登入，顯示登入按鈕和登出按鈕 -->
-            <a class="nav-link nav-item" href="#"><span style="color: #C5CBD3;">登入</span></a>
             <a class="nav-link nav-item" href="./php/logout.php"><span style="color: black;">登出</span></a>
         <?php } else { ?>
             <!-- 若未登入，顯示登入按鈕和登出按鈕 -->
             <a class="nav-link nav-item" href="login.php"><span style="color: black;">登入</span></a>
-            <a class="nav-link nav-item" href="#"><span style="color: #C5CBD3;">登出</span></a>
+            <a class="nav-link nav-item" href="register.php"><span style="color: black;">註冊</span></a>
         <?php } ?>
       </ul>
     </div>

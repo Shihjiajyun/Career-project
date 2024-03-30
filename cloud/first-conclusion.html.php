@@ -48,10 +48,6 @@ require_once 'php/db.php';
         <!-- 根據用戶的登錄狀態動態顯示登入或登出按鈕 -->
         <?php if(isset($_SESSION['is_login']) && $_SESSION['is_login']) { ?>
           <li class="nav-item">
-            <!-- 已登錄狀態下，登入按鈕不可點擊 -->
-            <a class="nav-link" href="#"><span style="color: #C5CBD3;">登入</span></a>
-          </li>
-          <li class="nav-item">
             <!-- 提供一個登出按鈕 -->
             <a class="nav-link" href="./php/logout.php"><span style="color: black;">登出</span></a>
           </li>
@@ -61,8 +57,8 @@ require_once 'php/db.php';
             <a class="nav-link" href="login.php"><span style="color: black;">登入</span></a>
           </li>
           <li class="nav-item">
-            <!-- 未登錄狀態下，登出按鈕不可點擊 -->
-            <a class="nav-link" href="#"><span style="color: #C5CBD3;">登出</span></a>
+            <!-- 未登錄狀態下，提供註冊按鈕 -->
+            <a class="nav-link" href="register.php"><span style="color: black;">登出</span></a>
           </li>
         <?php } ?>
       </ul>

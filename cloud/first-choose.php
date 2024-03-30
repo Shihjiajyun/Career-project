@@ -44,10 +44,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto list-unstyled justify-content-end" style="font-size: 22px;">
         <?php if(isset($_SESSION['is_login']) && $_SESSION['is_login']) { ?>
-          <!-- 若已登入，顯示登入和登出按鈕 -->
-          <li class="nav-item">
-            <a class="nav-link" href="#"><span style="color: #C5CBD3;">登入</span></a>
-          </li>
+          <!-- 若已登入，顯示登出按鈕 -->
           <li class="nav-item">
             <a class="nav-link" href="./php/logout.php"><span style="color: black;">登出</span></a>
           </li>
@@ -57,7 +54,7 @@
             <a class="nav-link" href="login.php"><span style="color: black;">登入</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"><span style="color: #C5CBD3;">登出</span></a>
+            <a class="nav-link" href="register.php"><span style="color: black;">註冊</span></a>
           </li>
         <?php } ?>
       </ul>
@@ -115,7 +112,7 @@
       $_SESSION['user_id'] = $row['user_id'];
       $user_id = $_SESSION['user_id'];
     } else {
-      echo "";
+      $user_id = 0;
     }
 
     // 檢查用戶是否登入，並根據登入狀態獲取用戶志願選擇

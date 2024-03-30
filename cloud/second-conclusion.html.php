@@ -84,12 +84,11 @@ if ($result->num_rows > 0) {
       <ul class="navbar-nav ms-auto list-unstyled justify-content-end" style="font-size: 22px;">
         <?php if(isset($_SESSION['is_login']) && $_SESSION['is_login']) { ?>
             <!-- 用戶已登錄時顯示的導航連結，實際上登入連結應不可用，登出連結指向登出處理頁面 -->
-            <a class="nav-link nav-item" href="#"><span style="color: #C5CBD3;">登入</span></a>
             <a class="nav-link nav-item" href="./php/logout.php"><span style="color: black;">登出</span></a>
         <?php } else { ?>
             <!-- 用戶未登錄時顯示的導航連結，提供登入頁面的連結，登出連結不可用 -->
             <a class="nav-link nav-item" href="login.php"><span style="color: black;">登入</span></a>
-            <a class="nav-link nav-item" href="#"><span style="color: #C5CBD3;">登出</span></a>
+            <a class="nav-link nav-item" href="register.php"><span style="color: black;">註冊</span></a>
         <?php } ?>
       </ul>
     </div>

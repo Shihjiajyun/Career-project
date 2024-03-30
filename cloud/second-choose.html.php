@@ -15,7 +15,7 @@ if ($conn->connect_error) {
 
 // 檢查用戶是否已登入，如果已登入，則從會話中獲取用戶名
 if(!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
-  // 用戶未登入時的處理邏輯
+
 }else{
   $user_name = $_SESSION['username'];
 }
@@ -39,12 +39,12 @@ if ($result->num_rows > 0) {
   $user_id = $_SESSION['user_id'];
 } else {
   // 查詢無結果時的處理
-  echo "";
+  $user_id = 0;
 }
 
 // 根據用戶是否登入來取得用戶的選擇，如果未登入，使用空數組
 if(!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
-  $user_choices2 = [];
+  $user_choices2 = [null, null, null];
 }else{
   // 如果用戶已登入，則調用函數獲取用戶的選擇
   $user_choices2 = get_user_choices2($user_id);
@@ -92,15 +92,13 @@ if(!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
       <!-- 導航連結列表，根據用戶登入狀態動態顯示 -->
       <ul class="navbar-nav ms-auto list-unstyled justify-content-end" style="font-size: 22px;">
         <?php if(isset($_SESSION['is_login']) && $_SESSION['is_login']) { ?>
-            <!-- 用戶已登入時顯示的導航項目 -->
-            <a class="nav-link nav-item" href="#"><span style="color: #C5CBD3;">登入</span></a>
             <!-- 登出按鈕連結 -->
             <a class="nav-link nav-item" href="./php/logout.php"><span style="color: black;">登出</span></a>
         <?php } else { ?>
-            <!-- 用戶未登入時顯示的導航項目 -->
+            <!-- 用戶未登入時顯示的登入按鈕 -->
             <a class="nav-link nav-item" href="login.php"><span style="color: black;">登入</span></a>
-            <!-- 未登入狀態下的登出按鈕，一般不可用 -->
-            <a class="nav-link nav-item" href="#"><span style="color: #C5CBD3;">登出</span></a>
+            <!-- 用戶未登入時顯示的註冊按鈕 -->
+            <a class="nav-link nav-item" href="register.php"><span style="color: black;">註冊</span></a>
         <?php } ?>
       </ul>
     </div>
@@ -592,6 +590,7 @@ function toggleSelection(element, value) {
   element.classList.toggle('selected');
   // 更新下一步按鈕的顯示狀態
   updateNextButtonVisibility();
+  // console.log('456');
 }
 
 // 定義一個更新下一步按鈕顯示狀態的函數
@@ -602,6 +601,7 @@ function updateNextButtonVisibility() {
   const nextButton = document.getElementById('nextButton');
   // 如果恰好有一個元素被選中，顯示下一步按鈕；否則隱藏它
   nextButton.style.display = selectedCount == 1 ? 'block' : 'none';
+  // console.log('123');
 }
 
 </script>
@@ -614,9 +614,11 @@ window.onload = function () {
 // 初始化一個空陣列用於存儲選擇的卡片
 const selectedcard2 = [];
 // 從PHP變量中獲取用戶選擇並賦值給JavaScript陣列
-selectedcard2[0] = <?php echo json_encode($user_choices2[0]); ?>;
-selectedcard2[1] = <?php echo json_encode($user_choices2[1]); ?>;
-selectedcard2[2] = <?php echo json_encode($user_choices2[2]); ?>;
+    selectedcard2[0] = <?php echo json_encode($user_choices2[0]); ?>;
+    selectedcard2[1] = <?php echo json_encode($user_choices2[1]); ?>;
+    selectedcard2[2] = <?php echo json_encode($user_choices2[2]); ?>;
+
+
 
 // 獲取所有class為'card2'的元素並轉換為陣列
 var cards = document.querySelectorAll('.card2');
@@ -642,6 +644,7 @@ updateNextButtonVisibility()
 
 // 查找當前選中的卡片並更新用戶本地端儲存資料
 function find() {
+  console.log('123');
   const selectedContainers = document.querySelectorAll('.selected');
   const selectedNumbersArray = [];
   selectedContainers.forEach(container => {
