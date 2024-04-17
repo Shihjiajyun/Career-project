@@ -1,7 +1,7 @@
 <?php
 require_once 'php/db.php';
 @session_start();
-$host = '34.81.127.213';
+$host = '34.80.149.46';
 $dbuser = 'root';
 $dbpw = '20031208';
 $dbname = 'career';
