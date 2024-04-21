@@ -2,7 +2,7 @@
 //啟動 session ，這樣才能夠取用 $_SESSION['link'] 的連線，做為資料庫的連線用
 @session_start();
 
-$host = '34.81.127.213';
+$host = '34.80.149.46';
 $dbuser = 'root';
 $dbpw = '20031208';
 $dbname = 'career';
@@ -187,7 +187,7 @@ function verify_user($username, $password)
 
 // 取得使用者選擇結果(第一個選擇)
 function get_user_choices($user_id) {
-  $host = '34.81.127.213';
+  $host = '34.80.149.46';
 $dbuser = 'root';
 $dbpw = '20031208';
 $dbname = 'career';
@@ -223,7 +223,7 @@ while ($row = $result->fetch_assoc()) {
 
 // 取得使用者選擇結果(第二個選擇)
 function get_user_choices2($user_id) {
-  $host = '34.81.127.213';
+  $host = '34.80.149.46';
 $dbuser = 'root';
 $dbpw = '20031208';
 $dbname = 'career';

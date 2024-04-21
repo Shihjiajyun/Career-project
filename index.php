@@ -51,9 +51,7 @@
           </li>
         <?php } ?>
   </ul>
-</div>
 
-  </div>
 </nav>
   <div class="select">
     <h1 style="text-align: center;">請選擇三個字母，並且按照志願排序</h1>
