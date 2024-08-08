@@ -1,9 +1,9 @@
 <?php
 require_once 'php/db.php';
 @session_start();
-$host = '34.81.127.213';
+$host = 'hkg1.clusters.zeabur.com';
 $dbuser = 'root';
-$dbpw = '20031208';
+$dbpw = 'yExzLv7UDIf91G84KX0hdF23mop6SV5a';
 $dbname = 'career';
 
 // 連接到資料庫
@@ -48,45 +48,47 @@ if ($result->num_rows > 0) {
   <!-- <link rel="stylesheet" href="second-conslusion.css"> -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
   <title>職涯卡牌網站</title>
 </head>
 
 <body style="margin: 0px;">
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid d-flex align-items-center">
-    <p class="navbar-brand" style="font-size: 22px;">
-      <?php
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid d-flex align-items-center">
+      <p class="navbar-brand" style="font-size: 22px;">
+        <?php
         require_once 'php/db.php';
         require_once 'php/function.php';
         @session_start();
-        if(!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
+        if (!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
           // header("Location: login.php");
           echo "您目前尚未登入帳號";
-        }else{
+        } else {
           $user_name = $_SESSION['username'];
           echo "歡迎回來，$user_name";
         }
-        
-      ?>
-    </p>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto list-unstyled justify-content-end" style="font-size: 22px;">
-        <?php if(isset($_SESSION['is_login']) && $_SESSION['is_login']) { ?>
+
+        ?>
+      </p>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto list-unstyled justify-content-end" style="font-size: 22px;">
+          <?php if (isset($_SESSION['is_login']) && $_SESSION['is_login']) { ?>
             <a class="nav-link nav-item" href="#"><span style="color: #C5CBD3;">登入</span></a>
             <a class="nav-link nav-item" href="./php/logout.php"><span style="color: black;">登出</span></a>
-        <?php } else { ?>
+          <?php } else { ?>
             <a class="nav-link nav-item" href="login.php"><span style="color: black;">登入</span></a>
             <a class="nav-link nav-item" href="#"><span style="color: #C5CBD3;">登出</span></a>
-        <?php } ?>
-  </ul>
-</div>
+          <?php } ?>
+        </ul>
+      </div>
 
-  </div>
-</nav>
+    </div>
+  </nav>
   <h1 id="selectedcard3" style="color: #000;font-family:PMingLiU;"></h1>
 
   <h1><span style="color: #000;  font-family:PMingLiU;">職能面試問題:</span>
@@ -822,7 +824,8 @@ if ($result->num_rows > 0) {
 
 
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 <footer style="height: 200px;"></footer>
 
 </html>

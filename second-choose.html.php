@@ -3,10 +3,9 @@ require_once 'php/db.php';
 require_once 'php/function.php';
 @session_start();
 
-
-$host = '34.81.127.213';
+$host = 'hkg1.clusters.zeabur.com';
 $dbuser = 'root';
-$dbpw = '20031208';
+$dbpw = 'yExzLv7UDIf91G84KX0hdF23mop6SV5a';
 $dbname = 'career';
 
 // 連接到資料庫
@@ -17,8 +16,8 @@ $conn = new mysqli($host, $dbuser, $dbpw, $dbname);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
-if(!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
-}else{
+if (!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
+} else {
   $user_name = $_SESSION['username'];
 }
 // 使用 prepared statements 避免 SQL 注入
@@ -39,9 +38,9 @@ if ($result->num_rows > 0) {
 } else {
   echo "";
 }
-if(!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
+if (!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
   $user_choices2 = [];
-}else{
+} else {
   $user_choices2 = get_user_choices2($user_id);
 }
 ?>
@@ -58,45 +57,47 @@ if(!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
   <link rel="stylesheet" href="css/second-conclusion.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid d-flex align-items-center">
-    <p class="navbar-brand" style="font-size: 22px;">
-      <?php
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid d-flex align-items-center">
+      <p class="navbar-brand" style="font-size: 22px;">
+        <?php
         require_once 'php/db.php';
         require_once 'php/function.php';
         @session_start();
-        if(!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
+        if (!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
           // header("Location: login.php");
           echo "您目前尚未登入帳號";
-        }else{
+        } else {
           $user_name = $_SESSION['username'];
           echo "歡迎回來，$user_name";
         }
-        
-      ?>
-    </p>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto list-unstyled justify-content-end" style="font-size: 22px;">
-        <?php if(isset($_SESSION['is_login']) && $_SESSION['is_login']) { ?>
+
+        ?>
+      </p>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto list-unstyled justify-content-end" style="font-size: 22px;">
+          <?php if (isset($_SESSION['is_login']) && $_SESSION['is_login']) { ?>
             <a class="nav-link nav-item" href="#"><span style="color: #C5CBD3;">登入</span></a>
             <a class="nav-link nav-item" href="./php/logout.php"><span style="color: black;">登出</span></a>
-        <?php } else { ?>
+          <?php } else { ?>
             <a class="nav-link nav-item" href="login.php"><span style="color: black;">登入</span></a>
             <a class="nav-link nav-item" href="#"><span style="color: #C5CBD3;">登出</span></a>
-        <?php } ?>
-  </ul>
-</div>
+          <?php } ?>
+        </ul>
+      </div>
 
-  </div>
-</nav>
+    </div>
+  </nav>
   <h1 style="color: black;">請選擇一項，您覺得您可以勝任的職業</h1>
   <div id="designedcard2s">
     <div class="page-content">
@@ -574,9 +575,10 @@ if(!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
     </div>
   </div>
 
-  <a href="second-conclusion.html.php"><button id="nextButton" onclick="find()" style="z-index: 100;">查看分析結果</button></a>
-<script>
-function toggleSelection(element, value) {
+  <a href="second-conclusion.html.php"><button id="nextButton" onclick="find()"
+      style="z-index: 100;">查看分析結果</button></a>
+  <script>
+    function toggleSelection(element, value) {
       // element.classList.toggle('selected');
 
       element.classList.toggle('selected');
@@ -588,7 +590,7 @@ function toggleSelection(element, value) {
       nextButton.style.display = selectedCount == 1 ? 'block' : 'none';
       console.log(123);
     }
-</script>
+  </script>
 
   <script>
 
@@ -601,26 +603,26 @@ function toggleSelection(element, value) {
     selectedcard2[0] = <?php echo json_encode($user_choices2[0]); ?>;
     selectedcard2[1] = <?php echo json_encode($user_choices2[1]); ?>;
     selectedcard2[2] = <?php echo json_encode($user_choices2[2]); ?>;
-console.log(selectedcard2);
+    console.log(selectedcard2);
 
-var cards = document.querySelectorAll('.card2');
-var cardsArray = Array.from(cards);
-    cardsArray.forEach(function(card) {
-        var cardNumbers = card.getAttribute('data-numbers').split(',').map(Number);
-          if (arraysEqual(cardNumbers, selectedcard2)) {
+    var cards = document.querySelectorAll('.card2');
+    var cardsArray = Array.from(cards);
+    cardsArray.forEach(function (card) {
+      var cardNumbers = card.getAttribute('data-numbers').split(',').map(Number);
+      if (arraysEqual(cardNumbers, selectedcard2)) {
         card.classList.add('selected');
       }
     });
 
     function arraysEqual(arr1, arr2) {
       if (arr1.length !== arr2.length) return false;
-        for (var i = 0; i < arr1.length; i++) {
-      if (arr1[i] !== arr2[i]) return false;
-      }return true;
+      for (var i = 0; i < arr1.length; i++) {
+        if (arr1[i] !== arr2[i]) return false;
+      } return true;
     }
     updateNextButtonVisibility()
 
-    
+
     function find() {
       const selectedContainers = document.querySelectorAll('.selected');
       const selectedNumbersArray = [];
@@ -660,27 +662,29 @@ var cardsArray = Array.from(cards);
           n1: selectedcard2[0],
           n2: selectedcard2[1],
           n3: selectedcard2[2],
-      },
+        },
 
         dataType: 'html' // 設定該網頁回應的會是 html 格式
-    }).done(function (data) {
-          // 成功的時候
-          console.log(data);
-          if (data == "yes") {
-            // alert("加入成功");
-            // 新增成功，轉跳到結果頁面。
-            // window.location.href="login.php";
-          } else {
-            alert("加入失敗，請與系統人員聯繫");
-          }
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-          // 失敗的時候
-          // alert("有錯誤產生，請看 console log");
-          console.log(jqXHR.responseText);
-        });
-  });
+      }).done(function (data) {
+        // 成功的時候
+        console.log(data);
+        if (data == "yes") {
+          // alert("加入成功");
+          // 新增成功，轉跳到結果頁面。
+          // window.location.href="login.php";
+        } else {
+          alert("加入失敗，請與系統人員聯繫");
+        }
+      }).fail(function (jqXHR, textStatus, errorThrown) {
+        // 失敗的時候
+        // alert("有錯誤產生，請看 console log");
+        console.log(jqXHR.responseText);
+      });
+    });
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>

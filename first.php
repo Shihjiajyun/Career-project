@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,95 +8,97 @@
   <link rel="stylesheet" href="css/card.css">
   <link rel="stylesheet" href="css/all.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid d-flex align-items-center">
-    <p class="navbar-brand" style="font-size: 22px;">
-      <?php
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid d-flex align-items-center">
+      <p class="navbar-brand" style="font-size: 22px;">
+        <?php
         require_once 'php/db.php';
         require_once 'php/function.php';
         @session_start();
-        if(!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
+        if (!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
           // header("Location: login.php");
           echo "您目前尚未登入帳號";
-        }else{
+        } else {
           $user_name = $_SESSION['username'];
           echo "歡迎回來，$user_name";
         }
-        
-      ?>
-    </p>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto list-unstyled justify-content-end" style="font-size: 22px;">
-        <?php if(isset($_SESSION['is_login']) && $_SESSION['is_login']) { ?>
-          <li class="nav-item">
-            <a class="nav-link" href="#"><span style="color: #C5CBD3;">登入</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./php/logout.php"><span style="color: black;">登出</span></a>
-          </li>
-        <?php } else { ?>
-          <li class="nav-item">
-            <a class="nav-link" href="login.php"><span style="color: black;">登入</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"><span style="color: #C5CBD3;">登出</span></a>
-          </li>
-        <?php } ?>
-  </ul>
 
-</nav>
+        ?>
+      </p>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto list-unstyled justify-content-end" style="font-size: 22px;">
+          <?php if (isset($_SESSION['is_login']) && $_SESSION['is_login']) { ?>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><span style="color: #C5CBD3;">登入</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./php/logout.php"><span style="color: black;">登出</span></a>
+            </li>
+          <?php } else { ?>
+            <li class="nav-item">
+              <a class="nav-link" href="login.php"><span style="color: black;">登入</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><span style="color: #C5CBD3;">登出</span></a>
+            </li>
+          <?php } ?>
+        </ul>
+
+  </nav>
   <div class="select">
     <h1 style="text-align: center;">請選擇三個字母，並且按照志願排序</h1>
     <h2 style="text-align: center;">您所選擇的字母是：</h2>
     <div class="welcome">
-  <?php
-  require_once 'php/db.php';
-  require_once 'php/function.php';
-  @session_start();
+      <?php
+      require_once 'php/db.php';
+      require_once 'php/function.php';
+      @session_start();
 
-  $host = '34.81.127.213';
-  $dbuser = 'root';
-  $dbpw = '20031208';
-  $dbname = 'career';
-  $conn = new mysqli($host, $dbuser, $dbpw, $dbname);
-  if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-  }
+      $host = 'hkg1.clusters.zeabur.com';
+      $dbuser = 'root';
+      $dbpw = 'yExzLv7UDIf91G84KX0hdF23mop6SV5a';
+      $dbname = 'career';
+      $conn = new mysqli($host, $dbuser, $dbpw, $dbname);
+      if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+      }
 
-  $sql = "SELECT user_id FROM user WHERE username = ?";
-  $stmt = $conn->prepare($sql);
-  $stmt->bind_param("s", $user_name); // "s" 表示字串，這裡是用戶名
+      $sql = "SELECT user_id FROM user WHERE username = ?";
+      $stmt = $conn->prepare($sql);
+      $stmt->bind_param("s", $user_name); // "s" 表示字串，這裡是用戶名
+      
+
+      $stmt->execute();
+      $result = $stmt->get_result();
 
 
-  $stmt->execute();
-  $result = $stmt->get_result();
+      if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $_SESSION['user_id'] = $row['user_id'];
+        $user_id = $_SESSION['user_id'];
+      } else {
+        echo "";
+      }
+      if (!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
+        $user_choices = [];
+      } else {
+        $user_choices = get_user_choices($user_id);
+      }
 
-
-if ($result->num_rows > 0) {
-  $row = $result->fetch_assoc();
-  $_SESSION['user_id'] = $row['user_id'];
-  $user_id = $_SESSION['user_id'];
-} else {
-  echo "";
-}
-if(!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
-  $user_choices = [];
-}else{
-  $user_choices = get_user_choices($user_id);
-}
-
-// print_r($user_choices[0]);
+      // print_r($user_choices[0]);
 // print_r($user_choices[1]);
 // print_r($user_choices[2]);
-?>
-</div>
+      ?>
+    </div>
   </div>
   <div class="cards">
     <div class="card" data-letter="S" id="S1">
@@ -237,7 +238,7 @@ if(!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
       </div>
     </div>
 
-    <div class="card" data-letter="I" id="I1" >
+    <div class="card" data-letter="I" id="I1">
       <div class="card__image-holder">
         <img class="card__image" src="img/thinker.png" height="200px" />
       </div>
@@ -381,33 +382,30 @@ if(!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
   </div>
 
 
-  <a href="./first-conclusion.html.php"><button class="nextButton" id="nextButton" onclick="showSelectedCards()" style="z-index: 100;">查看分析結果</button></a>
+  <a href="./first-conclusion.html.php"><button class="nextButton" id="nextButton" onclick="showSelectedCards()"
+      style="z-index: 100;">查看分析結果</button></a>
   <script>
-let selectedLetters = [null, null, null];
-console.log(<?php echo json_encode($user_choices); ?>);
+    let selectedLetters = [null, null, null];
+    console.log(<?php echo json_encode($user_choices); ?>);
 
-if (!<?php echo json_encode(empty($user_choices)); ?>) {
-    selectedLetters[0] = <?php echo isset($user_choices[0]) ? json_encode($user_choices[0]) : 'null'; ?>;
-    selectedLetters[1] = <?php echo isset($user_choices[1]) ? json_encode($user_choices[1]) : 'null'; ?>;
-    selectedLetters[2] = <?php echo isset($user_choices[2]) ? json_encode($user_choices[2]) : 'null'; ?>;
-    console.log(selectedLetters);
-    // console.log('456');
-    checkLetter();
-    checkAndUpdateButtons();
-    checkCard();
-    updateSelectedLetters();
-    updateNextButtonVisibility();
-    saveSelectedLetters();
-    checkmark();
-} else {
-    selectedLetters = [null, null, null];
-    console.log(selectedLetters);
-    // console.log('123');
-}
-
-
-
-
+    if (!<?php echo json_encode(empty($user_choices)); ?>) {
+      selectedLetters[0] = <?php echo isset($user_choices[0]) ? json_encode($user_choices[0]) : 'null'; ?>;
+      selectedLetters[1] = <?php echo isset($user_choices[1]) ? json_encode($user_choices[1]) : 'null'; ?>;
+      selectedLetters[2] = <?php echo isset($user_choices[2]) ? json_encode($user_choices[2]) : 'null'; ?>;
+      console.log(selectedLetters);
+      // console.log('456');
+      checkLetter();
+      checkAndUpdateButtons();
+      checkCard();
+      updateSelectedLetters();
+      updateNextButtonVisibility();
+      saveSelectedLetters();
+      checkmark();
+    } else {
+      selectedLetters = [null, null, null];
+      console.log(selectedLetters);
+      // console.log('123');
+    }
 
 
     function showSelectedCards() {
@@ -447,7 +445,7 @@ if (!<?php echo json_encode(empty($user_choices)); ?>) {
       localStorage.setItem('selectedLetters', JSON.stringify(selectedLetters));
     }
 
-// 將資料存到資料庫中
+    // 將資料存到資料庫中
 
     // 把選擇結果列印出來
     function updateSelectedLetters() {
@@ -608,10 +606,10 @@ if (!<?php echo json_encode(empty($user_choices)); ?>) {
     });
   </script>
   <script>
-    $("#nextButton").on("click", function(event){
+    $("#nextButton").on("click", function (event) {
       console.log('123')
-    // 使用 ajax 送出
-    $.ajax({
+      // 使用 ajax 送出
+      $.ajax({
         type: "POST",
         url: "php/add_SelectedLetters.php",
         data: {
@@ -620,31 +618,33 @@ if (!<?php echo json_encode(empty($user_choices)); ?>) {
           l1: selectedLetters[0],
           l2: selectedLetters[1],
           l3: selectedLetters[2],
-},
+        },
 
         dataType: 'html' // 設定該網頁回應的會是 html 格式
-    }).done(function(data) {
+      }).done(function (data) {
         // 成功的時候
         console.log(data);
-        if(data == "yes") {
-            // alert("加入成功");
-            // 新增成功，轉跳到結果頁面。
-            // window.location.href="login.php";
+        if (data == "yes") {
+          // alert("加入成功");
+          // 新增成功，轉跳到結果頁面。
+          // window.location.href="login.php";
         } else {
-            alert("加入失敗，請與系統人員聯繫");
+          alert("加入失敗，請與系統人員聯繫");
         }
-    }).fail(function(jqXHR, textStatus, errorThrown) {
+      }).fail(function (jqXHR, textStatus, errorThrown) {
         // 失敗的時候
         // alert("有錯誤產生，請看 console log");
         console.log(jqXHR.responseText);
+      });
     });
-  });
 
-    
+
 
   </script>
   <footer></footer>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>

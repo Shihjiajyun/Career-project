@@ -2,9 +2,9 @@
 //啟動 session ，這樣才能夠取用 $_SESSION['link'] 的連線，做為資料庫的連線用
 @session_start();
 
-$host = '34.81.127.213';
+$host = 'hkg1.clusters.zeabur.com';
 $dbuser = 'root';
-$dbpw = '20031208';
+$dbpw = 'yExzLv7UDIf91G84KX0hdF23mop6SV5a';
 $dbname = 'career';
 
 $_SESSION['link'] = mysqli_connect($host, $dbuser, $dbpw, $dbname);
@@ -13,7 +13,7 @@ $_SESSION['link'] = mysqli_connect($host, $dbuser, $dbpw, $dbname);
  */
 function check_has_username($username)
 {
-	//宣告要回傳的結果
+  //宣告要回傳的結果
   $result = null;
 
   //將查詢語法當成字串，記錄在$sql變數中
@@ -23,11 +23,9 @@ function check_has_username($username)
   $query = mysqli_query($_SESSION['link'], $sql);
 
   //如果請求成功
-  if ($query)
-  {
+  if ($query) {
     //使用 mysqli_num_rows 方法，判別執行的語法，其取得的資料量，是否有一筆資料
-    if (mysqli_num_rows($query) >= 1)
-    {
+    if (mysqli_num_rows($query) >= 1) {
       //取得的量大於0代表有資料
       //回傳的 $result 就給 true 代表有該帳號，不可以被新增
       $result = true;
@@ -35,9 +33,7 @@ function check_has_username($username)
 
     //釋放資料庫查詢到的記憶體
     mysqli_free_result($query);
-  }
-  else
-  {
+  } else {
     echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
   }
 
@@ -50,10 +46,10 @@ function check_has_username($username)
  */
 function add_user($username, $password, $name)
 {
-	//宣告要回傳的結果
+  //宣告要回傳的結果
   $result = null;
-	//先把密碼用md5加密
-	$password = md5($password);
+  //先把密碼用md5加密
+  $password = md5($password);
   //將查詢語法當成字串，記錄在$sql變數中
   $sql = "INSERT INTO `user` (`username`, `password`, `name`) VALUE ('{$username}', '{$password}', '{$name}');";
 
@@ -61,18 +57,14 @@ function add_user($username, $password, $name)
   $query = mysqli_query($_SESSION['link'], $sql);
 
   //如果請求成功
-  if ($query)
-  {
+  if ($query) {
     //使用 mysqli_affected_rows 判別異動的資料有幾筆，基本上只有新增一筆，所以判別是否 == 1
-    if(mysqli_affected_rows($_SESSION['link']) == 1)
-    {
+    if (mysqli_affected_rows($_SESSION['link']) == 1) {
       //取得的量大於0代表有資料
       //回傳的 $result 就給 true 代表有該帳號，不可以被新增
       $result = true;
     }
-  }
-  else
-  {
+  } else {
     echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
   }
 
@@ -81,7 +73,8 @@ function add_user($username, $password, $name)
 }
 
 // 把使用者選擇的卡片加入資料庫
-function add_SelectedLetters($user_id, $un, $l1, $l2, $l3){
+function add_SelectedLetters($user_id, $un, $l1, $l2, $l3)
+{
   // 宣告要回傳的結果
   $result = null;
 
@@ -113,7 +106,8 @@ function add_SelectedLetters($user_id, $un, $l1, $l2, $l3){
 }
 
 // 把使用者選擇的卡片加入資料庫
-function add_number($user_id,$un, $n1, $n2, $n3){
+function add_number($user_id, $un, $n1, $n2, $n3)
+{
   // 宣告要回傳的結果
   $result = null;
 
@@ -160,14 +154,12 @@ function verify_user($username, $password)
   $query = mysqli_query($_SESSION['link'], $sql);
 
   //如果請求成功
-  if ($query)
-  {
+  if ($query) {
     //使用 mysqli_num_rows 回傳 $query 請求的結果數量有幾筆，為一筆代表找到會員且密碼正確。
-    if(mysqli_num_rows($query) == 1)
-    {
+    if (mysqli_num_rows($query) == 1) {
       //取得使用者資料
       $user = mysqli_fetch_assoc($query);
-      
+
       //在session李設定 is_login 並給 true 值，代表已經登入
       $_SESSION['is_login'] = TRUE;
       //紀錄登入者的id，之後若要隨時取得使用者資料時，可以透過 $_SESSION['login_user_id'] 取用
@@ -176,9 +168,7 @@ function verify_user($username, $password)
       //回傳的 $result 就給 true 代表驗證成功
       $result = true;
     }
-  }
-  else
-  {
+  } else {
     echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
   }
 
@@ -187,17 +177,18 @@ function verify_user($username, $password)
 }
 
 // 取得使用者第一個選擇結果
-function get_user_choices($user_id) {
-  $host = '34.81.127.213';
-$dbuser = 'root';
-$dbpw = '20031208';
-$dbname = 'career';
+function get_user_choices($user_id)
+{
+  $host = 'hkg1.clusters.zeabur.com';
+  $dbuser = 'root';
+  $dbpw = 'yExzLv7UDIf91G84KX0hdF23mop6SV5a';
+  $dbname = 'career';
 
   $conn = new mysqli($host, $dbuser, $dbpw, $dbname);
 
   // 檢查連接是否成功
   if ($conn->connect_error) {
-      die("Connection failed: " . $conn->connect_error);
+    die("Connection failed: " . $conn->connect_error);
   }
 
   // 使用 prepared statement 避免 SQL 注入
@@ -211,29 +202,30 @@ $dbname = 'career';
 
   // 處理結果
   $user_choices = array();
-while ($row = $result->fetch_assoc()) {
+  while ($row = $result->fetch_assoc()) {
     $user_choices[] = array(
       $user_choices[0] = $row['first_letter'],
       $user_choices[1] = $row['second_letter'],
       $user_choices[2] = $row['third_letter'],
     );
-}
+  }
 
   return $user_choices;
 }
 
 // 取得使用者第二個選擇結果
-function get_user_choices2($user_id) {
-  $host = '34.81.127.213';
-$dbuser = 'root';
-$dbpw = '20031208';
-$dbname = 'career';
+function get_user_choices2($user_id)
+{
+  $host = 'hkg1.clusters.zeabur.com';
+  $dbuser = 'root';
+  $dbpw = 'yExzLv7UDIf91G84KX0hdF23mop6SV5a';
+  $dbname = 'career';
 
   $conn = new mysqli($host, $dbuser, $dbpw, $dbname);
 
   // 檢查連接是否成功
   if ($conn->connect_error) {
-      die("Connection failed: " . $conn->connect_error);
+    die("Connection failed: " . $conn->connect_error);
   }
 
   // 使用 prepared statement 避免 SQL 注入
@@ -247,13 +239,13 @@ $dbname = 'career';
 
   // 處理結果
   $user_choices2 = array();
-while ($row = $result->fetch_assoc()) {
+  while ($row = $result->fetch_assoc()) {
     $user_choices2[] = array(
       $user_choices2[0] = $row['first_number'],
       $user_choices2[1] = $row['second_number'],
       $user_choices2[2] = $row['third_number'],
     );
-}
+  }
 
   return $user_choices2;
 }
