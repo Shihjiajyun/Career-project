@@ -3,11 +3,13 @@
 @session_start();
 
 $host = 'hkg1.clusters.zeabur.com';
+$port = 31522;
 $dbuser = 'root';
 $dbpw = 'yExzLv7UDIf91G84KX0hdF23mop6SV5a';
 $dbname = 'career';
 
-$_SESSION['link'] = mysqli_connect($host, $dbuser, $dbpw, $dbname);
+//宣告一個 link 變數，並執行連結資料庫函式 mysqli_connect()，連結結果會帶入 link 當中
+$_SESSION['link'] = mysqli_connect($host, $dbuser, $dbpw, $dbname, $port);
 /**
  * 檢查資料庫有無該使用者名稱
  */
@@ -180,11 +182,12 @@ function verify_user($username, $password)
 function get_user_choices($user_id)
 {
   $host = 'hkg1.clusters.zeabur.com';
+  $port = 31522;
   $dbuser = 'root';
   $dbpw = 'yExzLv7UDIf91G84KX0hdF23mop6SV5a';
   $dbname = 'career';
 
-  $conn = new mysqli($host, $dbuser, $dbpw, $dbname);
+  $conn = new mysqli($host, $dbuser, $dbpw, $dbname, $port);
 
   // 檢查連接是否成功
   if ($conn->connect_error) {
@@ -217,11 +220,12 @@ function get_user_choices($user_id)
 function get_user_choices2($user_id)
 {
   $host = 'hkg1.clusters.zeabur.com';
+  $port = '31522';
   $dbuser = 'root';
   $dbpw = 'yExzLv7UDIf91G84KX0hdF23mop6SV5a';
   $dbname = 'career';
 
-  $conn = new mysqli($host, $dbuser, $dbpw, $dbname);
+  $conn = new mysqli($host, $dbuser, $dbpw, $dbname, $port);
 
   // 檢查連接是否成功
   if ($conn->connect_error) {

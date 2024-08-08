@@ -4,12 +4,11 @@ require_once 'php/function.php';
 @session_start();
 
 $host = 'hkg1.clusters.zeabur.com';
+$port = 31522; // 将端口号改为整数
 $dbuser = 'root';
 $dbpw = 'yExzLv7UDIf91G84KX0hdF23mop6SV5a';
 $dbname = 'career';
-
-// 連接到資料庫
-$conn = new mysqli($host, $dbuser, $dbpw, $dbname);
+$conn = new mysqli($host, $dbuser, $dbpw, $dbname, $port); // 将端口号放在最后一个参数
 
 
 // 檢查連接
@@ -85,19 +84,22 @@ if (!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
+        <!-- 導航連結列表，根據用戶登入狀態動態顯示 -->
         <ul class="navbar-nav ms-auto list-unstyled justify-content-end" style="font-size: 22px;">
           <?php if (isset($_SESSION['is_login']) && $_SESSION['is_login']) { ?>
-            <a class="nav-link nav-item" href="#"><span style="color: #C5CBD3;">登入</span></a>
+            <!-- 登出按鈕連結 -->
             <a class="nav-link nav-item" href="./php/logout.php"><span style="color: black;">登出</span></a>
           <?php } else { ?>
+            <!-- 用戶未登入時顯示的登入按鈕 -->
             <a class="nav-link nav-item" href="login.php"><span style="color: black;">登入</span></a>
-            <a class="nav-link nav-item" href="#"><span style="color: #C5CBD3;">登出</span></a>
+            <!-- 用戶未登入時顯示的註冊按鈕 -->
+            <a class="nav-link nav-item" href="register.php"><span style="color: black;">註冊</span></a>
           <?php } ?>
         </ul>
       </div>
-
     </div>
   </nav>
+
   <h1 style="color: black;">請選擇一項，您覺得您可以勝任的職業</h1>
   <div id="designedcard2s">
     <div class="page-content">
@@ -579,34 +581,32 @@ if (!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
       style="z-index: 100;">查看分析結果</button></a>
   <script>
     function toggleSelection(element, value) {
-      // element.classList.toggle('selected');
-
       element.classList.toggle('selected');
       updateNextButtonVisibility();
     }
+
     function updateNextButtonVisibility() {
       const selectedCount = document.querySelectorAll('.selected').length;
       const nextButton = document.getElementById('nextButton');
       nextButton.style.display = selectedCount == 1 ? 'block' : 'none';
-      console.log(123);
     }
   </script>
-
   <script>
-
-
-
     window.onload = function () {
       localStorage.removeItem('selectedcard2');
     };
-    const selectedcard2 = [];
-    selectedcard2[0] = <?php echo json_encode($user_choices2[0]); ?>;
-    selectedcard2[1] = <?php echo json_encode($user_choices2[1]); ?>;
-    selectedcard2[2] = <?php echo json_encode($user_choices2[2]); ?>;
-    console.log(selectedcard2);
 
+    const selectedcard2 = [
+      <?php echo isset($user_choices2[0]) ? json_encode($user_choices2[0]) : '[]'; ?>,
+      <?php echo isset($user_choices2[1]) ? json_encode($user_choices2[1]) : '[]'; ?>,
+      <?php echo isset($user_choices2[2]) ? json_encode($user_choices2[2]) : '[]'; ?>
+    ];
+
+
+    // 獲取所有class為'card2'的元素並轉換為陣列
     var cards = document.querySelectorAll('.card2');
     var cardsArray = Array.from(cards);
+    // 遍歷每張卡片，根據數據屬性與選擇的卡片進行比較，相等則標記為選中
     cardsArray.forEach(function (card) {
       var cardNumbers = card.getAttribute('data-numbers').split(',').map(Number);
       if (arraysEqual(cardNumbers, selectedcard2)) {
@@ -614,16 +614,20 @@ if (!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
       }
     });
 
+    // 函數用於比較兩個陣列是否完全相等
     function arraysEqual(arr1, arr2) {
       if (arr1.length !== arr2.length) return false;
       for (var i = 0; i < arr1.length; i++) {
         if (arr1[i] !== arr2[i]) return false;
-      } return true;
+      }
+      return true;
     }
+    // 根據當前選中的卡片更新下一步按鈕的可見性
     updateNextButtonVisibility()
 
-
+    // 查找當前選中的卡片並更新用戶本地端儲存資料
     function find() {
+      console.log('123');
       const selectedContainers = document.querySelectorAll('.selected');
       const selectedNumbersArray = [];
       selectedContainers.forEach(container => {
@@ -636,55 +640,53 @@ if (!isset($_SESSION['is_login']) || !$_SESSION['is_login']) {
       localStorage.setItem('selectedcard2', JSON.stringify(selectedNumbersArray));
       selectedcard2.length = 0;
       selectedcard2.push(...selectedNumbersArray);
-
-      console.log(selectedcard2);
+      // console.log(selectedcard2);
     }
 
-
-
+    // 更新下一步按鈕的可見性
     function updateNextButtonVisibility() {
       const selectedCount = document.querySelectorAll('.selected').length;
       const nextButton = document.getElementById('nextButton');
       nextButton.style.display = selectedCount == 1 ? 'block' : 'none';
-      console.log(123);
+      // console.log('123');
     }
+
   </script>
   <script>
+    // 當nextButton被點擊時
     $("#nextButton").on("click", function (event) {
-      // console.log('123')
-      // 使用 ajax 送出
+      // 透過Ajax發起一個POST請求
       $.ajax({
         type: "POST",
         url: "php/add_number.php",
         data: {
-          user_id: <?php echo json_encode($user_id); ?>,
-          un: <?php echo json_encode($user_name); ?>,
-          n1: selectedcard2[0],
-          n2: selectedcard2[1],
-          n3: selectedcard2[2],
+          user_id: <?php echo json_encode($user_id); ?>, // PHP變量中的使用者ID
+          un: <?php echo json_encode($user_name); ?>, // PHP變量中的使用者名稱
+          n1: selectedcard2[0], // 選中卡片數組的第一個元素
+          n2: selectedcard2[1], // 選中卡片數組的第二個元素
+          n3: selectedcard2[2], // 選中卡片數組的第三個元素
         },
-
-        dataType: 'html' // 設定該網頁回應的會是 html 格式
+        dataType: 'html'
       }).done(function (data) {
-        // 成功的時候
-        console.log(data);
+        // 當請求成功完成時執行的函數
         if (data == "yes") {
+          //資料添加成功
           // alert("加入成功");
-          // 新增成功，轉跳到結果頁面。
-          // window.location.href="login.php";
         } else {
-          alert("加入失敗，請與系統人員聯繫");
+          // 添加失敗
+          alert("加入失敗，請與系統人員聯繫"); // 彈出失敗提示
         }
       }).fail(function (jqXHR, textStatus, errorThrown) {
-        // 失敗的時候
-        // alert("有錯誤產生，請看 console log");
-        console.log(jqXHR.responseText);
+        // 如果請求失敗時執行的函數
+        alert("有錯誤產生，請聯繫開發人員"); // 彈出錯誤提示
+        // console.log(jqXHR.responseText);
       });
     });
+
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
-    crossorigin="anonymous"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

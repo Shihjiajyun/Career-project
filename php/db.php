@@ -1,11 +1,12 @@
 <?php
 $host = 'hkg1.clusters.zeabur.com';
+$port = 31522;
 $dbuser = 'root';
 $dbpw = 'yExzLv7UDIf91G84KX0hdF23mop6SV5a';
 $dbname = 'career';
 
 //宣告一個 link 變數，並執行連結資料庫函式 mysqli_connect()，連結結果會帶入 link 當中
-$_SESSION['link'] = mysqli_connect($host, $dbuser, $dbpw, $dbname);
+$_SESSION['link'] = mysqli_connect($host, $dbuser, $dbpw, $dbname, $port);
 
 if ($_SESSION['link']) {
   //若傳回正值，就代表已經連線

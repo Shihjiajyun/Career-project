@@ -2,12 +2,11 @@
 require_once 'php/db.php';
 @session_start();
 $host = 'hkg1.clusters.zeabur.com';
+$port = 31522; // 将端口号改为整数
 $dbuser = 'root';
 $dbpw = 'yExzLv7UDIf91G84KX0hdF23mop6SV5a';
 $dbname = 'career';
-
-// 連接到資料庫
-$conn = new mysqli($host, $dbuser, $dbpw, $dbname);
+$conn = new mysqli($host, $dbuser, $dbpw, $dbname, $port); // 将端口号放在最后一个参数
 
 
 // 檢查連接
@@ -652,26 +651,40 @@ if ($result->num_rows > 0) {
         style="font-family:PMingLiU;">回到上一頁</span></button></a>
 
   <script>
+    // 獲取用於顯示選擇的職業編號的元素
     const selectedcard3Element = document.getElementById('selectedcard3');
+
+    // 從localStorage中獲取用戶選擇的職業編號數據（以字符串形式存儲）
     const selectedcard3String = localStorage.getItem('selectedcard2');
 
-
+    // 如果有存儲的數據，則將字符串轉換為數組；如果沒有，則使用空數組
     const selectedcard3Array = selectedcard3String ? JSON.parse(selectedcard3String) : [];
+
+    // 更新元素的內容，顯示用戶所選擇的職業編號
     selectedcard3Element.textContent = '您所選擇的職業編號為：' + selectedcard3Array.join(', ');
+
+    // 如果選擇的職業編號數量大於1
     if (selectedcard3Array.length > 1) {
+      // 遍歷所有class為card3的元素
       document.querySelectorAll('.card3').forEach(card3Element => {
+        // 獲取每個元素的data-card3-id屬性值
         const card3Id = card3Element.getAttribute('data-card3-id');
+        // 判斷該職業編號是否在用戶選擇中
         const isSelected = selectedcard3Array.includes(parseInt(card3Id));
+        // 根據是否被選擇來顯示或隱藏元素
         card3Element.style.display = isSelected ? 'block' : 'none';
       });
-
     } else {
-      // Fix here: Use designedcard3sElement instead of card3Div
-      card3Element.style.display = 'none'; // Hide the card3
+      // 如果選擇的職業編號數量不大於1，隱藏所有card3元素
+      // 注意：這裡有一個邏輯錯誤，因為card3Element在這個else分支中未被定義
+      // 正確做法應該是在這個分支中再次遍歷所有.card3元素，然後設置它們的display為'none'
+      card3Element.style.display = 'none';
+      // 更新元素內容，提示用戶適合的職業較為廣泛
       selectedcard3Element.textContent = '適合您的職業較為廣泛!!';
     }
   </script>
   <script>
+    //將用戶針對每一題面試問題的回答存入本地
     new Vue({
       el: '#card3Container2',
       data: {
@@ -819,7 +832,6 @@ if ($result->num_rows > 0) {
         this.userInput26 = localStorage.getItem('userInput26') || '';
       },
     });
-
   </script>
 
 

@@ -2,14 +2,14 @@
 require_once 'php/db.php';
 @session_start();
 
-
 $host = 'hkg1.clusters.zeabur.com';
+$port = 31522;
 $dbuser = 'root';
 $dbpw = 'yExzLv7UDIf91G84KX0hdF23mop6SV5a';
 $dbname = 'career';
 
 // 連接到資料庫
-$conn = new mysqli($host, $dbuser, $dbpw, $dbname);
+$conn = new mysqli($host, $dbuser, $dbpw, $dbname, $port);
 
 
 // 檢查連接

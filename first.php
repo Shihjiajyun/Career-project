@@ -62,15 +62,16 @@
       require_once 'php/db.php';
       require_once 'php/function.php';
       @session_start();
-
       $host = 'hkg1.clusters.zeabur.com';
+      $port = 31522; // 将端口号改为整数
       $dbuser = 'root';
       $dbpw = 'yExzLv7UDIf91G84KX0hdF23mop6SV5a';
       $dbname = 'career';
-      $conn = new mysqli($host, $dbuser, $dbpw, $dbname);
+      $conn = new mysqli($host, $dbuser, $dbpw, $dbname, $port); // 将端口号放在最后一个参数
       if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
       }
+
 
       $sql = "SELECT user_id FROM user WHERE username = ?";
       $stmt = $conn->prepare($sql);
