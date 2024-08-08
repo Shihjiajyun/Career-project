@@ -1,0 +1,93 @@
+/* 基本打字效果樣式 */
+.type {
+    border-right: 2px solid;
+    /* 在文字旁邊添加一個垂直的邊界，模擬打字游標效果 */
+    white-space: nowrap;
+    /* 防止文字換行 */
+    overflow: hidden;
+    /* 超出容器的內容將被隱藏 */
+}
+
+/* 使靜態文本和動態文本在同一行上顯示，並在大螢幕上添加必要的空格 */
+.static-text+.type::before {
+    content: ' ';
+    /* 添加空白內容，在靜態和動態文本之間 */
+}
+
+/* 響應式設計：在小於576px寬的裝置上調整布局 */
+@media (max-width: 576px) {
+    .static-text {
+        display: block;
+        /* 使動態文本顯示在新的一行，提高小屏幕的閱讀體驗 */
+    }
+}
+
+/* 設定封面區塊滿屏顯示 */
+.hero {
+    position: relative;
+    background-size: cover;
+    /* 背景圖覆蓋整個區塊 */
+    background-position: center;
+    /* 背景圖片居中顯示 */
+    min-height: 100vh;
+    /* 最小高度為視窗高度的100% */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* 內容垂直居中 */
+    color: white;
+    /* 文字顏色 */
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* 半透明黑色遮罩層，增加文字可讀性 */
+    z-index: 1;
+    /* 確保遮罩層在背景和內容之間 */
+}
+
+.hero>div {
+    position: relative;
+    z-index: 2;
+    /* 確保文本和按鈕位於遮罩層之上 */
+}
+
+/* 按鈕容器的樣式，用於示範容器的居中設計 */
+.button-container {
+    display: flex;
+    justify-content: center;
+    /* 水平居中 */
+    align-items: center;
+    /* 垂直居中 */
+    height: 100vh;
+    /* 高度為視窗的100% */
+}
+
+/* 自定義按鈕樣式 */
+.btn-custom {
+    height: 50px;
+    width: 140px;
+    border-radius: 10px;
+    /* 按鈕圓角 */
+    font-size: 17px;
+    /* 文字大小 */
+    display: flex;
+    justify-content: center;
+    /* 文本水平居中 */
+    align-items: center;
+    /* 文本垂直居中 */
+    text-align: center;
+    /* 文字對齊方式 */
+}
+
+/* 修改優點icon大小以及間距 */
+.feature-image {
+    height: 70px;
+    margin-bottom: 30px;
+}
